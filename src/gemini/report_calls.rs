@@ -714,7 +714,7 @@ pub(super) fn generate_report_request(
             // `thinkingLevel` because the older field is accepted by both model
             // generations, and an operator who has pointed
             // `GEMINI_REPORT_MODEL` at an earlier model is not owed a 400.
-            "thinkingConfig": { "thinkingBudget": 0 },
+            "thinkingConfig": { "thinkingLevel": "minimal" },
             "temperature": 0.3,
             "seed": seed
         }),

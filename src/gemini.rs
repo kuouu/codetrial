@@ -1415,7 +1415,7 @@ async fn generate_task_feedback_at(
             // Thinking off for the reason `generate_report_request` gives: its
             // tokens come out of `maxOutputTokens` and cut the JSON off.
             json!({"temperature": 0.0, "responseMimeType": "application/json", "maxOutputTokens": 4096,
-                "thinkingConfig": { "thinkingBudget": 0 }}),
+                "thinkingConfig": { "thinkingLevel": "minimal" }}),
         );
         let text = generate_report_transport(
             keys,

@@ -19,7 +19,7 @@ pub(crate) async fn generate_peer_content(
         "contents":[{"role":"user","parts":parts}],
         "generationConfig":{"responseModalities":["TEXT"],"responseMimeType":"application/json",
             "maxOutputTokens":4096,"temperature":0.0,"seed":GENERATION_SEED,
-            "thinkingConfig":{"thinkingBudget":0}},
+            "thinkingConfig":{"thinkingLevel":"minimal"}},
     });
     let url = config
         .endpoint
