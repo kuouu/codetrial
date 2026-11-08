@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: Arial, Helvetica, sans-serif;
+}
+
+:root {
+  --background: oklch(0.985 0.008 84);
+  --foreground: oklch(0.21 0.025 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.21 0.025 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.21 0.025 255);
+  --primary: oklch(0.31 0.045 257);
+  --primary-foreground: oklch(0.985 0.008 84);
+  --secondary: oklch(0.94 0.012 250);
+  --secondary-foreground: oklch(0.3 0.04 257);
+  --muted: oklch(0.955 0.01 84);
+  --muted-foreground: oklch(0.48 0.025 255);
+  --accent: oklch(0.82 0.12 77);
+  --accent-foreground: oklch(0.25 0.04 45);
+  --destructive: oklch(0.58 0.23 29);
+  --border: oklch(0.89 0.014 255);
+  --input: oklch(0.89 0.014 255);
+  --ring: oklch(0.55 0.06 257);
+  --radius: 0.75rem;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: oklch(0.86 0.1 77);
+  color: oklch(0.21 0.025 255);
+}

@@ -4,10 +4,26 @@ CodeTrial is a live technical-interview simulator. Its AI interviewer, Jim,
 observes the candidate's code and test results, conducts a voice interview, and
 produces a scored report at the end of the session.
 
-The project is a single Rust binary that serves the browser application, mints
-LiveKit tokens, and runs the interviewer agent.
+The original self-hosted application is a single Rust binary. The
+`codex/cloud-next-livekit` branch adds a cloud deployment: a Next.js app on
+Vercel mints anonymous LiveKit room tokens, and a Python interviewer runs on
+LiveKit Cloud.
 
-## Architecture
+## Cloud deployment on `codex/cloud-next-livekit`
+
+The Vercel app provides the practice lobby, problem browser, and server-side
+session APIs. LiveKit credentials stay on the server; the browser receives a
+short-lived room token. The Python worker handles the voice interview and
+returns a session report. Accounts are disabled in this deployment, and
+practice history stays in the browser.
+
+The interview workspace is served through a compatibility path from the
+existing browser client at `/legacy/`. It preserves the current editor,
+preflight, whiteboard, and test runner while the lobby and cloud APIs move to
+Next.js. The workspace has not yet been rebuilt as React/shadcn components.
+See [cloud deployment](docs/cloud-deployment.md) for setup and current scope.
+
+## Original self-hosted architecture
 
 ```text
 ┌────────────────────────────┐ WebRTC: mic + camera ┌─────────────────────┐

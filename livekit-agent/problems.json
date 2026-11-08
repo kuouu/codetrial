@@ -1,0 +1,2762 @@
+{
+  "activity-feed-retraction": {
+    "page": "activity-feed-retraction",
+    "title": "Activity Feed Retraction",
+    "source": "19. Remove Nth Node From End of List",
+    "difficulty": "Medium",
+    "brief": [
+      "A social app stores a user's activity feed as a chain of ListNode entries from oldest at the head to newest at the tail. Moderation tools identify a bad entry by how far back it is from the newest end, and we need to unlink that one entry from the feed.",
+      "Implement retractEntryFromTail(head, n), where head is the oldest entry and n says which entry to remove counting back from the tail, and return the head of the feed after that entry has been removed."
+    ],
+    "examples": [
+      {
+        "input": "head = [4,8,15,16,23], n = 3",
+        "output": "[4,8,16,23]"
+      },
+      {
+        "input": "head = [1,2,3], n = 3",
+        "output": "[2,3]"
+      }
+    ]
+  },
+  "address-block-shared-bits": {
+    "page": "address-block-shared-bits",
+    "title": "Address Block Shared Bits",
+    "source": "201. Bitwise AND of Numbers Range",
+    "difficulty": "Medium",
+    "brief": [
+      "Our IP allocation tool stores IPv4 addresses as integers. For a contiguous block of addresses, network engineers want the value that keeps only the bits which are set in every single address of the block.",
+      "Implement commonBitsInBlock(left, right), where left is the first address and right is the last address of the block, and return the integer formed by the bits that are set in every address from left through right."
+    ],
+    "examples": [
+      {
+        "input": "left = 9, right = 12",
+        "output": "8"
+      },
+      {
+        "input": "left = 24, right = 31",
+        "output": "24"
+      }
+    ]
+  },
+  "alert-digest-trimming": {
+    "page": "alert-digest-trimming",
+    "title": "Alert Digest Trimming",
+    "source": "80. Remove Duplicates from Sorted Array II",
+    "difficulty": "Medium",
+    "brief": [
+      "Our on-call digest lists incident codes sorted in ascending order. Pages for the same code get noisy, so the digest keeps at most two entries per code, and the trimming runs inside the existing array to avoid extra allocations.",
+      "Implement capRepeatsAtTwo(nums), where nums holds the sorted incident codes. Rearrange nums in place so its first k slots keep each code at most twice, in the original ascending order, and return k."
+    ],
+    "examples": [
+      {
+        "input": "nums = [0,0,0,0,1,2,2,2,3]",
+        "output": "6, and nums starts with [0,0,1,2,2,3]"
+      },
+      {
+        "input": "nums = [5,5,5,5]",
+        "output": "2, and nums starts with [5,5]"
+      }
+    ]
+  },
+  "allocated-port-block": {
+    "page": "allocated-port-block",
+    "title": "Allocated Port Block",
+    "source": "128. Longest Consecutive Sequence",
+    "difficulty": "Medium",
+    "brief": [
+      "A network inventory tool exports the port numbers currently allocated on a gateway in no particular order. Operators want to know the size of the largest block of adjacent port numbers that are all allocated, wherever those numbers happen to sit in the export.",
+      "Implement longestPortBlock(nums), where nums is the exported list of port numbers, and return the length of the longest run of integer values v, v + 1, v + 2 and so on that all appear in nums."
+    ],
+    "examples": [
+      {
+        "input": "nums = [9,1,7,8,3,10]",
+        "output": "4"
+      }
+    ]
+  },
+  "anonymizer-substitution-audit": {
+    "page": "anonymizer-substitution-audit",
+    "title": "Anonymizer Substitution Audit",
+    "source": "205. Isomorphic Strings",
+    "difficulty": "Easy",
+    "brief": [
+      "A log anonymizer disguises identifiers by swapping each character for a replacement character, always using the same replacement for the same original and never giving two different originals the same replacement. Compliance wants a tool that checks whether a disguised string could really have come from a given original this way.",
+      "Implement isConsistentCipher(s, t), where s is the original string and t is the disguised one of the same length, and return true if t can be produced from s by such a character-for-character substitution, and false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "s = \"abca\", t = \"zyxz\"",
+        "output": "true"
+      },
+      {
+        "input": "s = \"badc\", t = \"baba\"",
+        "output": "false"
+      }
+    ]
+  },
+  "approved-sequence-edits": {
+    "page": "approved-sequence-edits",
+    "title": "Approved Sequence Edits",
+    "source": "433. Minimum Genetic Mutation",
+    "difficulty": "Medium",
+    "brief": [
+      "A synthetic biology team designs short DNA constructs, each exactly eight bases long using A, C, G and T. The lab can change one base at a time, and safety review only allows a construct to exist if it is on the approved list.",
+      "Implement fewestBaseEdits(current, target, approved), where current is the construct the lab has, target is the construct it wants, and approved lists the constructs safety review allows, and return the fewest single-base edits needed to turn current into target."
+    ],
+    "examples": [
+      {
+        "input": "current = \"AAAAACCC\", target = \"AACCCCCC\", approved = [\"AAAACCCC\",\"AAACCCCC\",\"AACCCCCC\"]",
+        "output": "3"
+      }
+    ]
+  },
+  "archive-volume-numbers": {
+    "page": "archive-volume-numbers",
+    "title": "Archive Volume Numbers",
+    "source": "13. Roman to Integer",
+    "difficulty": "Easy",
+    "brief": [
+      "A library is digitising an archive whose volumes are labelled with Roman numerals on their spines. The catalogue import needs those labels as plain integers so volumes can be sorted and searched.",
+      "Implement decodeVolumeMarker(s), where s is the Roman numeral written on a spine, and return its integer value."
+    ],
+    "examples": [
+      {
+        "input": "s = \"XLIX\"",
+        "output": "49"
+      }
+    ]
+  },
+  "arrangement-count-suffix": {
+    "page": "arrangement-count-suffix",
+    "title": "Arrangement Count Suffix",
+    "source": "172. Factorial Trailing Zeroes",
+    "difficulty": "Medium",
+    "brief": [
+      "A scheduling tool reports how many ways n distinct jobs can be ordered, which is the product 1 times 2 times ... times n. The number is huge, so the report shows it in a compact form and needs to know how many zero digits it ends with.",
+      "Implement countEndingZeros(n), where n is the number of jobs, and return how many consecutive zeros appear at the end of that product written in decimal."
+    ],
+    "examples": [
+      {
+        "input": "n = 100",
+        "output": "24"
+      }
+    ]
+  },
+  "autocomplete-token-width": {
+    "page": "autocomplete-token-width",
+    "title": "Autocomplete Token Width",
+    "source": "58. Length of Last Word",
+    "difficulty": "Easy",
+    "brief": [
+      "A command-line shell offers autocomplete for the last word the user typed. To know how many characters to replace, it measures that word in the raw input buffer, which may contain stray spaces the user typed.",
+      "Implement lastTokenWidth(s), where s is the input buffer of letters and spaces, and return the number of characters in the last word, a word being a run of non-space characters."
+    ],
+    "examples": [
+      {
+        "input": "s = \"   single\"",
+        "output": "6"
+      }
+    ]
+  },
+  "backend-pool-sampler": {
+    "page": "backend-pool-sampler",
+    "title": "Backend Pool Sampler",
+    "source": "380. Insert Delete GetRandom O(1)",
+    "difficulty": "Medium",
+    "brief": [
+      "Our load balancer keeps a pool of backend server ids. Servers join and leave constantly, and for every incoming request the balancer picks a backend uniformly at random from whoever is in the pool right now. All three operations sit on the request path, so none of them can slow down as the pool grows.",
+      "Implement the class BackendPool. BackendPool() creates an empty pool. insert(val) adds backend val and returns true, or returns false if it was already in the pool. remove(val) removes backend val and returns true, or returns false if it was not in the pool. getRandom() returns one backend currently in the pool, with every current backend equally likely."
+    ],
+    "examples": [
+      {
+        "input": "[\"BackendPool\",\"insert\",\"insert\",\"remove\",\"getRandom\"]\n[[],[1],[2],[1],[]]",
+        "output": "[null,true,true,true,2]"
+      }
+    ]
+  },
+  "backwards-caption-repair": {
+    "page": "backwards-caption-repair",
+    "title": "Backwards Caption Repair",
+    "source": "151. Reverse Words in a String",
+    "difficulty": "Medium",
+    "brief": [
+      "A legacy captioning service stored every subtitle line with its words in backwards order, and its output is littered with extra spaces. Before re-publishing, we need to repair each line.",
+      "Implement restoreCaptionOrder(s), where s is the stored caption line, and return a string with the words in the opposite order, separated by exactly one space."
+    ],
+    "examples": [
+      {
+        "input": "s = \"one 2 three\"",
+        "output": "\"three 2 one\""
+      }
+    ]
+  },
+  "batch-health-check-windows": {
+    "page": "batch-health-check-windows",
+    "title": "Batch Health Check Windows",
+    "source": "452. Minimum Number of Arrows to Burst Balloons",
+    "difficulty": "Medium",
+    "brief": [
+      "Our deploy orchestrator gives every rolling service a window on the timeline during which it is safe to probe it. A single health check fired at one instant covers every service whose window contains that instant, and each check is expensive, so we want to fire as few as possible while still covering every service.",
+      "Implement fewestHealthChecks(windows), where windows lists the service windows as [start, end] pairs, and return the smallest number of check instants needed so that every window contains at least one of them."
+    ],
+    "examples": [
+      {
+        "input": "windows = [[1,10],[2,3],[4,5]]",
+        "output": "2"
+      },
+      {
+        "input": "windows = [[-3,-1],[-2,2],[3,4]]",
+        "output": "2"
+      }
+    ]
+  },
+  "benchmark-progress-chain": {
+    "page": "benchmark-progress-chain",
+    "title": "Benchmark Progress Chain",
+    "source": "300. Longest Increasing Subsequence",
+    "difficulty": "Medium",
+    "brief": [
+      "Our CI system records a benchmark score for every build in the order the builds were made. For a performance retrospective we want the longest chain of builds, kept in build order but not necessarily consecutive, where each build in the chain scored higher than the one before it.",
+      "Implement longestImprovingChain(nums), where nums holds the scores in build order, and return how many builds the longest such chain contains."
+    ],
+    "examples": [
+      {
+        "input": "nums = [4,10,4,3,8,9]",
+        "output": "3"
+      }
+    ]
+  },
+  "billboard-pole-banner": {
+    "page": "billboard-pole-banner",
+    "title": "Billboard Pole Banner",
+    "source": "11. Container With Most Water",
+    "difficulty": "Medium",
+    "brief": [
+      "A billboard contractor has surveyed a row of support poles standing one metre apart and recorded each pole's height. A rectangular banner can be strung between any two poles: it is as wide as the distance between them and can only be as tall as the shorter of the two.",
+      "Implement largestBannerArea(height), where height lists the pole heights from left to right, and return the largest banner area that can be hung between two of the poles."
+    ],
+    "examples": [
+      {
+        "input": "height = [4,3,2,1,4]",
+        "output": "16"
+      },
+      {
+        "input": "height = [1,2,4,3]",
+        "output": "4"
+      }
+    ]
+  },
+  "bouncing-print-head": {
+    "page": "bouncing-print-head",
+    "title": "Bouncing Print Head",
+    "source": "6. Zigzag Conversion",
+    "difficulty": "Medium",
+    "brief": [
+      "A label printer's head moves diagonally: it prints each character of a message one column to the right of the last, stepping down one row at a time until it hits the bottom row, then stepping up one row at a time until it hits the top row, and bouncing like that until the message ends.",
+      "The printer then transmits the label row by row, top row first, each row read left to right. Implement rowByRowReadout(s, rowCount), where s is the message and rowCount is the number of rows the head moves across, and return the transmitted string."
+    ],
+    "examples": [
+      {
+        "input": "s = \"ABCDE\", rowCount = 2",
+        "output": "\"ACEBD\""
+      }
+    ]
+  },
+  "bounded-event-queue": {
+    "page": "bounded-event-queue",
+    "title": "Bounded Event Queue",
+    "source": "",
+    "difficulty": "Medium",
+    "brief": [
+      "A telemetry collector keeps the most recent events waiting to be processed in a fixed amount of memory. It must accept events in arrival order, hand them to the worker in that same order, and never allocate more space once configured.",
+      "Implement EventQueue. EventQueue(capacity) creates an empty queue. push(value) appends value and returns false when the queue is full. pop() removes and returns the oldest value, or -1 when empty. front() reads that value without removing it, also returning -1 when empty. size() returns the number of queued events."
+    ],
+    "examples": [
+      {
+        "input": "[\"EventQueue\",\"push\",\"push\",\"pop\",\"push\",\"front\",\"pop\",\"pop\",\"size\"]\n[[3],[4],[5],[],[6],[],[],[],[]]",
+        "output": "[null,true,true,4,true,5,5,6,0]"
+      },
+      {
+        "input": "[\"EventQueue\",\"push\",\"pop\",\"push\",\"front\",\"size\"]\n[[1],[12],[],[-3],[],[]]",
+        "output": "[null,true,12,true,-3,1]"
+      }
+    ]
+  },
+  "budget-sheet-formulas": {
+    "page": "budget-sheet-formulas",
+    "title": "Budget Sheet Formulas",
+    "source": "224. Basic Calculator",
+    "difficulty": "Hard",
+    "brief": [
+      "Our budgeting app lets finance teams type formulas into a cell, such as 1200 - (300 + 45) + 80. The formulas use whole numbers, addition, subtraction, parentheses and spaces, and the app has to show the computed value as soon as the cell is saved.",
+      "Implement evaluateFormula(s), where s is the text of the formula, and return its integer value."
+    ],
+    "examples": [
+      {
+        "input": "s = \"2-(5-6)\"",
+        "output": "3"
+      },
+      {
+        "input": "s = \"10-(2+(3-4))\"",
+        "output": "9"
+      }
+    ]
+  },
+  "canary-host-selection": {
+    "page": "canary-host-selection",
+    "title": "Canary Host Selection",
+    "source": "77. Combinations",
+    "difficulty": "Medium",
+    "brief": [
+      "Our deployment tool rolls a new build out to a small canary group before the whole fleet. For a failover drill we want to try every possible canary group of a given size, drawn from hosts numbered 1 through n.",
+      "Implement pickCanaryGroups(n, k), where n is the number of hosts and k is the size of each canary group, and return every distinct group of k host numbers."
+    ],
+    "examples": [
+      {
+        "input": "n = 4, k = 3",
+        "output": "[[1,2,3],[1,2,4],[1,3,4],[2,3,4]]"
+      },
+      {
+        "input": "n = 3, k = 1",
+        "output": "[[1],[2],[3]]"
+      }
+    ]
+  },
+  "carousel-slot-shift": {
+    "page": "carousel-slot-shift",
+    "title": "Carousel Slot Shift",
+    "source": "189. Rotate Array",
+    "difficulty": "Medium",
+    "brief": [
+      "A storefront homepage shows featured items in a fixed ring of slots. Every campaign tick, merchandising advances the carousel so each item moves several slots toward the end, and items that fall off the end wrap around to the front.",
+      "Implement advanceCarousel(nums, k), where nums holds the item ids in slot order and k is how many slots to advance. Rearrange nums in place so every item ends up k slots further along, wrapping past the end; the function returns nothing."
+    ],
+    "examples": [
+      {
+        "input": "nums = [10,20,30,40,50], k = 2",
+        "output": "nums becomes [40,50,10,20,30]"
+      },
+      {
+        "input": "nums = [4,5,6], k = 0",
+        "output": "nums becomes [4,5,6]"
+      }
+    ]
+  },
+  "chargeback-pair-match": {
+    "page": "chargeback-pair-match",
+    "title": "Chargeback Pair Match",
+    "source": "1. Two Sum",
+    "difficulty": "Easy",
+    "brief": [
+      "Our payments team handles disputes where a customer says two separate transactions on their statement together make up one disputed charge. Support needs to locate those two transactions quickly.",
+      "Implement matchDisputedCharge(nums, target), where nums holds the transaction amounts in statement order and target is the disputed total, and return the positions of the two transactions whose amounts add up to target."
+    ],
+    "examples": [
+      {
+        "input": "nums = [-3,4,3,90], target = 0",
+        "output": "[0,2]"
+      }
+    ]
+  },
+  "circular-route-charging": {
+    "page": "circular-route-charging",
+    "title": "Circular Route Charging",
+    "source": "134. Gas Station",
+    "difficulty": "Medium",
+    "brief": [
+      "An electric delivery van runs a fixed loop through a ring of depots. At each depot it picks up some charge, and each leg to the following depot drains some charge. Dispatch wants to know where the van can start its shift with an empty battery and still get all the way around.",
+      "Implement viableStartDepot(pickup, drain), where pickup[i] is the charge picked up at depot i and drain[i] is the charge used to drive from depot i to the following depot, with the last depot leading back to depot 0. Return the index of a depot from which the van can complete the full loop."
+    ],
+    "examples": [
+      {
+        "input": "pickup = [5,1,2,3,4], drain = [4,4,1,5,1]",
+        "output": "4"
+      }
+    ]
+  },
+  "collapsed-panel-labels": {
+    "page": "collapsed-panel-labels",
+    "title": "Collapsed Panel Labels",
+    "source": "199. Binary Tree Right Side View",
+    "difficulty": "Medium",
+    "brief": [
+      "Our design tool draws dependency trees row by row, with each node's children placed below it, left child before right. When the panel collapses into a narrow sidebar, the tool shows only the node nearest the right edge of each row.",
+      "Implement sidebarLabels(root), where root is the TreeNode at the top of the diagram, and return the values the sidebar shows, one per row, from the top row down."
+    ],
+    "examples": [
+      {
+        "input": "root = [1,2,3,4,null,null,5,6]",
+        "output": "[1,3,5,6]"
+      }
+    ]
+  },
+  "command-palette-index": {
+    "page": "command-palette-index",
+    "title": "Command Palette Index",
+    "source": "208. Implement Trie (Prefix Tree)",
+    "difficulty": "Medium",
+    "brief": [
+      "Our editor's command palette registers command names at startup and then answers two questions as the user types: is this exactly a registered command, and does any registered command begin with what has been typed so far.",
+      "Implement the CommandIndex class. CommandIndex() creates an empty index. insert(word) registers the command name word. search(word) returns true if word itself was registered. startsWith(prefix) returns true if at least one registered command begins with prefix."
+    ],
+    "examples": [
+      {
+        "input": "[\"CommandIndex\",\"insert\",\"insert\",\"search\",\"search\",\"startsWith\"]\n[[],[\"car\"],[\"cat\"],[\"car\"],[\"cap\"],[\"ca\"]]",
+        "output": "[null,null,null,true,false,true]"
+      }
+    ]
+  },
+  "compound-growth-factor": {
+    "page": "compound-growth-factor",
+    "title": "Compound Growth Factor",
+    "source": "50. Pow(x, n)",
+    "difficulty": "Medium",
+    "brief": [
+      "A financial planning service projects balances with a per-period growth factor. To project forward or discount backward, it needs the factor applied over a whole number of periods, where a negative number of periods means going back in time.",
+      "Implement growthOverPeriods(x, n), where x is the per-period factor as a floating-point number and n is the integer number of periods, and return x raised to the power n."
+    ],
+    "examples": [
+      {
+        "input": "x = 2.0, n = -3",
+        "output": "0.125"
+      },
+      {
+        "input": "x = 5.5, n = 0",
+        "output": "1"
+      }
+    ]
+  },
+  "conveyor-grid-routing": {
+    "page": "conveyor-grid-routing",
+    "title": "Conveyor Grid Routing",
+    "source": "64. Minimum Path Sum",
+    "difficulty": "Medium",
+    "brief": [
+      "A sorting facility is laid out as a grid of conveyor cells, and each cell has an energy cost to pass a parcel through it. Conveyors only run right or down, so a parcel entering at the top-left cell can only move one cell right or one cell down at each step until it exits through the bottom-right cell.",
+      "Implement cheapestRouteCost(grid), where grid is the table of cell costs as rows, and return the lowest total cost of any route a parcel can take across the grid, entry to exit."
+    ],
+    "examples": [
+      {
+        "input": "grid = [[1,2,100],[2,100,1],[1,1,1]]",
+        "output": "6"
+      },
+      {
+        "input": "grid = [[1],[2],[3]]",
+        "output": "6"
+      }
+    ]
+  },
+  "copper-pad-continuity": {
+    "page": "copper-pad-continuity",
+    "title": "Copper Pad Continuity",
+    "source": "200. Number of Islands",
+    "difficulty": "Medium",
+    "brief": [
+      "An inspection camera scans a circuit board into a grid of cells. Each cell is either copper or bare board, and copper cells that touch along a side belong to the same electrical region.",
+      "Implement countCopperRegions(grid), where grid is a list of rows and each cell is the character '1' for copper or '0' for bare board, and return how many separate copper regions the board has."
+    ],
+    "examples": [
+      {
+        "input": "grid = [[\"1\",\"0\",\"1\"],[\"0\",\"1\",\"0\"],[\"1\",\"0\",\"1\"]]",
+        "output": "5"
+      },
+      {
+        "input": "grid = [[\"1\"]]",
+        "output": "1"
+      }
+    ]
+  },
+  "crash-dump-index-rebuild": {
+    "page": "crash-dump-index-rebuild",
+    "title": "Crash Dump Index Rebuild",
+    "source": "105. Construct Binary Tree from Preorder and Inorder Traversal",
+    "difficulty": "Medium",
+    "brief": [
+      "When our indexing service crashes, it writes out its in-memory binary tree as two flat logs of node ids, because the tree pointers themselves are lost. In the first log each node is written before everything in its left subtree, which is written before everything in its right subtree. In the second log each node is written after everything in its left subtree and before everything in its right subtree.",
+      "Implement rebuildFromDumps(preorder, inorder), where preorder is the first log and inorder is the second log, and return the root TreeNode of the tree they describe."
+    ],
+    "examples": [
+      {
+        "input": "preorder = [1,2,4,5,3,6], inorder = [4,2,5,1,6,3]",
+        "output": "[1,2,3,4,5,6]"
+      }
+    ]
+  },
+  "crossword-pattern-matcher": {
+    "page": "crossword-pattern-matcher",
+    "title": "Crossword Pattern Matcher",
+    "source": "211. Design Add and Search Words Data Structure",
+    "difficulty": "Medium",
+    "brief": [
+      "A crossword construction tool keeps a growing word list. While filling the grid, the author asks whether some stored word fits a partly filled slot, where known letters are given and each unknown square is written as a dot.",
+      "Implement the PatternLexicon class. PatternLexicon() creates an empty word list. addWord(word) stores word. search(word) takes a pattern of lowercase letters and dots and returns true if some stored word matches it."
+    ],
+    "examples": [
+      {
+        "input": "[\"PatternLexicon\",\"addWord\",\"addWord\",\"search\",\"search\",\"search\"]\n[[],[\"ran\"],[\"rune\"],[\"r.n\"],[\"ru.e\"],[\"r..e\"]]",
+        "output": "[null,null,null,true,true,true]"
+      }
+    ]
+  },
+  "distinct-keystroke-stretch": {
+    "page": "distinct-keystroke-stretch",
+    "title": "Distinct Keystroke Stretch",
+    "source": "3. Longest Substring Without Repeating Characters",
+    "difficulty": "Medium",
+    "brief": [
+      "A password strength analyser looks at the raw keystroke string a user typed. One of its signals is how long a stretch of consecutive keystrokes goes by without any key being pressed twice.",
+      "Implement longestDistinctRun(s), where s is the keystroke string, and return the length of the longest unbroken stretch of s in which no character appears more than once."
+    ],
+    "examples": [
+      {
+        "input": "s = \"abba\"",
+        "output": "2"
+      },
+      {
+        "input": "s = \"\"",
+        "output": "0"
+      }
+    ]
+  },
+  "drone-pad-hopping": {
+    "page": "drone-pad-hopping",
+    "title": "Drone Pad Hopping",
+    "source": "45. Jump Game II",
+    "difficulty": "Medium",
+    "brief": [
+      "Delivery drones cross a long corridor by hopping between charging pads laid out in a row. The battery installed at each pad determines how many pads ahead a drone can fly after charging there.",
+      "Implement fewestFlights(nums), where nums[i] is the maximum number of pads ahead a drone can fly from pad i, and return the smallest number of flights needed to get from pad 0 to the last pad."
+    ],
+    "examples": [
+      {
+        "input": "nums = [4,1,1,3,1,1,1]",
+        "output": "2"
+      }
+    ]
+  },
+  "dungeon-route-budget": {
+    "page": "dungeon-route-budget",
+    "title": "Dungeon Route Budget",
+    "source": "112. Path Sum",
+    "difficulty": "Easy",
+    "brief": [
+      "In our dungeon crawler, levels are generated as a binary tree of TreeNode rooms, each holding a score change that can be positive or negative. A quest is completable if a player can walk from the entrance at the root down to a dead-end room with no exits and finish with a total of exactly the quest's target.",
+      "Implement hasExactRoute(root, targetSum), where root is the entrance room and targetSum is the quest target, and return true if some route from the root to a room with no children adds up to exactly targetSum, and false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "root = [-2,null,-3], targetSum = -5",
+        "output": "true"
+      }
+    ]
+  },
+  "edge-thumbnail-store": {
+    "page": "edge-thumbnail-store",
+    "title": "Edge Thumbnail Store",
+    "source": "146. LRU Cache",
+    "difficulty": "Medium",
+    "brief": [
+      "Each edge server in our image CDN keeps a small in-memory store of recently served thumbnails, keyed by thumbnail id. The store has a fixed number of slots. When it is full and a new thumbnail arrives, the server drops the entry that has gone the longest without being read or written.",
+      "Implement the class ThumbnailStore with a constructor ThumbnailStore(capacity) giving the number of slots, a method get(key) that returns the stored value for key, and a method put(key, value) that stores value under key, evicting as described when a new key arrives and the store is full."
+    ],
+    "examples": [
+      {
+        "input": "[\"ThumbnailStore\",\"put\",\"get\",\"put\",\"get\",\"get\"]\n[[1],[2,1],[2],[3,2],[2],[3]]",
+        "output": "[null,null,1,null,-1,2]"
+      }
+    ]
+  },
+  "faulty-sensor-grid-blanking": {
+    "page": "faulty-sensor-grid-blanking",
+    "title": "Faulty Sensor Grid Blanking",
+    "source": "73. Set Matrix Zeroes",
+    "difficulty": "Medium",
+    "brief": [
+      "A floor-mounted pressure sensor grid is wired by row buses and column buses. When any sensor reads exactly 0, both buses it sits on are considered faulty, and every reading on that row and that column must be blanked to 0 before the data is published.",
+      "Implement blankFaultyLines(matrix), where matrix is the grid of readings as a list of rows. Apply the blanking by modifying matrix directly; the function returns nothing."
+    ],
+    "examples": [
+      {
+        "input": "matrix = [[1,2,3],[0,5,6],[7,8,9]]",
+        "output": "matrix becomes [[0,2,3],[0,0,0],[0,8,9]]"
+      },
+      {
+        "input": "matrix = [[5,6,7],[8,9,0],[1,2,3]]",
+        "output": "matrix becomes [[5,6,0],[0,0,0],[1,2,0]]"
+      }
+    ]
+  },
+  "film-credits-year-stamp": {
+    "page": "film-credits-year-stamp",
+    "title": "Film Credits Year Stamp",
+    "source": "12. Integer to Roman",
+    "difficulty": "Medium",
+    "brief": [
+      "A video post-production tool renders the closing credits of a film, and the studio's house style prints the copyright year and sequel numbers as Roman numerals.",
+      "Implement formatCreditYear(num), where num is the number to print, and return its Roman numeral as an uppercase string."
+    ],
+    "examples": [
+      {
+        "input": "num = 944",
+        "output": "\"CMXLIV\""
+      }
+    ]
+  },
+  "firmware-buffer-splice": {
+    "page": "firmware-buffer-splice",
+    "title": "Firmware Buffer Splice",
+    "source": "88. Merge Sorted Array",
+    "difficulty": "Easy",
+    "brief": [
+      "A sensor controller keeps readings in a preallocated buffer sorted in ascending order. A second probe delivers its own sorted batch, and the firmware has to fold that batch into the main buffer without allocating another one.",
+      "Implement spliceReadings(nums1, m, nums2, n). nums1 is the main buffer: its first m slots hold sorted readings and its remaining n slots are free space. nums2 holds the n sorted readings from the probe. Rearrange nums1 in place so it holds all m + n readings in ascending order; the function returns nothing."
+    ],
+    "examples": [
+      {
+        "input": "nums1 = [-3,-1,0,0,0], m = 2, nums2 = [-2,-1,2], n = 3",
+        "output": "nums1 becomes [-3,-2,-1,-1,2]"
+      }
+    ]
+  },
+  "firmware-checksum-settling": {
+    "page": "firmware-checksum-settling",
+    "title": "Firmware Checksum Settling",
+    "source": "202. Happy Number",
+    "difficulty": "Easy",
+    "brief": [
+      "A legacy firmware tool derives a device code by taking a positive integer, replacing it with the sum of the squares of its decimal digits, and repeating on the result. For example 23 becomes 4 + 9 = 13. Codes whose process eventually lands on 1 are treated as stable.",
+      "Implement settlesToOne(n), where n is the starting integer, and return true if repeating that step eventually produces 1, and false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "n = 100",
+        "output": "true"
+      },
+      {
+        "input": "n = 116",
+        "output": "false"
+      }
+    ]
+  },
+  "firmware-event-chain-ordering": {
+    "page": "firmware-event-chain-ordering",
+    "title": "Firmware Event Chain Ordering",
+    "source": "148. Sort List",
+    "difficulty": "Medium",
+    "brief": [
+      "A microcontroller keeps pending events in a singly linked chain of nodes, where each node has a priority value val and a next link. Before a scheduling pass, the firmware needs the chain ordered by priority, and there is no random access into the chain.",
+      "Implement orderEventChain(head), where head is the first node of the chain, and return the first node of a chain holding the same priority values in ascending order."
+    ],
+    "examples": [
+      {
+        "input": "head = [8,-3,5,0]",
+        "output": "[-3,0,5,8]"
+      },
+      {
+        "input": "head = [3,1,2,3,1]",
+        "output": "[1,1,2,3,3]"
+      }
+    ]
+  },
+  "firmware-signature-scan": {
+    "page": "firmware-signature-scan",
+    "title": "Firmware Signature Scan",
+    "source": "28. Find the Index of the First Occurrence in a String",
+    "difficulty": "Easy",
+    "brief": [
+      "Our update verifier scans firmware images, encoded here as strings of lowercase letters, for a known signature before flashing a device. The flashing tool needs to know where the signature begins.",
+      "Implement signatureOffset(image, signature), where image is the encoded firmware image and signature is the signature to find, and return the index at which signature first appears in image."
+    ],
+    "examples": [
+      {
+        "input": "image = \"mississippi\", signature = \"issip\"",
+        "output": "4"
+      }
+    ]
+  },
+  "flight-combo-fare-shortlist": {
+    "page": "flight-combo-fare-shortlist",
+    "title": "Flight Combo Fare Shortlist",
+    "source": "373. Find K Pairs with Smallest Sums",
+    "difficulty": "Medium",
+    "brief": [
+      "A travel site builds round-trip combinations from an outbound fare list and a return fare list, each already sorted from cheapest to most expensive. Fares can be negative after loyalty credits. The results page shows only a short list of the cheapest combinations.",
+      "Implement cheapestFareCombos(nums1, nums2, k), where nums1 holds the outbound fares, nums2 holds the return fares and k is how many combinations to show, and return k combinations, each written as [outbound fare, return fare], with the smallest combined fares."
+    ],
+    "examples": [
+      {
+        "input": "nums1 = [1,6], nums2 = [2,3,10], k = 3",
+        "output": "[[1,2],[1,3],[6,2]]"
+      },
+      {
+        "input": "nums1 = [-2,-1], nums2 = [3,4], k = 3",
+        "output": "[[-2,3],[-2,4],[-1,3]]"
+      }
+    ]
+  },
+  "fraud-rule-worst-case": {
+    "page": "fraud-rule-worst-case",
+    "title": "Fraud Rule Worst Case",
+    "source": "104. Maximum Depth of Binary Tree",
+    "difficulty": "Easy",
+    "brief": [
+      "Our fraud screening service evaluates each transaction against a decision tree of rules stored as TreeNode objects: at each rule the transaction goes to the left or right child, and it stops at a rule with no children. To size our latency budget, we need to know the most rules a single transaction could ever pass through.",
+      "Implement longestRuleChain(root), where root is the top rule of the tree, and return the number of rules on the longest path from the root down to a rule with no children."
+    ],
+    "examples": [
+      {
+        "input": "root = [1,2,null,3,null,4]",
+        "output": "4"
+      }
+    ]
+  },
+  "freight-pallet-loadouts": {
+    "page": "freight-pallet-loadouts",
+    "title": "Freight Pallet Loadouts",
+    "source": "39. Combination Sum",
+    "difficulty": "Medium",
+    "brief": [
+      "A warehouse packs outgoing pallets from standard crate sizes, and a pallet only ships when its load fills the target capacity exactly. Planners want to see every way to fill a pallet from the crate sizes on hand.",
+      "Implement listPalletLoadouts(candidates, target), where candidates holds the available crate sizes and target is the pallet capacity, and return every distinct loadout, each as a list of crate sizes that add up to exactly target."
+    ],
+    "examples": [
+      {
+        "input": "candidates = [3,4,5], target = 9",
+        "output": "[[3,3,3],[4,5]]"
+      },
+      {
+        "input": "candidates = [7,3,2], target = 7",
+        "output": "[[2,2,3],[7]]"
+      }
+    ]
+  },
+  "freight-slot-trading-limit": {
+    "page": "freight-slot-trading-limit",
+    "title": "Freight Slot Trading Limit",
+    "source": "188. Best Time to Buy and Sell Stock IV",
+    "difficulty": "Hard",
+    "brief": [
+      "A freight broker trades container slot contracts on a daily market, holding at most one contract at a time. Risk management caps how many round trips of buying a contract and later selling it the desk may make over a quarter.",
+      "Implement bestProfitWithinTrades(k, prices), where k is the cap on round trips and prices holds the daily contract price in order, and return the largest total profit the desk can make without exceeding the cap."
+    ],
+    "examples": [
+      {
+        "input": "k = 100, prices = [1,2,3,4,5]",
+        "output": "4"
+      },
+      {
+        "input": "k = 1, prices = [1,4,2,7]",
+        "output": "6"
+      }
+    ]
+  },
+  "gift-card-bundle-pair": {
+    "page": "gift-card-bundle-pair",
+    "title": "Gift Card Bundle Pair",
+    "source": "167. Two Sum II - Input Array Is Sorted",
+    "difficulty": "Medium",
+    "brief": [
+      "An online shop wants to suggest two-item bundles that spend a gift card exactly. The catalogue service hands us the item prices already sorted from cheapest to most expensive.",
+      "Implement matchGiftCardPair(numbers, target), where numbers is the sorted price list and target is the gift card value, and return the positions of the two items whose prices add up to target, as a pair of positions counted from 1."
+    ],
+    "examples": [
+      {
+        "input": "numbers = [1,1,3,4], target = 2",
+        "output": "[1,2]"
+      },
+      {
+        "input": "numbers = [-3,0,2,5,9], target = 7",
+        "output": "[3,4]"
+      }
+    ]
+  },
+  "grid-segment-net-yield": {
+    "page": "grid-segment-net-yield",
+    "title": "Grid Segment Net Yield",
+    "source": "124. Binary Tree Maximum Path Sum",
+    "difficulty": "Hard",
+    "brief": [
+      "A regional power grid is laid out as a tree of substations, where each substation connects to at most two downstream substations. Every substation has a net energy score: positive if it generates more than it draws, negative otherwise.",
+      "Operators can energise one continuous cable run, a sequence of substations joined by direct connections with no substation visited twice, and they want the run with the best total score.",
+      "Implement bestRouteYield(root), where root is the TreeNode for the substation at the top of the tree and each node's value is its net energy score, and return the largest total score any such run can achieve."
+    ],
+    "examples": [
+      {
+        "input": "root = [1,-2,3,4,-5]",
+        "output": "6"
+      },
+      {
+        "input": "root = [2,-1,-2]",
+        "output": "2"
+      }
+    ]
+  },
+  "hashtag-vocabulary-splitter": {
+    "page": "hashtag-vocabulary-splitter",
+    "title": "Hashtag Vocabulary Splitter",
+    "source": "139. Word Break",
+    "difficulty": "Medium",
+    "brief": [
+      "Our social app lets people write hashtags without spaces, like nightmarketfood. Before a tag goes to the search index, we want to know whether it can be read entirely as a run of terms from our approved vocabulary.",
+      "Implement canSplitIntoTerms(s, vocabulary), where s is the tag text without the hash sign and vocabulary lists the allowed terms, and return true if s can be cut into consecutive pieces that are each a vocabulary term, or false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "s = \"a\", vocabulary = [\"a\"]",
+        "output": "true"
+      },
+      {
+        "input": "s = \"cars\", vocabulary = [\"car\",\"ca\",\"rs\"]",
+        "output": "true"
+      }
+    ]
+  },
+  "heap-slot-census": {
+    "page": "heap-slot-census",
+    "title": "Heap Slot Census",
+    "source": "222. Count Complete Tree Nodes",
+    "difficulty": "Medium",
+    "brief": [
+      "A distributed priority queue stores its entries in a tree of slots that is always kept complete: every level is full except possibly the bottom one, whose slots are packed toward the left with no gaps. Each slot lives on a storage node, so walking the tree is not free.",
+      "Implement countOccupiedSlots(root), where root is the TreeNode at the top of the slot tree, and return how many slots the tree holds."
+    ],
+    "examples": [
+      {
+        "input": "root = [1,2,3,4]",
+        "output": "4"
+      },
+      {
+        "input": "root = [1,2,3,4,5,6,7,8,9]",
+        "output": "9"
+      }
+    ]
+  },
+  "highway-billboard-leasing": {
+    "page": "highway-billboard-leasing",
+    "title": "Highway Billboard Leasing",
+    "source": "198. House Robber",
+    "difficulty": "Medium",
+    "brief": [
+      "A media company owns a row of billboard sites along a highway, each with a known monthly lease offer. A zoning rule forbids leasing two sites that stand directly next to each other.",
+      "Implement bestLeaseRevenue(nums), where nums holds the offer for each site in order along the highway, and return the largest total revenue achievable while obeying the rule."
+    ],
+    "examples": [
+      {
+        "input": "nums = [2,1,1,2]",
+        "output": "4"
+      },
+      {
+        "input": "nums = [5]",
+        "output": "5"
+      }
+    ]
+  },
+  "hop-depth-signal-means": {
+    "page": "hop-depth-signal-means",
+    "title": "Hop Depth Signal Means",
+    "source": "637. Average of Levels in Binary Tree",
+    "difficulty": "Easy",
+    "brief": [
+      "A field sensor network relays data through a tree of stations, each forwarding to at most two stations below it. Every station reports a signal reading, and the dashboard shows the mean reading for all stations that are the same number of hops from the gateway.",
+      "Implement meanReadingPerHop(root), where root is the TreeNode for the gateway and each node's value is that station's reading, and return the mean reading for each hop distance, starting with the gateway."
+    ],
+    "examples": [
+      {
+        "input": "root = [1,-2,3,4,5,-6,2]",
+        "output": "[1,0.5,1.25]"
+      },
+      {
+        "input": "root = [4,7,2,null,null,1,9]",
+        "output": "[4,4.5,5]"
+      }
+    ]
+  },
+  "hostname-rename-chain": {
+    "page": "hostname-rename-chain",
+    "title": "Hostname Rename Chain",
+    "source": "127. Word Ladder",
+    "difficulty": "Hard",
+    "brief": [
+      "Our infrastructure team renames hosts gradually. A rename may change exactly one letter of a hostname, and every intermediate name must already be reserved in the registry so that DNS stays valid throughout.",
+      "Implement shortestRenameChain(currentName, desiredName, reserved), where currentName is the current hostname, desiredName is the desired hostname, and reserved lists the names held in the registry, and return the number of names in the shortest chain of renames from currentName to desiredName."
+    ],
+    "examples": [
+      {
+        "input": "currentName = \"hit\", desiredName = \"cog\", reserved = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\",\"hog\"]",
+        "output": "4"
+      }
+    ]
+  },
+  "integer-magnitude-estimator": {
+    "page": "integer-magnitude-estimator",
+    "title": "Integer Magnitude Estimator",
+    "source": "69. Sqrt(x)",
+    "difficulty": "Easy",
+    "brief": [
+      "A microcontroller without a floating point unit computes signal energy readings as integers, and the display shows the magnitude as the whole-number root of the energy. We need that value using integer arithmetic only.",
+      "Implement integerRootFloor(x), where x is the energy reading, and return the largest non-negative integer whose square is at most x."
+    ],
+    "examples": [
+      {
+        "input": "x = 2147395600",
+        "output": "46340"
+      },
+      {
+        "input": "x = 1",
+        "output": "1"
+      }
+    ]
+  },
+  "interference-free-towers": {
+    "page": "interference-free-towers",
+    "title": "Interference Free Towers",
+    "source": "52. N-Queens II",
+    "difficulty": "Hard",
+    "brief": [
+      "A city is laid out as an n by n grid of blocks, and we must install exactly n radio towers, at most one per block. Two towers interfere if they share a row, a column, or any diagonal of the grid, no matter how far apart they are.",
+      "Implement countSafeLayouts(n), where n is the grid size and the number of towers, and return how many different layouts place all n towers with no two interfering."
+    ],
+    "examples": [
+      {
+        "input": "n = 5",
+        "output": "10"
+      }
+    ]
+  },
+  "kiosk-panel-mirror-audit": {
+    "page": "kiosk-panel-mirror-audit",
+    "title": "Kiosk Panel Mirror Audit",
+    "source": "101. Symmetric Tree",
+    "difficulty": "Easy",
+    "brief": [
+      "Industrial designers lay out a kiosk's control panel as a binary tree of TreeNode objects, where each node is a control and its children are the controls split beneath it to the left and right. Brand guidelines require the panel to look identical when reflected across its vertical center line.",
+      "Implement isMirrorBalanced(root), where root is the top control, and return true if the left half of the tree is a mirror image of the right half, and false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "root = [1,2,2,null,3,3]",
+        "output": "true"
+      }
+    ]
+  },
+  "kiosk-token-payout": {
+    "page": "kiosk-token-payout",
+    "title": "Kiosk Token Payout",
+    "source": "322. Coin Change",
+    "difficulty": "Medium",
+    "brief": [
+      "A transit kiosk hands out change using whatever token denominations were loaded that morning. Operators want each payout to use as few tokens as possible.",
+      "Implement fewestTokens(tokens, amount), where tokens lists the available denominations and amount is the value to pay out, and return the smallest number of tokens whose values add up to exactly amount."
+    ],
+    "examples": [
+      {
+        "input": "tokens = [5,7], amount = 1",
+        "output": "-1"
+      }
+    ]
+  },
+  "lab-unit-converter": {
+    "page": "lab-unit-converter",
+    "title": "Lab Unit Converter",
+    "source": "399. Evaluate Division",
+    "difficulty": "Medium",
+    "brief": [
+      "A lab information system tracks measurement units with made-up names. Technicians enter known relationships such as one flask equals 2.5 vials, and the system should answer conversion questions between units by chaining those relationships.",
+      "Implement convertUnitRatios(pairs, ratios, queries). Each pairs[i] is a pair [x, y] and ratios[i] says one x equals ratios[i] of y. Each queries[j] is a pair [c, d] asking how many d make up one c. Return one number per query, in query order."
+    ],
+    "examples": [
+      {
+        "input": "pairs = [[\"a\",\"b\"]], ratios = [0.5], queries = [[\"a\",\"b\"],[\"b\",\"a\"],[\"a\",\"c\"],[\"x\",\"y\"]]",
+        "output": "[0.5,2,-1,-1]"
+      }
+    ]
+  },
+  "latency-rank-query": {
+    "page": "latency-rank-query",
+    "title": "Latency Rank Query",
+    "source": "230. Kth Smallest Element in a BST",
+    "difficulty": "Medium",
+    "brief": [
+      "A monitoring service stores response time samples in a binary search tree: every sample in a node's left subtree is faster than the node's, and every sample in its right subtree is slower. Engineers regularly ask for the response time at a particular rank, counting from the fastest.",
+      "Implement latencyAtRank(root, k), where root is the TreeNode at the root of the sample tree, each node's value is a response time, and k is the rank requested, and return the response time at rank k."
+    ],
+    "examples": [
+      {
+        "input": "root = [4,3,null,2,null,1], k = 2",
+        "output": "2"
+      },
+      {
+        "input": "root = [6,2,8,1,4,7,9], k = 3",
+        "output": "4"
+      }
+    ]
+  },
+  "led-panel-ring-scan": {
+    "page": "led-panel-ring-scan",
+    "title": "LED Panel Ring Scan",
+    "source": "54. Spiral Matrix",
+    "difficulty": "Medium",
+    "brief": [
+      "A diagnostics routine for rectangular LED panels reads out every pixel in a ring pattern: it starts at the top-left pixel, runs right along the top edge, then down, left and up around the outside, and keeps circling inward until every pixel has been read.",
+      "Implement clockwiseScanOrder(matrix), where matrix is the panel as a list of rows of pixel values, and return all the values as a single list in the order the routine reads them."
+    ],
+    "examples": [
+      {
+        "input": "matrix = [[1,2],[3,4],[5,6],[7,8]]",
+        "output": "[1,2,4,6,8,7,5,3]"
+      },
+      {
+        "input": "matrix = [[1,2,3],[4,5,6]]",
+        "output": "[1,2,3,6,5,4]"
+      }
+    ]
+  },
+  "ledger-cancellation-groups": {
+    "page": "ledger-cancellation-groups",
+    "title": "Ledger Cancellation Groups",
+    "source": "15. 3Sum",
+    "difficulty": "Medium",
+    "brief": [
+      "Our ledger service records balance adjustments as signed integers. Before the books close, auditors want to review every group of three adjustments that cancel each other out exactly.",
+      "Implement findCancelingTriples(nums), where nums holds the adjustments, and return the distinct groups of three values that add up to zero."
+    ],
+    "examples": [
+      {
+        "input": "nums = [-2,0,0,2,2]",
+        "output": "[[-2,0,2]]"
+      }
+    ]
+  },
+  "letter-grid-tracer": {
+    "page": "letter-grid-tracer",
+    "title": "Letter Grid Tracer",
+    "source": "212. Word Search II",
+    "difficulty": "Hard",
+    "brief": [
+      "Our word puzzle game shows players a grid of letters and a dictionary of accepted words. Players trace a word by moving from cell to neighbouring cell, and before publishing a puzzle the backend needs to know which dictionary words can actually be traced on it.",
+      "Implement traceableWords(board, words), where board is a list of rows of single lowercase letters and words is the dictionary, and return the words from words that can be traced on the board."
+    ],
+    "examples": [
+      {
+        "input": "board = [[\"c\",\"a\",\"t\"],[\"x\",\"r\",\"o\"]], words = [\"cat\",\"car\",\"rot\",\"tor\",\"art\"]",
+        "output": "[\"cat\",\"car\",\"rot\",\"tor\"]"
+      }
+    ]
+  },
+  "letter-panel-tracing": {
+    "page": "letter-panel-tracing",
+    "title": "Letter Panel Tracing",
+    "source": "79. Word Search",
+    "difficulty": "Medium",
+    "brief": [
+      "A museum exhibit has a wall of lettered tiles. Visitors spell a word by touching tiles one after another, where each tile touched must sit directly next to the previous one, and the exhibit needs to know whether a given word can be spelled at all.",
+      "Implement canTraceWord(board, word), where board is the grid of tile letters as rows of single characters and word is the word to spell, and return true if the word can be traced on the wall and false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "board = [[\"D\",\"O\",\"G\"],[\"X\",\"A\",\"T\"]], word = \"GOAT\"",
+        "output": "true"
+      }
+    ]
+  },
+  "letter-rack-clusters": {
+    "page": "letter-rack-clusters",
+    "title": "Letter Rack Clusters",
+    "source": "49. Group Anagrams",
+    "difficulty": "Medium",
+    "brief": [
+      "A word game server receives the words players submit and wants to cluster together submissions that were built from the same set of letter tiles, just arranged differently.",
+      "Implement clusterByLetters(strs), where strs is the list of submitted words, and return a list of clusters, each a list of words, so that two words share a cluster exactly when one is a rearrangement of the other's letters."
+    ],
+    "examples": [
+      {
+        "input": "strs = [\"abc\",\"bca\",\"foo\",\"ofo\",\"bar\"]",
+        "output": "[[\"abc\",\"bca\"],[\"foo\",\"ofo\"],[\"bar\"]]"
+      }
+    ]
+  },
+  "live-clock-offset-monitor": {
+    "page": "live-clock-offset-monitor",
+    "title": "Live Clock Offset Monitor",
+    "source": "295. Find Median from Data Stream",
+    "difficulty": "Hard",
+    "brief": [
+      "A time-sync agent receives clock offset samples, in milliseconds, one at a time from the servers in a cluster. Offsets can be negative when a server runs behind. At any moment, the dashboard can ask for the median of all offsets received so far.",
+      "Implement the class OffsetMonitor: the constructor OffsetMonitor() starts with no samples, addNum(num) records one offset sample num, and findMedian() returns the median of all samples recorded so far as a floating-point number."
+    ],
+    "examples": [
+      {
+        "input": "[\"OffsetMonitor\",\"addNum\",\"addNum\",\"findMedian\",\"addNum\",\"findMedian\"]\n[[],[-1],[-2],[],[3],[]]",
+        "output": "[null,null,null,-1.5,null,-1]"
+      },
+      {
+        "input": "[\"OffsetMonitor\",\"addNum\",\"addNum\",\"addNum\",\"addNum\",\"findMedian\"]\n[[],[10],[20],[30],[40],[]]",
+        "output": "[null,null,null,null,null,25]"
+      }
+    ]
+  },
+  "log-line-shape-template": {
+    "page": "log-line-shape-template",
+    "title": "Log Line Shape Template",
+    "source": "290. Word Pattern",
+    "difficulty": "Easy",
+    "brief": [
+      "Our log classifier describes the shape of a message with a short template of letters, one letter per word. A template like abba means the first and last words are the same, the middle two are the same as each other, and those two words differ.",
+      "Implement matchesTokenTemplate(pattern, s), where pattern is the template and s is a log message of lowercase words separated by single spaces, and return true if the message has exactly the shape the template describes, and false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "pattern = \"abcab\", s = \"sun moon star sun moon\"",
+        "output": "true"
+      },
+      {
+        "input": "pattern = \"abba\", s = \"dog cat cat dog fish\"",
+        "output": "false"
+      }
+    ]
+  },
+  "log-timestamp-span": {
+    "page": "log-timestamp-span",
+    "title": "Log Timestamp Span",
+    "source": "34. Find First and Last Position of Element in Sorted Array",
+    "difficulty": "Medium",
+    "brief": [
+      "Our log store keeps entries ordered by timestamp, and many entries can share the same timestamp. The incident tool needs to pull every entry written at one particular timestamp.",
+      "Implement timestampIndexSpan(nums, target), where nums holds the entry timestamps in order and target is the timestamp of interest, and return a pair [first, last] with the zero-based positions of the first and last entries whose timestamp equals target."
+    ],
+    "examples": [
+      {
+        "input": "nums = [1,3,3,3,6,9], target = 3",
+        "output": "[1,3]"
+      },
+      {
+        "input": "nums = [2,2,2], target = 2",
+        "output": "[0,2]"
+      }
+    ]
+  },
+  "maintenance-window-consolidation": {
+    "page": "maintenance-window-consolidation",
+    "title": "Maintenance Window Consolidation",
+    "source": "56. Merge Intervals",
+    "difficulty": "Medium",
+    "brief": [
+      "Several teams file maintenance windows against the same cluster, and many of them overlap. The on-call dashboard should show the combined periods during which the cluster is under maintenance, with no overlapping entries.",
+      "Implement consolidateWindows(intervals), where intervals is a list of [start, end] windows, and return the combined windows as a list of [start, end] pairs."
+    ],
+    "examples": [
+      {
+        "input": "intervals = [[5,6],[1,3],[2,4]]",
+        "output": "[[1,4],[5,6]]"
+      }
+    ]
+  },
+  "marquee-letter-tiles": {
+    "page": "marquee-letter-tiles",
+    "title": "Marquee Letter Tiles",
+    "source": "383. Ransom Note",
+    "difficulty": "Easy",
+    "brief": [
+      "A cinema changes its outdoor marquee every week using a box of loose letter tiles. Before the crew climbs the ladder, a scheduling tool checks whether the tiles in the box are enough to spell the new message.",
+      "Implement canSpellFromTiles(message, tiles), where message is the message to display and tiles is the letters available in the tile box, and return true if the message can be spelled from those tiles, and false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "message = \"aabb\", tiles = \"bbaa\"",
+        "output": "true"
+      },
+      {
+        "input": "message = \"abc\", tiles = \"ab\"",
+        "output": "false"
+      }
+    ]
+  },
+  "menu-extension-checksum": {
+    "page": "menu-extension-checksum",
+    "title": "Menu Extension Checksum",
+    "source": "129. Sum Root to Leaf Numbers",
+    "difficulty": "Medium",
+    "brief": [
+      "Our phone system routes callers through a menu tree. Every menu option is a single key press from 0 to 9, and following the options from the top of the menu down to a final option, one that has no further choices under it, dials an extension whose digits are the key presses in that order.",
+      "Before each deploy the telephony team runs a checksum: the total of every extension the menu can dial.",
+      "Implement totalExtensionCodes(root), where root is the TreeNode at the top of the menu and each node's value is its key press, and return the total of all extensions the menu can reach."
+    ],
+    "examples": [
+      {
+        "input": "root = [1,null,2,null,3]",
+        "output": "123"
+      },
+      {
+        "input": "root = [2,3,4,null,5]",
+        "output": "259"
+      }
+    ]
+  },
+  "metric-namespace-root": {
+    "page": "metric-namespace-root",
+    "title": "Metric Namespace Root",
+    "source": "14. Longest Common Prefix",
+    "difficulty": "Easy",
+    "brief": [
+      "Our observability UI groups metric keys that a team has selected and shows the leading text they all start with as a header, so the rows below can show only the part that differs.",
+      "Implement sharedLeadingText(strs), where strs is the list of selected keys, and return the longest string that every key starts with."
+    ],
+    "examples": [
+      {
+        "input": "strs = [\"inter\",\"internet\",\"internal\"]",
+        "output": "\"inter\""
+      }
+    ]
+  },
+  "microbe-culture-tick": {
+    "page": "microbe-culture-tick",
+    "title": "Microbe Culture Tick",
+    "source": "289. Game of Life",
+    "difficulty": "Medium",
+    "brief": [
+      "A lab simulation models a microbe culture on a rectangular grid where each cell is either occupied (1) or empty (0). On every tick, an occupied cell stays occupied if it has two or three occupied neighbours and dies otherwise, and an empty cell becomes occupied if it has exactly three occupied neighbours.",
+      "Implement advanceCultureTick(board), where board is the grid as a list of rows of 0s and 1s. Advance it by one tick by modifying board directly; the function returns nothing."
+    ],
+    "examples": [
+      {
+        "input": "board = [[0,1,0],[0,1,0],[0,1,0]]",
+        "output": "board becomes [[0,0,0],[1,1,1],[0,0,0]]"
+      },
+      {
+        "input": "board = [[1,0,0],[0,1,0],[0,0,1]]",
+        "output": "board becomes [[0,0,0],[0,1,0],[0,0,0]]"
+      }
+    ]
+  },
+  "migration-run-order": {
+    "page": "migration-run-order",
+    "title": "Migration Run Order",
+    "source": "210. Course Schedule II",
+    "difficulty": "Medium",
+    "brief": [
+      "Our database migration runner needs to apply a batch of schema migrations. Some migrations depend on others having run first, and the runner must pick an order that respects every dependency.",
+      "Implement planMigrationOrder(migrationCount, dependencies), where migrations are numbered 0 to migrationCount - 1 and each dependencies[i] is a pair [a, b] meaning migration b must run before migration a, and return a list of migration numbers giving the order to run them."
+    ],
+    "examples": [
+      {
+        "input": "migrationCount = 3, dependencies = [[0,1],[0,2],[1,2]]",
+        "output": "[2,1,0] (the only valid order)"
+      },
+      {
+        "input": "migrationCount = 1, dependencies = []",
+        "output": "[0] (one valid order)"
+      }
+    ]
+  },
+  "mine-level-descent": {
+    "page": "mine-level-descent",
+    "title": "Mine Level Descent",
+    "source": "120. Triangle",
+    "difficulty": "Medium",
+    "brief": [
+      "A mining simulation models a shaft as a stack of levels: the top level has one chamber, and each level below has one more chamber than the level above it. Crossing a chamber costs energy, and some chambers have supply caches that give energy back, shown as negative costs.",
+      "From chamber j on one level, a crew can drop only into chamber j or chamber j + 1 on the next level down. Implement cheapestDescent(triangle), where triangle holds the chamber costs level by level from the top, and return the smallest total cost of a descent that starts at the top chamber and ends on the bottom level."
+    ],
+    "examples": [
+      {
+        "input": "triangle = [[1],[2,100],[100,1,1]]",
+        "output": "4"
+      },
+      {
+        "input": "triangle = [[2],[-3,4],[6,-5,7]]",
+        "output": "-6"
+      }
+    ]
+  },
+  "mirror-phrase-contest-filter": {
+    "page": "mirror-phrase-contest-filter",
+    "title": "Mirror Phrase Contest Filter",
+    "source": "125. Valid Palindrome",
+    "difficulty": "Easy",
+    "brief": [
+      "A radio station runs a contest where listeners text in phrases that read the same forwards and backwards. Entries come in with messy capitalisation, spaces and punctuation, and the moderation service needs to reject the ones that do not qualify.",
+      "Implement readsSameBothWays(s), where s is the raw text of one entry, and return true if the entry reads the same in both directions once spacing, punctuation and capitalisation are ignored, and false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "s = \"Step on no pets!\"",
+        "output": "true"
+      },
+      {
+        "input": "s = \"1,2,1\"",
+        "output": "true"
+      }
+    ]
+  },
+  "mirrored-tag-segment": {
+    "page": "mirrored-tag-segment",
+    "title": "Mirrored Tag Segment",
+    "source": "5. Longest Palindromic Substring",
+    "difficulty": "Medium",
+    "brief": [
+      "Our barcode scanner sometimes reads a tag twice, once forwards and once backwards, and the firmware team uses mirrored stretches in the raw read as a diagnostic signal. They want the longest contiguous stretch of a read that is the same forwards and backwards.",
+      "Implement longestMirroredRun(s), where s is the raw read, and return that longest mirrored stretch as a string taken from s."
+    ],
+    "examples": [
+      {
+        "input": "s = \"racecar\"",
+        "output": "\"racecar\""
+      }
+    ]
+  },
+  "muted-alert-filter": {
+    "page": "muted-alert-filter",
+    "title": "Muted Alert Filter",
+    "source": "27. Remove Element",
+    "difficulty": "Easy",
+    "brief": [
+      "A monitoring agent on an embedded gateway buffers alert codes in a fixed array. When an operator mutes a code, the agent has to purge every alert with that code from the buffer without allocating a new one.",
+      "Implement dropMutedCode(nums, val), where nums is the alert buffer and val is the muted code. Rearrange nums in place so its first k slots hold exactly the alerts that are not val, and return k."
+    ],
+    "examples": [
+      {
+        "input": "nums = [4,1,4,4,2,4], val = 4",
+        "output": "2, and nums starts with 1,2 in any order"
+      },
+      {
+        "input": "nums = [1,2,3], val = 4",
+        "output": "3, and nums starts with 1,2,3 in any order"
+      }
+    ]
+  },
+  "nesting-fuzzer-corpus": {
+    "page": "nesting-fuzzer-corpus",
+    "title": "Nesting Fuzzer Corpus",
+    "source": "22. Generate Parentheses",
+    "difficulty": "Medium",
+    "brief": [
+      "Our template engine supports nested blocks written with an open marker and a close marker. To fuzz the parser we want a corpus of every correctly nested block sequence of a given size, using the character ( to open and ) to close.",
+      "Implement wellNestedSequences(n), where n is the number of blocks, and return every string made of n opens and n closes that is correctly nested."
+    ],
+    "examples": [
+      {
+        "input": "n = 2",
+        "output": "[\"(())\",\"()()\"]"
+      }
+    ]
+  },
+  "odometer-digit-chains": {
+    "page": "odometer-digit-chains",
+    "title": "Odometer Digit Chains",
+    "source": "2. Add Two Numbers",
+    "difficulty": "Medium",
+    "brief": [
+      "A fleet telemetry unit stores very large distance counters as chains of single decimal digits, with the least significant digit at the head of the chain, because that is the digit that changes most often. The server needs to combine two such counters into one.",
+      "Implement addDigitChains(l1, l2), where l1 and l2 are ListNode chains holding the digits of two non-negative counters, least significant digit first, and return a ListNode chain in the same format holding their sum."
+    ],
+    "examples": [
+      {
+        "input": "l1 = [9,9], l2 = [1]",
+        "output": "[0,0,1]"
+      },
+      {
+        "input": "l1 = [1,8], l2 = [0]",
+        "output": "[1,8]"
+      }
+    ]
+  },
+  "onboarding-track-feasibility": {
+    "page": "onboarding-track-feasibility",
+    "title": "Onboarding Track Feasibility",
+    "source": "207. Course Schedule",
+    "difficulty": "Medium",
+    "brief": [
+      "Our engineering onboarding program is made of training modules, and some modules require others to be finished first. Program managers edit these requirements by hand, and they want a check that a new hire can actually get through every module.",
+      "Implement onboardingIsCompletable(moduleCount, requirements), where modules are numbered 0 to moduleCount - 1 and each requirements[i] is a pair [a, b] meaning module b must be finished before module a, and return true if every module can be completed."
+    ],
+    "examples": [
+      {
+        "input": "moduleCount = 5, requirements = [[1,0],[2,0],[3,1]]",
+        "output": "true"
+      }
+    ]
+  },
+  "orbital-energy-window": {
+    "page": "orbital-energy-window",
+    "title": "Orbital Energy Window",
+    "source": "918. Maximum Sum Circular Subarray",
+    "difficulty": "Medium",
+    "brief": [
+      "A satellite follows a circular orbit divided into segments. On each segment it gains energy in sunlight or loses energy in shadow, and mission planners want the continuous stretch of orbit with the best net energy for running an experiment.",
+      "The orbit loops, so a stretch may run past the last segment and continue from the first, but no segment can be counted twice. Implement bestOrbitWindow(nums), where nums holds the net energy of each segment in orbit order, and return the largest net energy of any continuous stretch."
+    ],
+    "examples": [
+      {
+        "input": "nums = [-2,4,-5,4,-5,9,4]",
+        "output": "15"
+      },
+      {
+        "input": "nums = [8,-1,-3,8]",
+        "output": "16"
+      }
+    ]
+  },
+  "ordered-event-trace-check": {
+    "page": "ordered-event-trace-check",
+    "title": "Ordered Event Trace Check",
+    "source": "392. Is Subsequence",
+    "difficulty": "Easy",
+    "brief": [
+      "Our QA tooling records every UI event a test run produces as a single lowercase code letter. A test scenario lists the events that must happen in a particular order, but other events are allowed to occur in between.",
+      "Implement appearsInOrder(s, t), where s is the expected sequence of event codes and t is the recorded trace, and return true if the trace contains the expected events in that order, and false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "s = \"ace\", t = \"abcde\"",
+        "output": "true"
+      },
+      {
+        "input": "s = \"aaa\", t = \"aa\"",
+        "output": "false"
+      }
+    ]
+  },
+  "ordered-index-cursor": {
+    "page": "ordered-index-cursor",
+    "title": "Ordered Index Cursor",
+    "source": "173. Binary Search Tree Iterator",
+    "difficulty": "Medium",
+    "brief": [
+      "Our storage engine keeps order ids in a binary search tree: every id in a node's left subtree is smaller than the node's id and every id in its right subtree is larger. Reporting clients want to page through the ids in ascending order, one at a time, without the engine copying the whole index up front.",
+      "Implement the OrderedCursor class. OrderedCursor(root) receives the TreeNode at the root of the index. next() returns the next id in ascending order and advances the cursor. hasNext() returns true if at least one id has not been returned yet."
+    ],
+    "examples": [
+      {
+        "input": "[\"OrderedCursor\",\"next\",\"next\",\"next\",\"hasNext\"]\n[[[3,2,null,1]],[],[],[],[]]",
+        "output": "[null,1,2,3,false]"
+      }
+    ]
+  },
+  "org-chart-row-navigation": {
+    "page": "org-chart-row-navigation",
+    "title": "Org Chart Row Navigation",
+    "source": "117. Populating Next Right Pointers in Each Node II",
+    "difficulty": "Medium",
+    "brief": [
+      "Our org chart viewer keeps the reporting hierarchy as a binary tree of Node objects, each with left and right children and an extra next field. For keyboard navigation, pressing the right arrow must jump to the next person on the same row of the chart, so each person's next field has to lead to whoever sits just after them in that row.",
+      "Implement linkRowNeighbors(root), where root is the top of the chart, and fill in every next field so it leads to the following person in the same row, or null for the last person in a row. Return root."
+    ],
+    "examples": [
+      {
+        "input": "root = [1,2,3,null,5,null,7]",
+        "output": "[[1],[2,3],[5,7]]"
+      }
+    ]
+  },
+  "outline-snapshot-duplicator": {
+    "page": "outline-snapshot-duplicator",
+    "title": "Outline Snapshot Duplicator",
+    "source": "138. Copy List with Random Pointer",
+    "difficulty": "Medium",
+    "brief": [
+      "Our document editor stores an outline as a chain of Node objects. Each node has a value, a next field pointing at the following section, and a random field that is a cross reference to any section in the same outline, or to nothing. Before a risky bulk edit, we take a snapshot so the user can roll back.",
+      "Implement snapshotOutline(head), where head is the first Node of the outline, and return the head of a brand new chain of Node objects with the same values, the same next order, and cross references that point to the corresponding sections of the new chain."
+    ],
+    "examples": [
+      {
+        "input": "head = [[3,2],[5,null],[8,0]]",
+        "output": "[[3,2],[5,null],[8,0]]"
+      },
+      {
+        "input": "head = [[1,0]]",
+        "output": "[[1,0]]"
+      }
+    ]
+  },
+  "package-impact-score": {
+    "page": "package-impact-score",
+    "title": "Package Impact Score",
+    "source": "274. H-Index",
+    "difficulty": "Medium",
+    "brief": [
+      "Our open-source dashboard ranks maintainers by an impact score. For each maintainer we know how many other projects depend on each of their packages.",
+      "The score is the largest number h such that the maintainer has at least h packages that each have at least h dependents. Implement impactScore(dependents), where dependents[i] is the dependent count of package i, and return that score."
+    ],
+    "examples": [
+      {
+        "input": "dependents = [4,4,0,0,7,2]",
+        "output": "3"
+      },
+      {
+        "input": "dependents = [0,0,0]",
+        "output": "0"
+      }
+    ]
+  },
+  "packet-chunk-block-offsets": {
+    "page": "packet-chunk-block-offsets",
+    "title": "Packet Chunk Block Offsets",
+    "source": "30. Substring with Concatenation of All Words",
+    "difficulty": "Hard",
+    "brief": [
+      "A packet inspection tool looks for a known message that was split into fixed-length chunk codes and may have been reassembled in any order. The payload is a single lowercase string, and we want every place where the full set of chunks appears back to back.",
+      "Implement findChunkBlockOffsets(s, words), where s is the payload and words lists the chunk codes, all of the same length, and return every starting offset in s where a contiguous block is made of exactly those chunks, each used once, in some order."
+    ],
+    "examples": [
+      {
+        "input": "s = \"catdogdogcatcat\", words = [\"cat\",\"dog\"]",
+        "output": "[0,6]"
+      }
+    ]
+  },
+  "paged-catalog-lookup": {
+    "page": "paged-catalog-lookup",
+    "title": "Paged Catalog Lookup",
+    "source": "74. Search a 2D Matrix",
+    "difficulty": "Medium",
+    "brief": [
+      "A product catalog keeps its item ids split into fixed-size pages. Within a page the ids increase, and every page starts with an id larger than the last id on the previous page. The storefront needs to check quickly whether an id is in the catalog.",
+      "Implement pagedIndexContains(matrix, target), where matrix is the list of pages, each a list of ids, and target is the id to look up, and return true if target is in the catalog and false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "matrix = [[1,2,3,4]], target = 4",
+        "output": "true"
+      },
+      {
+        "input": "matrix = [[5,6],[8,9]], target = 4",
+        "output": "false"
+      }
+    ]
+  },
+  "permission-flag-counter": {
+    "page": "permission-flag-counter",
+    "title": "Permission Flag Counter",
+    "source": "191. Number of 1 Bits",
+    "difficulty": "Easy",
+    "brief": [
+      "Our access-control service stores each account's permissions as a single integer mask, where every bit that is set grants one permission. The audit dashboard needs to show how many permissions each account holds.",
+      "Implement countGrantedFlags(n), where n is an account's permission mask, and return the number of bits set in its binary form."
+    ],
+    "examples": [
+      {
+        "input": "n = 37",
+        "output": "3"
+      },
+      {
+        "input": "n = 85",
+        "output": "4"
+      }
+    ]
+  },
+  "picking-robot-floor-plan": {
+    "page": "picking-robot-floor-plan",
+    "title": "Picking Robot Floor Plan",
+    "source": "63. Unique Paths II",
+    "difficulty": "Medium",
+    "brief": [
+      "Our warehouse floor is laid out as a grid of bays, and some bays are taken up by shelving. A picking robot starts in the top-left bay and has to reach the loading dock in the bottom-right bay, and it can only ever move one bay east or one bay south.",
+      "Implement countRobotRoutes(layout), where layout holds the floor plan row by row with 1 for a bay blocked by shelving and 0 for an open bay, and return how many different routes take the robot from the top-left bay to the bottom-right bay without entering a blocked bay."
+    ],
+    "examples": [
+      {
+        "input": "layout = [[0,0,0,0],[0,1,0,0],[0,0,0,0]]",
+        "output": "4"
+      },
+      {
+        "input": "layout = [[0,1,0]]",
+        "output": "0"
+      }
+    ]
+  },
+  "pipeline-stage-gains": {
+    "page": "pipeline-stage-gains",
+    "title": "Pipeline Stage Gains",
+    "source": "238. Product of Array Except Self",
+    "difficulty": "Medium",
+    "brief": [
+      "A signal processing chain applies a sequence of integer gain factors, one per stage. To plan maintenance, engineers want to know, for each stage, what the combined gain of the chain would be if that one stage were bypassed.",
+      "Implement gainWithoutStage(nums), where nums[i] is the gain factor of stage i, and return an array of the same length whose value at position i is the product of every factor except nums[i]."
+    ],
+    "examples": [
+      {
+        "input": "nums = [-1,2,-3,4]",
+        "output": "[-24,12,-8,6]"
+      }
+    ]
+  },
+  "playlist-segment-flip": {
+    "page": "playlist-segment-flip",
+    "title": "Playlist Segment Flip",
+    "source": "92. Reverse Linked List II",
+    "difficulty": "Medium",
+    "brief": [
+      "Our music player keeps the upcoming queue as a chain of ListNode tracks. A new feature lets the listener select a contiguous run of tracks and flip their order in place, leaving everything before and after the selection where it was.",
+      "Implement flipQueueSegment(head, left, right), where head is the first track of the queue and left and right mark the first and last positions of the selection, and return the head of the queue after the tracks between those positions have been put in reverse order."
+    ],
+    "examples": [
+      {
+        "input": "head = [1,2,3,4], left = 2, right = 4",
+        "output": "[1,4,3,2]"
+      },
+      {
+        "input": "head = [-1,0,2,7], left = 2, right = 3",
+        "output": "[-1,2,0,7]"
+      }
+    ]
+  },
+  "playlist-tail-wraparound": {
+    "page": "playlist-tail-wraparound",
+    "title": "Playlist Tail Wraparound",
+    "source": "61. Rotate List",
+    "difficulty": "Medium",
+    "brief": [
+      "A music player keeps the upcoming tracks as a chain of ListNode entries. Each press of the wrap button moves the last track in the queue to the front, and a listener can queue up many presses at once.",
+      "Implement wrapPlaylistTail(head, k), where head is the first track and k is the number of presses, and return the head of the queue after all k presses."
+    ],
+    "examples": [
+      {
+        "input": "head = [6,7,8,9], k = 1",
+        "output": "[9,6,7,8]"
+      },
+      {
+        "input": "head = [1,2,3], k = 6",
+        "output": "[1,2,3]"
+      }
+    ]
+  },
+  "portal-dice-race": {
+    "page": "portal-dice-race",
+    "title": "Portal Dice Race",
+    "source": "909. Snakes and Ladders",
+    "difficulty": "Medium",
+    "brief": [
+      "We are building a digital dice race game played on an n by n grid. Squares are numbered 1 to n^2 starting at the bottom-left corner: the bottom row counts left to right, the row above it right to left, and the direction keeps alternating up the board. Some squares hold a portal that carries a token to another square, which may be ahead or behind.",
+      "On each turn the player chooses a roll from 1 to 6 and moves forward that many squares; if the token lands on a portal, it is moved to the portal's destination. Level designers want to know how quickly each level can be beaten.",
+      "Implement fewestTurnsToFinish(board), where board lists the grid rows from top to bottom and board[r][c] is -1 for a plain square or the destination square number of a portal, and return the fewest turns needed to go from square 1 to square n^2."
+    ],
+    "examples": [
+      {
+        "input": "board = [[-1,1,1,1],[-1,1,1,1],[-1,1,1,1],[-1,1,1,-1]]",
+        "output": "-1"
+      },
+      {
+        "input": "board = [[-1,-1,-1],[-1,-1,-1],[-1,-1,-1]]",
+        "output": "2"
+      }
+    ]
+  },
+  "pricing-rule-bytecode": {
+    "page": "pricing-rule-bytecode",
+    "title": "Pricing Rule Bytecode",
+    "source": "150. Evaluate Reverse Polish Notation",
+    "difficulty": "Medium",
+    "brief": [
+      "Our pricing engine compiles each discount rule into a flat list of tokens in postfix order: each operator is written after the two operands it combines, so no parentheses are ever needed. The runtime has to compute the final integer value of a compiled rule.",
+      "Implement computeRuleValue(tokens), where tokens is the compiled rule as a list of strings, each either an integer or one of the operators +, -, * and /, and return the integer the rule evaluates to."
+    ],
+    "examples": [
+      {
+        "input": "tokens = [\"-7\",\"3\",\"/\"]",
+        "output": "-2"
+      },
+      {
+        "input": "tokens = [\"5\",\"3\",\"-\"]",
+        "output": "2"
+      }
+    ]
+  },
+  "print-queue-triage": {
+    "page": "print-queue-triage",
+    "title": "Print Queue Triage",
+    "source": "86. Partition List",
+    "difficulty": "Medium",
+    "brief": [
+      "A shared print server holds pending jobs as a chain of ListNode entries, each carrying a size score. At peak time the server lets small jobs jump ahead: every job with a score below a threshold should be moved ahead of every job whose score is not.",
+      "Implement triageQueue(head, x), where head is the first job in the queue and x is the threshold, and return the head of the rearranged queue in which all jobs scoring less than x come before all the other jobs."
+    ],
+    "examples": [
+      {
+        "input": "head = [3,1,2,2,4], x = 3",
+        "output": "[1,2,2,3,4]"
+      }
+    ]
+  },
+  "puzzle-grid-save-check": {
+    "page": "puzzle-grid-save-check",
+    "title": "Puzzle Grid Save Check",
+    "source": "36. Valid Sudoku",
+    "difficulty": "Medium",
+    "brief": [
+      "Our puzzle app lets players save a half-finished number-placement grid. Before saving, the backend rejects grids where the player has already broken a placement rule: the grid is 9 by 9, split into nine 3 by 3 blocks, and no digit from 1 to 9 may appear twice in the same row, the same column or the same block.",
+      "Implement isGridConsistent(board), where board is the grid as 9 rows of 9 single-character strings, each a digit or '.', and return true if the filled cells break none of the rules, and false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "board = [[\"5\",\"3\",\".\",\".\",\"7\",\".\",\".\",\".\",\"5\"],[\"6\",\".\",\".\",\"1\",\"9\",\"5\",\".\",\".\",\".\"],[\".\",\"9\",\"8\",\".\",\".\",\".\",\".\",\"6\",\".\"],[\"8\",\".\",\".\",\".\",\"6\",\".\",\".\",\".\",\"3\"],[\"4\",\".\",\".\",\"8\",\".\",\"3\",\".\",\".\",\"1\"],[\"7\",\".\",\".\",\".\",\"2\",\".\",\".\",\".\",\"6\"],[\".\",\"6\",\".\",\".\",\".\",\".\",\"2\",\"8\",\".\"],[\".\",\".\",\".\",\"4\",\"1\",\"9\",\".\",\".\",\"5\"],[\".\",\".\",\".\",\".\",\"8\",\".\",\".\",\"7\",\"9\"]]",
+        "output": "false"
+      }
+    ]
+  },
+  "query-parse-cache-restore": {
+    "page": "query-parse-cache-restore",
+    "title": "Query Parse Cache Restore",
+    "source": "106. Construct Binary Tree from Inorder and Postorder Traversal",
+    "difficulty": "Medium",
+    "brief": [
+      "Our query compiler caches parsed syntax trees on disk as two lists of unique node ids, since pointers cannot be saved. In the first list each node appears after everything in its left subtree and before everything in its right subtree. In the second list each node appears after everything in both of its subtrees, left subtree first.",
+      "Implement restoreSyntaxTree(inorder, postorder), where inorder is the first list and postorder is the second list, and return the root TreeNode of the tree they describe."
+    ],
+    "examples": [
+      {
+        "input": "inorder = [4,2,5,1,6,3], postorder = [4,5,2,6,3,1]",
+        "output": "[1,2,3,4,5,6]"
+      }
+    ]
+  },
+  "rack-slot-range-labels": {
+    "page": "rack-slot-range-labels",
+    "title": "Rack Slot Range Labels",
+    "source": "228. Summary Ranges",
+    "difficulty": "Easy",
+    "brief": [
+      "A datacentre dashboard lists the free slots in a rack by number. Long lists are hard to read, so the dashboard compresses each unbroken run of slot numbers into one label: a lone slot is shown as its number, such as 7, and a run of two or more is shown as its first and last number joined by ->, such as 4->5.",
+      "Implement labelSlotRuns(nums), where nums is the list of free slot numbers in increasing order, and return the list of labels as strings covering every number in nums."
+    ],
+    "examples": [
+      {
+        "input": "nums = [-2,-1,0,2]",
+        "output": "[\"-2->0\",\"2\"]"
+      },
+      {
+        "input": "nums = [1,2,3,7,9,10]",
+        "output": "[\"1->3\",\"7\",\"9->10\"]"
+      }
+    ]
+  },
+  "radio-frame-batching": {
+    "page": "radio-frame-batching",
+    "title": "Radio Frame Batching",
+    "source": "25. Reverse Nodes in k-Group",
+    "difficulty": "Hard",
+    "brief": [
+      "A low-power radio link transmits frames in fixed-size batches, and for hardware reasons each full batch has to be sent in the opposite order from how it was queued. The frames sit in a chain of ListNode objects, and the transmitter rearranges that chain just before sending.",
+      "Implement reorderFrameBatches(head, k), where head is the first frame of the queue and k is the batch size, and return the head of the queue after the frames inside each consecutive batch of k have been put in reverse order."
+    ],
+    "examples": [
+      {
+        "input": "head = [1,2,3,4,5,6,7], k = 3",
+        "output": "[3,2,1,6,5,4,7]"
+      },
+      {
+        "input": "head = [1,2,3,4], k = 4",
+        "output": "[4,3,2,1]"
+      }
+    ]
+  },
+  "rating-leaderboard-cutoff": {
+    "page": "rating-leaderboard-cutoff",
+    "title": "Rating Leaderboard Cutoff",
+    "source": "215. Kth Largest Element in an Array",
+    "difficulty": "Medium",
+    "brief": [
+      "Our game publishes a weekly leaderboard of rating changes, which can be negative after a bad week. Prizes go to the top k places, and the prize service needs the rating change that sits at place k.",
+      "Implement kthRankedScore(nums, k), where nums holds every player's rating change in no particular order and k is the place being asked about, counting from the top, and return the rating change at that place."
+    ],
+    "examples": [
+      {
+        "input": "nums = [-1,-1,-2,-3], k = 2",
+        "output": "-1"
+      },
+      {
+        "input": "nums = [2,1], k = 2",
+        "output": "1"
+      }
+    ]
+  },
+  "recent-card-repeat-alert": {
+    "page": "recent-card-repeat-alert",
+    "title": "Recent Card Repeat Alert",
+    "source": "219. Contains Duplicate II",
+    "difficulty": "Easy",
+    "brief": [
+      "A payment fraud service assigns each card a numeric fingerprint and watches the transaction feed in order. It raises an alert when the same fingerprint appears twice within a short distance of each other in the feed.",
+      "Implement repeatWithinWindow(nums, k), where nums lists the fingerprints in feed order and k is the maximum allowed distance between two positions, and return true if some fingerprint occurs at two positions no more than k apart, and false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "nums = [-1,2,-1], k = 2",
+        "output": "true"
+      },
+      {
+        "input": "nums = [1,1], k = 0",
+        "output": "false"
+      }
+    ]
+  },
+  "relay-chain-reachability": {
+    "page": "relay-chain-reachability",
+    "title": "Relay Chain Reachability",
+    "source": "55. Jump Game",
+    "difficulty": "Medium",
+    "brief": [
+      "A pipeline monitoring system places relays in a line along a pipe. Each relay's transmitter has a range, measured in relays ahead, and a message starts at the first relay and must be forwarded until it arrives at the last one.",
+      "Implement packetReachesEnd(nums), where nums[i] is the transmit range of relay i, counted in relays ahead, and return true if a message starting at relay 0 can reach the last relay, or false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "nums = [1,0,1,0]",
+        "output": "false"
+      },
+      {
+        "input": "nums = [2,0,0]",
+        "output": "true"
+      }
+    ]
+  },
+  "replica-event-interleave": {
+    "page": "replica-event-interleave",
+    "title": "Replica Event Interleave",
+    "source": "21. Merge Two Sorted Lists",
+    "difficulty": "Easy",
+    "brief": [
+      "Two replicas of our metrics service each keep a chain of event timestamps in nondecreasing order. When we fail over, we need one chain holding every event from both replicas, still in nondecreasing order.",
+      "Implement interleaveEvents(list1, list2), where list1 and list2 are ListNode chains of timestamps, each already in nondecreasing order, and return the head of a single ListNode chain containing all of their nodes in nondecreasing order."
+    ],
+    "examples": [
+      {
+        "input": "list1 = [-3,-1,4], list2 = [-2,2]",
+        "output": "[-3,-2,-1,2,4]"
+      }
+    ]
+  },
+  "replica-quorum-version": {
+    "page": "replica-quorum-version",
+    "title": "Replica Quorum Version",
+    "source": "169. Majority Element",
+    "difficulty": "Easy",
+    "brief": [
+      "A distributed key-value store asks every replica which schema version it is running. Rollouts are only considered settled when one version is reported by more than half of the replicas, and the coordinator needs to know which version that is.",
+      "Implement dominantReplicaVersion(nums), where nums holds the version number reported by each replica, and return the version reported by more than half of them."
+    ],
+    "examples": [
+      {
+        "input": "nums = [6,5,5]",
+        "output": "5"
+      }
+    ]
+  },
+  "replica-write-audit": {
+    "page": "replica-write-audit",
+    "title": "Replica Write Audit",
+    "source": "137. Single Number II",
+    "difficulty": "Medium",
+    "brief": [
+      "Our storage layer writes every record to three replicas, and a nightly job gathers the record IDs reported by all replicas into one list. After a partial outage, exactly one record made it to only a single replica.",
+      "Implement findUnreplicatedId(nums), where nums holds every reported record ID in no particular order, each ID appearing three times except the one that was written once, and return that ID."
+    ],
+    "examples": [
+      {
+        "input": "nums = [5,5,5,8,8,8,11]",
+        "output": "11"
+      },
+      {
+        "input": "nums = [-4,6,6,6]",
+        "output": "-4"
+      }
+    ]
+  },
+  "required-marker-span": {
+    "page": "required-marker-span",
+    "title": "Required Marker Span",
+    "source": "76. Minimum Window Substring",
+    "difficulty": "Hard",
+    "brief": [
+      "A genomics pipeline scans a long read, written as a string of letters, for the tightest region that contains a set of required marker letters. Some markers must be present more than once for the region to be useful.",
+      "Implement shortestCoveringSpan(s, t), where s is the read and t lists the required markers, and return the shortest contiguous piece of s that contains every letter of t at least as many times as it appears in t."
+    ],
+    "examples": [
+      {
+        "input": "s = \"XAYBZCAB\", t = \"ABC\"",
+        "output": "\"CAB\""
+      },
+      {
+        "input": "s = \"aa\", t = \"aa\"",
+        "output": "\"aa\""
+      }
+    ]
+  },
+  "restored-index-integrity": {
+    "page": "restored-index-integrity",
+    "title": "Restored Index Integrity",
+    "source": "98. Validate Binary Search Tree",
+    "difficulty": "Medium",
+    "brief": [
+      "Our storage engine restores index pages from backup as a binary tree of keys. Lookups only work if the restored tree still follows the ordering the engine relies on: keys to the left of a node are smaller than the node's key, and keys to the right are larger.",
+      "Implement indexOrderingHolds(root), where root is the TreeNode at the root of the restored index, and return true if the whole tree follows that ordering and false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "root = [10,5,15,null,null,12,20]",
+        "output": "true"
+      },
+      {
+        "input": "root = [2,2,2]",
+        "output": "false"
+      }
+    ]
+  },
+  "right-to-left-layout": {
+    "page": "right-to-left-layout",
+    "title": "Right To Left Layout",
+    "source": "226. Invert Binary Tree",
+    "difficulty": "Easy",
+    "brief": [
+      "Our UI framework describes a screen as a binary layout tree of TreeNode objects, where each container splits into a left pane and a right pane. For right to left languages we need the whole screen mirrored, so at every container the left and right panes trade places, all the way down.",
+      "Implement mirrorLayout(root), where root is the top container of the layout, and return the root of the mirrored layout."
+    ],
+    "examples": [
+      {
+        "input": "root = [1,2,null,3]",
+        "output": "[1,null,2,null,3]"
+      }
+    ]
+  },
+  "ring-buffer-dump-lookup": {
+    "page": "ring-buffer-dump-lookup",
+    "title": "Ring Buffer Dump Lookup",
+    "source": "33. Search in Rotated Sorted Array",
+    "difficulty": "Medium",
+    "brief": [
+      "An embedded logger keeps unique, increasing sequence numbers in a ring buffer. When it crashes, the buffer is dumped from its first physical slot rather than from the write pointer, so the dump is in ascending order except that it starts partway through and wraps around.",
+      "Implement locateSequenceNumber(nums, target), where nums is the dumped buffer and target is a sequence number we are looking for, and return the zero-based position of target in nums."
+    ],
+    "examples": [
+      {
+        "input": "nums = [1,2,3,4], target = 3",
+        "output": "2"
+      },
+      {
+        "input": "nums = [6,7,1,2,3,4,5], target = 7",
+        "output": "1"
+      }
+    ]
+  },
+  "robot-stride-plans": {
+    "page": "robot-stride-plans",
+    "title": "Robot Stride Plans",
+    "source": "70. Climbing Stairs",
+    "difficulty": "Easy",
+    "brief": [
+      "A warehouse robot moves along a rail of numbered slots. Each move it advances either one slot or two slots, and the planner wants to know how many different move sequences take it from slot 0 to exactly slot n.",
+      "Implement countStridePlans(n), where n is the destination slot, and return the number of distinct move sequences that land exactly on it."
+    ],
+    "examples": [
+      {
+        "input": "n = 4",
+        "output": "5"
+      }
+    ]
+  },
+  "rollout-wave-planner": {
+    "page": "rollout-wave-planner",
+    "title": "Rollout Wave Planner",
+    "source": "102. Binary Tree Level Order Traversal",
+    "difficulty": "Medium",
+    "brief": [
+      "Config changes spread through a tree of servers, where each server feeds at most two servers below it. The release team deploys in waves: a wave contains every server at the same distance from the origin, and within a wave servers are listed as they appear from left to right in the tree.",
+      "Implement planRolloutWaves(root), where root is the TreeNode for the origin server and each node's value is a server id, and return the waves as a list of lists of ids, the origin's wave first."
+    ],
+    "examples": [
+      {
+        "input": "root = [1,2,3,null,4,5]",
+        "output": "[[1],[2,3],[4,5]]"
+      },
+      {
+        "input": "root = [8,3,10,1,6,null,14]",
+        "output": "[[8],[3,10],[1,6,14]]"
+      }
+    ]
+  },
+  "rooftop-panel-footprint": {
+    "page": "rooftop-panel-footprint",
+    "title": "Rooftop Panel Footprint",
+    "source": "221. Maximal Square",
+    "difficulty": "Medium",
+    "brief": [
+      "A solar installer surveys a flat roof as a grid of cells, marking each cell as usable or blocked by vents and skylights. Panels are sold only in square layouts, and the sales tool needs the biggest square layout that fits entirely on usable cells.",
+      "Implement largestPanelArea(matrix), where matrix is the survey grid with the character '1' for a usable cell and '0' for a blocked cell, and return the area, in cells, of the largest square made only of usable cells."
+    ],
+    "examples": [
+      {
+        "input": "matrix = [[\"1\",\"1\",\"0\"],[\"1\",\"1\",\"1\"],[\"0\",\"1\",\"1\"]]",
+        "output": "4"
+      },
+      {
+        "input": "matrix = [[\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\"]]",
+        "output": "9"
+      }
+    ]
+  },
+  "room-booking-busy-blocks": {
+    "page": "room-booking-busy-blocks",
+    "title": "Room Booking Busy Blocks",
+    "source": "57. Insert Interval",
+    "difficulty": "Medium",
+    "brief": [
+      "A meeting-room calendar stores each room's busy time as a list of blocks, each a start and end time, sorted by start and never overlapping. When a new booking comes in, the calendar must add it and keep the list tidy.",
+      "Implement addBusyBlock(intervals, newInterval), where intervals is the current list of blocks as start and end pairs and newInterval is the new booking as a start and end pair, and return the updated list of blocks, sorted by start, with any blocks that now overlap combined into one."
+    ],
+    "examples": [
+      {
+        "input": "intervals = [[1,2],[5,6]], newInterval = [2,5]",
+        "output": "[[1,6]]"
+      },
+      {
+        "input": "intervals = [[3,5]], newInterval = [1,2]",
+        "output": "[[1,2],[3,5]]"
+      }
+    ]
+  },
+  "sandbox-topology-replica": {
+    "page": "sandbox-topology-replica",
+    "title": "Sandbox Topology Replica",
+    "source": "133. Clone Graph",
+    "difficulty": "Medium",
+    "brief": [
+      "Our chaos testing platform models a service mesh as a graph. Each service is a Node with an integer id in val and a list of the services it links to in neighbors, and links go both ways. Before an experiment mutates the mesh, we need a fully independent replica so the original is never touched.",
+      "Implement replicateTopology(node), where node is one Node of the mesh, and return the Node in the replica that corresponds to it, with every reachable service and link copied. A mesh is written as a list holding the neighbor ids of each service in id order, starting from service 1."
+    ],
+    "examples": [
+      {
+        "input": "node = [[2],[1,3],[2]]",
+        "output": "[[2],[1,3],[2]]"
+      },
+      {
+        "input": "node = [[2,3],[1,3],[1,2]]",
+        "output": "[[2,3],[1,3],[1,2]]"
+      }
+    ]
+  },
+  "scanner-code-reconciliation": {
+    "page": "scanner-code-reconciliation",
+    "title": "Scanner Code Reconciliation",
+    "source": "72. Edit Distance",
+    "difficulty": "Medium",
+    "brief": [
+      "Our warehouse scanners read product codes off worn labels, and the reads are sometimes garbled. To score how badly a read went, we measure how many single-character fixes turn the scanned code into the true code.",
+      "A fix inserts one character, deletes one character, or replaces one character with another. Implement fewestCharacterFixes(word1, word2), where word1 is the scanned code and word2 is the true code, and return the smallest number of fixes that turns word1 into word2."
+    ],
+    "examples": [
+      {
+        "input": "word1 = \"pilot\", word2 = \"split\"",
+        "output": "3"
+      },
+      {
+        "input": "word1 = \"abc\", word2 = \"adc\"",
+        "output": "1"
+      }
+    ]
+  },
+  "scrambled-label-match": {
+    "page": "scrambled-label-match",
+    "title": "Scrambled Label Match",
+    "source": "242. Valid Anagram",
+    "difficulty": "Easy",
+    "brief": [
+      "A warehouse scanner sometimes reads the letters of a product code out of order when a label is creased. Before flagging a mismatch, the inventory service checks whether the scanned code could simply be the expected code with its letters shuffled.",
+      "Implement isRearrangedCode(s, t), where s is the expected code and t is the scanned code, and return true if t uses exactly the same letters as s, rearranged in any order, and false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "s = \"crate\", t = \"trace\"",
+        "output": "true"
+      },
+      {
+        "input": "s = \"aacc\", t = \"ccac\"",
+        "output": "false"
+      }
+    ]
+  },
+  "screen-reader-menu-chain": {
+    "page": "screen-reader-menu-chain",
+    "title": "Screen Reader Menu Chain",
+    "source": "114. Flatten Binary Tree to Linked List",
+    "difficulty": "Medium",
+    "brief": [
+      "Our settings app stores its menu as a binary tree of TreeNode objects. For screen reader mode we reuse the same nodes as a single chain: each menu item is followed by all of its left submenu, then all of its right submenu, and the chain is linked through the right field only.",
+      "Implement linearizeMenu(root), where root is the top menu item, and rearrange the tree in place so that it becomes that chain, with every left field set to null. The function returns nothing; the result is read from root after it runs."
+    ],
+    "examples": [
+      {
+        "input": "root = [5,3,8,1,4]",
+        "output": "root becomes [5,null,3,null,1,null,4,null,8]"
+      },
+      {
+        "input": "root = [1,null,2,null,3]",
+        "output": "root becomes [1,null,2,null,3]"
+      }
+    ]
+  },
+  "sealed-air-pocket-backfill": {
+    "page": "sealed-air-pocket-backfill",
+    "title": "Sealed Air Pocket Backfill",
+    "source": "130. Surrounded Regions",
+    "difficulty": "Medium",
+    "brief": [
+      "In our level editor a map is a grid of rock and air. Air cells that touch along a side form a pocket. A pocket that cannot reach the edge of the map is sealed off, so players can never get there, and the editor backfills it with rock before saving.",
+      "Implement backfillSealedPockets(board), where board is a list of rows and each cell is the character 'X' for rock or 'O' for air. Update board in place so every sealed pocket becomes rock; the function returns nothing."
+    ],
+    "examples": [
+      {
+        "input": "board = [[\"X\",\"X\",\"X\"],[\"X\",\"O\",\"X\"],[\"X\",\"X\",\"X\"]]",
+        "output": "board becomes [[\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\"]]"
+      },
+      {
+        "input": "board = [[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"X\",\"X\"],[\"X\",\"X\",\"O\",\"O\"],[\"X\",\"X\",\"X\",\"X\"]]",
+        "output": "board becomes [[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"O\",\"O\"],[\"X\",\"X\",\"X\",\"X\"]]"
+      }
+    ]
+  },
+  "sensor-calibration-index": {
+    "page": "sensor-calibration-index",
+    "title": "Sensor Calibration Index",
+    "source": "108. Convert Sorted Array to Binary Search Tree",
+    "difficulty": "Easy",
+    "brief": [
+      "A low-power sensor stores its calibration keys as a sorted list, but lookups need to be done with a small in-memory tree whose search path never gets long. We want to turn the sorted keys into such a tree once at boot.",
+      "Implement buildBalancedIndex(nums), where nums holds the keys in increasing order, and return the root TreeNode of a binary search tree that contains every key, balanced so that at every node the heights of the left and right subtrees differ by at most one."
+    ],
+    "examples": [
+      {
+        "input": "nums = [-4,-2,1,8]",
+        "output": "[-2,-4,1,null,null,null,8] (one valid tree)"
+      }
+    ]
+  },
+  "sensor-frame-quarter-turn": {
+    "page": "sensor-frame-quarter-turn",
+    "title": "Sensor Frame Quarter Turn",
+    "source": "48. Rotate Image",
+    "difficulty": "Medium",
+    "brief": [
+      "A camera module on an embedded board was mounted sideways, so every square frame it produces needs a quarter turn clockwise before it is encoded. Memory on the board is tight, so the frame buffer has to be rearranged where it sits.",
+      "Implement turnFrameClockwise(matrix), where matrix is a square frame given as a list of rows of pixel values. Turn it 90 degrees clockwise by modifying matrix itself; the function returns nothing."
+    ],
+    "examples": [
+      {
+        "input": "matrix = [[-1,-2],[-3,-4]]",
+        "output": "matrix becomes [[-3,-1],[-4,-2]]"
+      },
+      {
+        "input": "matrix = [[7,0,3],[1,5,2],[9,4,6]]",
+        "output": "matrix becomes [[9,1,7],[4,5,0],[6,2,3]]"
+      }
+    ]
+  },
+  "serial-counter-advance": {
+    "page": "serial-counter-advance",
+    "title": "Serial Counter Advance",
+    "source": "66. Plus One",
+    "difficulty": "Easy",
+    "brief": [
+      "Our ticketing system issues serial numbers that are far too long for any integer type, so each serial is stored as a list of decimal digits with the most significant digit first. When a ticket is issued the counter moves to the next serial.",
+      "Implement nextSerialDigits(digits), where digits holds the current serial one digit per element, and return the digits of the serial that is exactly one greater."
+    ],
+    "examples": [
+      {
+        "input": "digits = [1,2,9]",
+        "output": "[1,3,0]"
+      }
+    ]
+  },
+  "serial-link-word-mirror": {
+    "page": "serial-link-word-mirror",
+    "title": "Serial Link Word Mirror",
+    "source": "190. Reverse Bits",
+    "difficulty": "Easy",
+    "brief": [
+      "A sensor sends 32-bit words over a serial link least significant bit first, but our receiver assembles each word as if it had arrived most significant bit first. Every word we store therefore has its bit order mirrored.",
+      "Implement mirrorWordBits(n), where n is a received 32-bit word as an integer, and return the integer whose 32 bits are the bits of n in reverse order."
+    ],
+    "examples": [
+      {
+        "input": "n = 715827882",
+        "output": "1431655764"
+      },
+      {
+        "input": "n = 2",
+        "output": "1073741824"
+      }
+    ]
+  },
+  "serpentine-tier-sweep": {
+    "page": "serpentine-tier-sweep",
+    "title": "Serpentine Tier Sweep",
+    "source": "103. Binary Tree Zigzag Level Order Traversal",
+    "difficulty": "Medium",
+    "brief": [
+      "A warehouse robot picks items from storage organised as a tree of bins, where each bin branches to at most two bins on the tier below. To save travel, it sweeps each tier in the opposite direction from the previous one: it covers the top tier left to right, then turns around for the tier below, and keeps alternating.",
+      "Implement serpentineSweep(root), where root is the TreeNode for the top bin and each node's value is a bin label, and return one list of labels per tier, from the top tier down, each in the order the robot visits it."
+    ],
+    "examples": [
+      {
+        "input": "root = [1,2,3,4,5,6,7,8]",
+        "output": "[[1],[3,2],[4,5,6,7],[8]]"
+      },
+      {
+        "input": "root = [8,3,10,1,6,null,14]",
+        "output": "[[8],[10,3],[1,6,14]]"
+      }
+    ]
+  },
+  "shard-result-consolidation": {
+    "page": "shard-result-consolidation",
+    "title": "Shard Result Consolidation",
+    "source": "23. Merge k Sorted Lists",
+    "difficulty": "Hard",
+    "brief": [
+      "Our sharded event store answers a query by sending back, from each shard, a singly linked chain of matching event scores in ascending order. Each node has a value val and a next link. The query layer needs one chain covering every shard's results.",
+      "Implement combineShardChains(lists), where lists holds the first node of each shard's chain, and return the first node of a single chain containing all values from all chains in ascending order."
+    ],
+    "examples": [
+      {
+        "input": "lists = [[1,1],[1],[1,2]]",
+        "output": "[1,1,1,1,2]"
+      },
+      {
+        "input": "lists = [[-3,-1,2],[-2,4]]",
+        "output": "[-3,-2,-1,2,4]"
+      }
+    ]
+  },
+  "shared-approver-lookup": {
+    "page": "shared-approver-lookup",
+    "title": "Shared Approver Lookup",
+    "source": "236. Lowest Common Ancestor of a Binary Tree",
+    "difficulty": "Medium",
+    "brief": [
+      "Our expense tool models the approval chain as a tree: each person has at most two direct reports. When a request involves two employees, it has to be signed by the most junior person who sits above both of them, and an employee counts as sitting above themselves.",
+      "Implement nearestSharedApprover(root, p, q), where root is the TreeNode at the top of the chart and p and q are the TreeNode entries for the two employees, and return the TreeNode of that approver."
+    ],
+    "examples": [
+      {
+        "input": "root = [8,4,12,2,6,10,14], p = 2, q = 6",
+        "output": "the node with value 4"
+      },
+      {
+        "input": "root = [8,4,12,2,6,10,14], p = 6, q = 12",
+        "output": "the node with value 8"
+      }
+    ]
+  },
+  "shared-buffer-keystroke-audit": {
+    "page": "shared-buffer-keystroke-audit",
+    "title": "Shared Buffer Keystroke Audit",
+    "source": "97. Interleaving String",
+    "difficulty": "Medium",
+    "brief": [
+      "Two keyboards type into one shared text buffer in a collaborative editor. Each device keeps its own keystroke log, and when a buffer looks corrupted we want to check whether it could have come from those two logs.",
+      "Implement isFaithfulMerge(s1, s2, s3), where s1 and s2 are the keystroke logs of the two devices and s3 is the final buffer, and return true if s3 can be produced by weaving together the keystrokes of s1 and s2 while keeping each device's keystrokes in their original order, or false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "s1 = \"aa\", s2 = \"ab\", s3 = \"aaba\"",
+        "output": "true"
+      },
+      {
+        "input": "s1 = \"a\", s2 = \"b\", s3 = \"a\"",
+        "output": "false"
+      }
+    ]
+  },
+  "shift-crew-bonus-points": {
+    "page": "shift-crew-bonus-points",
+    "title": "Shift Crew Bonus Points",
+    "source": "135. Candy",
+    "difficulty": "Hard",
+    "brief": [
+      "A warehouse assigns pickers to stations in a single row and scores each one's shift. Payroll hands out bonus points so every picker gets something, and anyone who outscored the picker at an adjacent station gets strictly more points than that neighbor.",
+      "Implement minimumBonusPoints(scores), where scores[i] is the shift score of the picker at station i, and return the smallest total number of points that satisfies those rules."
+    ],
+    "examples": [
+      {
+        "input": "scores = [1,3,4,5,2]",
+        "output": "11"
+      }
+    ]
+  },
+  "shifted-price-snapshot": {
+    "page": "shifted-price-snapshot",
+    "title": "Shifted Price Snapshot",
+    "source": "153. Find Minimum in Rotated Sorted Array",
+    "difficulty": "Medium",
+    "brief": [
+      "Our market data service keeps an order book's distinct price levels, measured in ticks from a reference price, in increasing order. A feed bug makes some snapshots start at an arbitrary level: the levels run upward from there to the highest one, then continue from the lowest level up to just below where the snapshot started.",
+      "Implement lowestPriceLevel(levels), where levels holds the snapshot in the order it arrived, and return the lowest price level in it."
+    ],
+    "examples": [
+      {
+        "input": "levels = [5,6,7,1,2,3,4]",
+        "output": "1"
+      }
+    ]
+  },
+  "shortest-upload-batch": {
+    "page": "shortest-upload-batch",
+    "title": "Shortest Upload Batch",
+    "source": "209. Minimum Size Subarray Sum",
+    "difficulty": "Medium",
+    "brief": [
+      "A backup agent ships log files to cold storage, and a storage block is only worth sealing once it holds at least a threshold number of megabytes. The files must be shipped in the order they were written.",
+      "Implement shortestRunReaching(target, nums), where target is the threshold and nums lists the file sizes in order, and return the smallest number of consecutive files whose sizes add up to at least target."
+    ],
+    "examples": [
+      {
+        "input": "target = 15, nums = [1,2,3,4,5]",
+        "output": "5"
+      },
+      {
+        "input": "target = 8, nums = [1,1,1,1,8]",
+        "output": "1"
+      }
+    ]
+  },
+  "signal-crest-locator": {
+    "page": "signal-crest-locator",
+    "title": "Signal Crest Locator",
+    "source": "162. Find Peak Element",
+    "difficulty": "Medium",
+    "brief": [
+      "A survey vehicle logs signal strength at evenly spaced points along a road. Engineers want to find a crest, a point whose reading is higher than the readings immediately before and after it, so they can place a repeater there.",
+      "Implement locateSignalCrest(nums), where nums holds the readings in road order, and return the zero-based index of a crest."
+    ],
+    "examples": [
+      {
+        "input": "nums = [-5,-2,-4]",
+        "output": "1"
+      }
+    ]
+  },
+  "single-resale-window": {
+    "page": "single-resale-window",
+    "title": "Single Resale Window",
+    "source": "121. Best Time to Buy and Sell Stock",
+    "difficulty": "Easy",
+    "brief": [
+      "A procurement tool forecasts the daily market price of a component for the coming weeks. Buyers are allowed one purchase of a batch and one resale of that batch, and they want to know the best margin the forecast allows.",
+      "Implement bestSingleFlip(prices), where prices[i] is the forecast price on day i, and return the largest profit from buying on one day and selling on a later day."
+    ],
+    "examples": [
+      {
+        "input": "prices = [3,2,6,5,0,3]",
+        "output": "4"
+      }
+    ]
+  },
+  "single-scan-badge-filter": {
+    "page": "single-scan-badge-filter",
+    "title": "Single Scan Badge Filter",
+    "source": "82. Remove Duplicates from Sorted List II",
+    "difficulty": "Medium",
+    "brief": [
+      "Building security exports badge scans as a chain of ListNode badge IDs sorted in ascending order. Any badge that was scanned more than once in the window is flagged as a possible cloned badge and dropped from the report entirely, so the report only contains badges that were scanned exactly once.",
+      "Implement keepSingleScans(head), where head is the first scan in the sorted chain, and return the head of the chain after every badge ID that occurs more than once has been removed completely."
+    ],
+    "examples": [
+      {
+        "input": "head = [-2,-2,-1,0,0,1]",
+        "output": "[-1,1]"
+      }
+    ]
+  },
+  "single-slot-reseller": {
+    "page": "single-slot-reseller",
+    "title": "Single Slot Reseller",
+    "source": "122. Best Time to Buy and Sell Stock II",
+    "difficulty": "Medium",
+    "brief": [
+      "A reseller rents one warehouse slot that fits a single pallet. Using a price forecast for that product, they can buy a pallet, hold it, sell it, and buy again later as often as they like, but the slot holds only one pallet at a time.",
+      "Implement totalFlipGain(prices), where prices[i] is the forecast price on day i, and return the maximum total profit the reseller can make across all their trades."
+    ],
+    "examples": [
+      {
+        "input": "prices = [1,2,1,2,1,2]",
+        "output": "3"
+      }
+    ]
+  },
+  "sorted-schedule-slot": {
+    "page": "sorted-schedule-slot",
+    "title": "Sorted Schedule Slot",
+    "source": "35. Search Insert Position",
+    "difficulty": "Easy",
+    "brief": [
+      "A job scheduler keeps the run times of queued jobs in a sorted array. When a new job comes in, the scheduler needs to know where its run time sits: either the position of an identical existing time, or the position it would take so the array stays sorted.",
+      "Implement slotForTimestamp(nums, target), where nums holds the existing run times in increasing order and target is the new run time, and return that position as a zero-based index."
+    ],
+    "examples": [
+      {
+        "input": "nums = [2,4,8,10], target = 1",
+        "output": "0"
+      }
+    ]
+  },
+  "spot-capacity-round-trips": {
+    "page": "spot-capacity-round-trips",
+    "title": "Spot Capacity Round Trips",
+    "source": "123. Best Time to Buy and Sell Stock III",
+    "difficulty": "Hard",
+    "brief": [
+      "A cloud reseller buys blocks of spot compute capacity and resells them later. Given a forecast of the daily price of a block, finance wants to know the most the reseller can earn if compliance allows at most two round trips of buying and later reselling.",
+      "Implement bestTwoRoundTrips(prices), where prices holds the forecast price of a block for each day in order, and return the largest total profit achievable."
+    ],
+    "examples": [
+      {
+        "input": "prices = [2,6,1,3,8,4]",
+        "output": "11"
+      },
+      {
+        "input": "prices = [1,4,2,7]",
+        "output": "8"
+      }
+    ]
+  },
+  "staging-drift-check": {
+    "page": "staging-drift-check",
+    "title": "Staging Drift Check",
+    "source": "100. Same Tree",
+    "difficulty": "Easy",
+    "brief": [
+      "Before promoting a release, our deploy tool compares the routing tree loaded in staging with the one loaded in production. Both are stored as binary trees of TreeNode objects, and any difference, however small, blocks the promotion.",
+      "Implement snapshotsMatch(p, q), where p is the root of the staging tree and q is the root of the production tree, and return true if the two trees are exactly the same, and false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "p = [4,5,null,6], q = [4,5,null,6]",
+        "output": "true"
+      },
+      {
+        "input": "p = [4,5,null,6], q = [4,5,null,null,6]",
+        "output": "false"
+      }
+    ]
+  },
+  "startup-order-sweep": {
+    "page": "startup-order-sweep",
+    "title": "Startup Order Sweep",
+    "source": "46. Permutations",
+    "difficulty": "Medium",
+    "brief": [
+      "Our integration harness boots a handful of services, each identified by an integer id. A race condition only shows up for certain boot orders, so we want to run the suite once for every possible order.",
+      "Implement allStartupOrders(nums), where nums holds the service ids, and return every ordering of those ids, each ordering as a list that uses every id once."
+    ],
+    "examples": [
+      {
+        "input": "nums = [-1,2]",
+        "output": "[[-1,2],[2,-1]]"
+      }
+    ]
+  },
+  "studio-contract-bankroll": {
+    "page": "studio-contract-bankroll",
+    "title": "Studio Contract Bankroll",
+    "source": "502. IPO",
+    "difficulty": "Hard",
+    "brief": [
+      "An indie game studio picks up outside contracts to grow its cash reserves. Each contract can only be started if the studio has at least a certain amount of cash on hand, and finishing it adds its payout to the studio's cash. The studio has time for only a limited number of contracts, done one after another.",
+      "Implement bestFinalBankroll(k, w, payouts, required), where k is the most contracts the studio can take, w is its starting cash, and payouts[i] and required[i] are the payout of contract i and the cash needed to start it, and return the largest cash the studio can end up with."
+    ],
+    "examples": [
+      {
+        "input": "k = 1, w = 2, payouts = [1,100,3], required = [0,2,2]",
+        "output": "102"
+      },
+      {
+        "input": "k = 2, w = 1, payouts = [2,4,8], required = [0,1,3]",
+        "output": "13"
+      }
+    ]
+  },
+  "survey-stake-alignment": {
+    "page": "survey-stake-alignment",
+    "title": "Survey Stake Alignment",
+    "source": "149. Max Points on a Line",
+    "difficulty": "Hard",
+    "brief": [
+      "A land surveyor drives stakes at integer coordinates across a site. To plan a straight fence that uses as many existing stakes as possible, the planning tool needs the largest number of stakes that lie exactly on one straight line.",
+      "Implement mostCollinearStakes(points), where points is a list of stakes, each given as [x, y], and return the largest number of stakes that lie on a single straight line."
+    ],
+    "examples": [
+      {
+        "input": "points = [[0,0],[2,2],[4,4],[1,2],[2,4]]",
+        "output": "3"
+      },
+      {
+        "input": "points = [[2,1],[2,3],[2,5],[4,5]]",
+        "output": "3"
+      }
+    ]
+  },
+  "symmetric-lottery-tickets": {
+    "page": "symmetric-lottery-tickets",
+    "title": "Symmetric Lottery Tickets",
+    "source": "9. Palindrome Number",
+    "difficulty": "Easy",
+    "brief": [
+      "A lottery runs a promotion for ticket numbers that read the same from left to right as from right to left when written in decimal. The ticket service stores the number as a signed integer.",
+      "Implement isMirrorNumber(x), where x is the ticket number, and return true if its decimal form reads the same in both directions and false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "x = 1221",
+        "output": "true"
+      }
+    ]
+  },
+  "telemetry-reading-dedupe": {
+    "page": "telemetry-reading-dedupe",
+    "title": "Telemetry Reading Dedupe",
+    "source": "26. Remove Duplicates from Sorted Array",
+    "difficulty": "Easy",
+    "brief": [
+      "A weather station logs temperature readings sorted in ascending order before uploading them. The uplink is expensive, so the firmware wants each distinct reading sent only once, and it has no room for a second buffer.",
+      "Implement compactDistinctReadings(nums), where nums holds the sorted readings. Rearrange nums in place so its first k slots hold each distinct reading once, still in ascending order, and return k."
+    ],
+    "examples": [
+      {
+        "input": "nums = [1,1,2,3,3,3,5]",
+        "output": "4, and nums starts with [1,2,3,5]"
+      },
+      {
+        "input": "nums = [-2,-1,0,3]",
+        "output": "4, and nums starts with [-2,-1,0,3]"
+      }
+    ]
+  },
+  "template-delimiter-audit": {
+    "page": "template-delimiter-audit",
+    "title": "Template Delimiter Audit",
+    "source": "20. Valid Parentheses",
+    "difficulty": "Easy",
+    "brief": [
+      "Our templating engine lets authors wrap expressions in three kinds of delimiters: round, square and curly. Before a template is saved, a lint step strips everything except the delimiters and checks that the author opened and closed them properly.",
+      "Implement delimitersNestCleanly(s), where s is the stripped string made up only of the characters ( ) [ ] { }, and return true if every opening delimiter is closed by one of the same kind with the pairs properly nested, or false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "s = \"{[]}\"",
+        "output": "true"
+      }
+    ]
+  },
+  "tentative-bid-ledger": {
+    "page": "tentative-bid-ledger",
+    "title": "Tentative Bid Ledger",
+    "source": "155. Min Stack",
+    "difficulty": "Medium",
+    "brief": [
+      "An auction desk tool keeps traders' tentative bids in a last-in, first-out ledger: new bids go on top, and undo removes the most recent one. Traders also want to see the lowest bid currently in the ledger at any moment, and that display refreshes after every action.",
+      "Implement the class BidLedger with a constructor taking no arguments and four methods: push(value) adds a bid on top, pop() removes the top bid, top() returns the top bid without removing it, and getMin() returns the smallest bid currently in the ledger."
+    ],
+    "examples": [
+      {
+        "input": "[\"BidLedger\",\"push\",\"push\",\"push\",\"getMin\",\"top\"]\n[[],[4],[6],[-1],[],[]]",
+        "output": "[null,null,null,null,-1,-1]"
+      }
+    ]
+  },
+  "terrain-mask-tiling": {
+    "page": "terrain-mask-tiling",
+    "title": "Terrain Mask Tiling",
+    "source": "427. Construct Quad Tree",
+    "difficulty": "Medium",
+    "brief": [
+      "A mapping service stores land and water masks as square grids of 0s and 1s whose side is a power of two. To save space, it compresses each mask into a four-way tree: a square region where every cell has the same value becomes a single leaf, and any other region is split into four equal quarters.",
+      "Each tree node has val, isLeaf, topLeft, topRight, bottomLeft and bottomRight. A leaf has isLeaf set to true and val set to its region's value; a split region has isLeaf false and its four children cover the top-left, top-right, bottom-left and bottom-right quarters.",
+      "Implement buildTileTree(grid), where grid is the n by n mask, and return the root node of the tree for the whole mask."
+    ],
+    "examples": [
+      {
+        "input": "grid = [[1,1,0,0],[1,1,0,0],[1,0,0,0],[0,0,0,0]]",
+        "output": "[[0,1],[1,1],[1,0],[0,1],[1,1],[1,0],[1,0],[1,0],[1,0]]"
+      }
+    ]
+  },
+  "terrain-runoff-pooling": {
+    "page": "terrain-runoff-pooling",
+    "title": "Terrain Runoff Pooling",
+    "source": "42. Trapping Rain Water",
+    "difficulty": "Hard",
+    "brief": [
+      "A flood modelling tool slices a terrain survey into a row of columns of equal width and records the ground height of each. After a heavy storm, water settles in the dips between higher ground and runs off past the two ends of the profile.",
+      "Implement pooledWaterVolume(height), where height[i] is the ground height of column i, and return the total units of water that stay pooled on top of the columns."
+    ],
+    "examples": [
+      {
+        "input": "height = [5,4,1,2]",
+        "output": "1"
+      }
+    ]
+  },
+  "thermal-receipt-layout": {
+    "page": "thermal-receipt-layout",
+    "title": "Thermal Receipt Layout",
+    "source": "68. Text Justification",
+    "difficulty": "Hard",
+    "brief": [
+      "Our point-of-sale terminals print store announcements on a narrow thermal printer that has a fixed number of character columns. Marketing wants the text to look typeset: every printed line should fill the full width so both the left and right edges line up.",
+      "Implement layoutReceiptLines(words, lineWidth), where words is the announcement split into words in reading order and lineWidth is the printer width in characters. Return the printed lines in order, each a string of exactly lineWidth characters, packing words onto lines and padding with spaces between them."
+    ],
+    "examples": [
+      {
+        "input": "words = [\"Keep\",\"it\",\"as\",\"concise\",\"as\",\"your\",\"documentation.\"], lineWidth = 16",
+        "output": "[\"Keep    it    as\",\"concise  as your\",\"documentation.  \"]"
+      },
+      {
+        "input": "words = [\"a\",\"b\",\"c\",\"d\",\"e\"], lineWidth = 3",
+        "output": "[\"a b\",\"c d\",\"e  \"]"
+      }
+    ]
+  },
+  "tightest-channel-spacing": {
+    "page": "tightest-channel-spacing",
+    "title": "Tightest Channel Spacing",
+    "source": "530. Minimum Absolute Difference in BST",
+    "difficulty": "Easy",
+    "brief": [
+      "A spectrum allocation service keeps assigned radio frequencies in a binary search tree: every frequency in a node's left subtree is lower than the node's, and every frequency in its right subtree is higher. Regulators want to know how tightly any two assigned channels are packed.",
+      "Implement tightestSpacing(root), where root is the TreeNode at the root of the allocation tree and each node's value is a frequency, and return the smallest difference between any two assigned frequencies."
+    ],
+    "examples": [
+      {
+        "input": "root = [90,69,null,49,89,null,52]",
+        "output": "1"
+      },
+      {
+        "input": "root = [2,1]",
+        "output": "1"
+      }
+    ]
+  },
+  "trading-streak-report": {
+    "page": "trading-streak-report",
+    "title": "Trading Streak Report",
+    "source": "53. Maximum Subarray",
+    "difficulty": "Medium",
+    "brief": [
+      "A trading desk records the daily profit or loss of a strategy as signed integers. The quarterly report highlights the best streak: the run of consecutive trading days with the largest combined result.",
+      "Implement bestProfitStreak(nums), where nums holds the daily results in date order, and return the combined result of that best streak."
+    ],
+    "examples": [
+      {
+        "input": "nums = [-1,2,3,-10,4,5]",
+        "output": "9"
+      }
+    ]
+  },
+  "twin-sensor-midpoint-reading": {
+    "page": "twin-sensor-midpoint-reading",
+    "title": "Twin Sensor Midpoint Reading",
+    "source": "4. Median of Two Sorted Arrays",
+    "difficulty": "Hard",
+    "brief": [
+      "Two temperature sensors in a cold-storage room each upload their readings for the hour already sorted from lowest to highest. The monitoring service reports the median of all readings from both sensors combined.",
+      "Implement pooledMedianReading(nums1, nums2), where nums1 and nums2 are the sorted readings from the two sensors, and return the median of all the readings together."
+    ],
+    "examples": [
+      {
+        "input": "nums1 = [1,2], nums2 = [3,4,5,6,7]",
+        "output": "4"
+      },
+      {
+        "input": "nums1 = [-5,-3], nums2 = [-4,-1]",
+        "output": "-3.5"
+      }
+    ]
+  },
+  "unmatched-badge-scan": {
+    "page": "unmatched-badge-scan",
+    "title": "Unmatched Badge Scan",
+    "source": "136. Single Number",
+    "difficulty": "Easy",
+    "brief": [
+      "Our office gates log a badge id every time someone passes through. Everyone scans once on the way in and once on the way out, except one visitor who slipped out without scanning, so their badge id appears only once in the day's log.",
+      "Implement findUnpairedBadge(nums), where nums holds the day's badge ids in scan order, and return the id that appears only once."
+    ],
+    "examples": [
+      {
+        "input": "nums = [0,8,0,5,5]",
+        "output": "8"
+      }
+    ]
+  },
+  "upload-location-normalizer": {
+    "page": "upload-location-normalizer",
+    "title": "Upload Location Normalizer",
+    "source": "71. Simplify Path",
+    "difficulty": "Medium",
+    "brief": [
+      "Our file sync client accepts absolute locations typed by users and scripts, and they come in messy: doubled slashes, trailing slashes, and the usual Unix . and .. components. Before we use a location as a cache key, we need one canonical spelling for it.",
+      "Implement canonicalLocation(path), where path is an absolute Unix-style location, and return its canonical form: it starts with a single slash, uses one slash between directory names, has no trailing slash, and has every . and .. component resolved."
+    ],
+    "examples": [
+      {
+        "input": "path = \"/a/./b/../../c/\"",
+        "output": "\"/c\""
+      },
+      {
+        "input": "path = \"/.../a/../b/c/../d/./\"",
+        "output": "\"/.../b/d\""
+      }
+    ]
+  },
+  "vanity-dial-expansion": {
+    "page": "vanity-dial-expansion",
+    "title": "Vanity Dial Expansion",
+    "source": "17. Letter Combinations of a Phone Number",
+    "difficulty": "Medium",
+    "brief": [
+      "A marketing team is choosing vanity numbers for a hotline. Given the digits a customer would dial, their tool lists every letter string those keys could spell on a standard telephone keypad, so the strings can be checked against brand words.",
+      "Implement expandKeypadDigits(digits), where digits is a string of keypad digits, and return every letter string the digits can spell, one letter per digit."
+    ],
+    "examples": [
+      {
+        "input": "digits = \"79\"",
+        "output": "[\"pw\",\"px\",\"py\",\"pz\",\"qw\",\"qx\",\"qy\",\"qz\",\"rw\",\"rx\",\"ry\",\"rz\",\"sw\",\"sx\",\"sy\",\"sz\"]"
+      }
+    ]
+  },
+  "wide-register-arithmetic": {
+    "page": "wide-register-arithmetic",
+    "title": "Wide Register Arithmetic",
+    "source": "67. Add Binary",
+    "difficulty": "Easy",
+    "brief": [
+      "A hardware simulator represents very wide register values as strings of 0 and 1 characters, most significant bit first, because they can be thousands of bits long. We need to add two such register values.",
+      "Implement sumBitStrings(a, b), where a and b are the two register values as bit strings, and return the bit string, in the same format, for the value of a plus b."
+    ],
+    "examples": [
+      {
+        "input": "a = \"1\", b = \"111\"",
+        "output": "\"1000\""
+      }
+    ]
+  },
+  "workflow-handoff-loop": {
+    "page": "workflow-handoff-loop",
+    "title": "Workflow Handoff Loop",
+    "source": "141. Linked List Cycle",
+    "difficulty": "Easy",
+    "brief": [
+      "Our workflow engine chains tasks together: each task is a ListNode whose next field names the task that runs after it, and the last task has no successor. A bad configuration can make some task hand off to a task earlier in the chain, which would make the engine spin forever.",
+      "Implement hasHandoffLoop(head), where head is the first task in the chain, or null for an empty chain, and return true if following next from head ever reaches a task a second time, and false otherwise."
+    ],
+    "examples": [
+      {
+        "input": "head = [1,2,3,4,5], pos = 2",
+        "output": "true"
+      },
+      {
+        "input": "head = [5,6,7], pos = 2",
+        "output": "true"
+      }
+    ]
+  }
+}

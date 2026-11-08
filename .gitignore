@@ -15,6 +15,8 @@ target/
 tests/artifacts/
 scripts/leetcode-cache/
 problem-bank/leetcode/
+/public/legacy/
+/work/
 *.tsbuildinfo
 next-env.d.ts
 
