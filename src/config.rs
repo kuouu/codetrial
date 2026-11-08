@@ -16,7 +16,7 @@ pub use providers::{
     order_providers, pool_summary, provider_id_from_room,
 };
 
-pub const DEFAULT_GEMINI_LIVE_MODEL: &str = "gemini-3.1-flash-live-preview";
+pub const DEFAULT_GEMINI_LIVE_MODEL: &str = "gemini-3.8-live";
 
 /// How long Gemini waits for silence before deciding the candidate has finished
 /// speaking. Left unset the API picks its own value, and the interview measured
@@ -76,7 +76,7 @@ pub const DEFAULT_GEMINI_END_SENSITIVITY: &str = "END_SENSITIVITY_HIGH";
 /// which the value is a mistake: an interviewer that waits half a minute before
 /// answering is broken whatever the API thinks.
 pub const MAX_GEMINI_SILENCE_MS: u32 = 30_000;
-pub const DEFAULT_GEMINI_REPORT_MODEL: &str = "gemini-3.1-flash-lite";
+pub const DEFAULT_GEMINI_REPORT_MODEL: &str = "gemini-3.5-flash-lite";
 pub const DEFAULT_GEMINI_VOICE: &str = "Puck";
 pub const DEFAULT_ROOM_PREFIX: &str = "interview";
 pub const DEFAULT_DURATION_MIN: u32 = 45;

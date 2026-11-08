@@ -80,7 +80,7 @@ fn phase_judge_generation_config() -> Value {
     json!({
         "responseMimeType": "application/json",
         "maxOutputTokens": 1024,
-        "thinkingConfig": { "thinkingBudget": 0 },
+        "thinkingConfig": { "thinkingLevel": "minimal" },
         "temperature": 0.0,
         "seed": GENERATION_SEED
     })
@@ -116,7 +116,7 @@ pub(super) fn interim_generation_config() -> Value {
     json!({
         "responseMimeType": "text/plain",
         "maxOutputTokens": 512,
-        "thinkingConfig": { "thinkingBudget": 0 },
+        "thinkingConfig": { "thinkingLevel": "minimal" },
         "temperature": 0.2,
         "seed": GENERATION_SEED
     })
