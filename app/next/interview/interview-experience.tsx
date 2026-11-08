@@ -980,7 +980,7 @@ export default function InterviewExperience({
           <Link
             aria-label="Back to CodeTrial"
             className="flex items-center gap-3 text-sm font-semibold"
-            href="/"
+            href="/next"
           >
             <span className="grid size-9 place-items-center rounded-xl bg-primary text-primary-foreground">
               <Code2 aria-hidden="true" className="size-5" />
@@ -1020,7 +1020,7 @@ export default function InterviewExperience({
           <div className="space-y-6">
             <div>
               <Button asChild className="px-0" variant="link">
-                <Link href="/" prefetch={false}>
+                <Link href="/next" prefetch={false}>
                   <ArrowLeft aria-hidden="true" className="size-4" /> Back to
                   problems
                 </Link>
@@ -1363,7 +1363,7 @@ export default function InterviewExperience({
             </Card>
           )}
           <Button asChild size="lg">
-            <Link href="/">Back to problems</Link>
+            <Link href="/next">Back to problems</Link>
           </Button>
         </main>
       ) : (
@@ -1428,7 +1428,7 @@ export default function InterviewExperience({
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <Button asChild className="mb-3 px-0" variant="link">
-                <Link href="/">
+                <Link href="/next">
                   <ArrowLeft aria-hidden="true" className="size-4" /> Back to
                   problems
                 </Link>
@@ -1846,7 +1846,7 @@ export default function InterviewExperience({
                 </CardContent>
               </Card>
               <Button asChild className="w-full" variant="outline">
-                <Link href="/">
+                <Link href="/next">
                   <ArrowLeft aria-hidden="true" className="size-4" /> Return to
                   problem bank
                 </Link>

@@ -21,6 +21,7 @@ LOGGER = logging.getLogger("codetrial.agent")
 AGENT_NAME = "codetrial-interviewer"
 TOPIC_CODE_UPDATE = "code_update"
 TOPIC_CONTROL = "control"
+TOPIC_TRANSCRIPT = "lk.transcription"
 TOPIC_TEST_RESULTS = "test_results"
 TOPIC_BOARD_IMAGE = "board_image"
 TOPIC_REPORT = "report"
@@ -29,6 +30,7 @@ MAX_CODE_CHARS = 40_000
 MAX_TEST_CHARS = 12_000
 REPORT_TIMEOUT_SECONDS = 35
 REPORT_ACK_TIMEOUT_SECONDS = 12
+MAX_TRANSCRIPT_CHARS = 12_000
 
 with open(os.path.join(os.path.dirname(__file__), "problems.json"), encoding="utf-8") as problem_file:
     PROBLEMS: dict[str, dict[str, Any]] = json.load(problem_file)
@@ -53,6 +55,37 @@ class InterviewState:
 
 def bounded_string(value: Any, limit: int) -> str:
     return value[:limit] if isinstance(value, str) else ""
+
+
+def assistant_transcript_text(item: Any) -> str:
+    role = getattr(item, "role", "")
+    role = getattr(role, "value", role)
+    if str(role).lower() != "assistant":
+        return ""
+    text = getattr(item, "raw_text_content", "")
+    if not isinstance(text, str):
+        return ""
+    return bounded_string(text.strip(), MAX_TRANSCRIPT_CHARS)
+
+
+async def publish_agent_transcript(room: rtc.Room, item: Any) -> bool:
+    text = assistant_transcript_text(item)
+    if not text:
+        return False
+
+    segment_id = getattr(item, "id", "")
+    attributes = {"lk.transcription_final": "true"}
+    if isinstance(segment_id, str) and segment_id:
+        attributes["lk.segment_id"] = segment_id
+    writer = await room.local_participant.stream_text(
+        topic=TOPIC_TRANSCRIPT,
+        attributes=attributes,
+    )
+    try:
+        await writer.write(text)
+    finally:
+        await writer.aclose()
+    return True
 
 
 def decode_metadata(value: Any) -> dict[str, Any]:
@@ -603,6 +636,21 @@ async def entrypoint(ctx: JobContext) -> None:
         instructions=interview_instructions(metadata, problem),
         tools=[make_read_editor_tool(state)],
     )
+
+    def on_conversation_item_added(event: Any) -> None:
+        item = getattr(event, "item", None)
+        if item is None or not assistant_transcript_text(item):
+            return
+
+        async def publish_transcript() -> None:
+            try:
+                await publish_agent_transcript(ctx.room, item)
+            except Exception as error:
+                LOGGER.warning("transcript_publish_failed error=%s", type(error).__name__)
+
+        asyncio.create_task(publish_transcript())
+
+    session.on("conversation_item_added", on_conversation_item_added)
 
     @ctx.room.on("data_received")
     def on_data_received(packet: rtc.DataPacket) -> None:

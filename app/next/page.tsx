@@ -28,7 +28,7 @@ export default function HomePage() {
           <Link
             aria-label="CodeTrial home"
             className="flex items-center gap-3"
-            href="/"
+            href="/next"
           >
             <span className="grid size-9 place-items-center rounded-xl bg-primary text-primary-foreground">
               <Code2 aria-hidden="true" className="size-5" />

@@ -57,12 +57,12 @@ export function ProblemBrowser() {
   const selected =
     problems.find((problem) => problem.page === selectedPage) ?? problems[0];
   const interviewUrl = selected
-    ? "/interview?problem=" +
+    ? "/next/interview?problem=" +
       encodeURIComponent(selected.page) +
       "&duration=" +
       duration +
       (whiteboard ? "&mode=whiteboard" : "")
-    : "/interview.html";
+    : "/next/interview";
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_19rem] lg:items-start">
       <div>

@@ -614,6 +614,7 @@ const nodes = {
   captionsText: document.querySelector("#captions-text"),
   captionUnclear: document.querySelector("#caption-unclear"),
   timer: document.querySelector("#timer"),
+  stageTimer: document.querySelector("#jim-stage-timer"),
   frameworkProgress: document.querySelector("#framework-progress"),
   frameworkHint: document.querySelector("#framework-hint"),
   frameworkHintTitle: document.querySelector("#framework-hint-title"),
@@ -3244,8 +3245,12 @@ function updatePresenceBanner(eventType) {
 function tickTimer() {
   if (state.phase !== "live") return;
   const tick = countdown(state.endsAt, Date.now());
-  nodes.timer.textContent = formatTime(tick.remaining);
-  nodes.timer.classList.toggle("urgent", tick.urgent);
+  const remaining = formatTime(tick.remaining);
+  for (const timer of [nodes.timer, nodes.stageTimer]) {
+    if (!timer) continue;
+    timer.textContent = remaining;
+    timer.classList.toggle("urgent", tick.urgent);
+  }
   recordStageTick(tick.remaining);
 
   // Latched levels, not crossings. A crossing is one tick wide and this tick

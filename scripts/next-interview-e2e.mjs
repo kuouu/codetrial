@@ -100,6 +100,14 @@ async function run() {
     const context = await browser.newContext({
       permissions: ["camera", "microphone"],
     });
+    const rootHome = await context.request.get(origin);
+    assert.equal(rootHome.status(), 200, "the root serves the classic lobby");
+    assert.match(await rootHome.text(), /id="random-problem"/);
+
+    const nextHome = await context.request.get(`${origin}/next`);
+    assert.equal(nextHome.status(), 200, "the Next.js home is served at /next");
+    assert.match(await nextHome.text(), /Get comfortable/);
+
     const page = await context.newPage();
     const pageErrors = [];
     const releaseRequests = [];
@@ -166,6 +174,9 @@ async function run() {
     const classicHtml = await classic.text();
     assert.match(classicHtml, /id="yield-turn"/);
     assert.match(classicHtml, /id="editor"/);
+    assert.match(classicHtml, /id="jim-stage"/);
+    assert.match(classicHtml, /id="captions-bar"/);
+    assert.match(classicHtml, /id="timer"/);
     assert.match(classicHtml, /src="\/legacy\/interview\.js"/);
     assert.match(classicHtml, /href="\/legacy\/styles\.css"/);
     for (const asset of [
@@ -184,7 +195,7 @@ async function run() {
     classicLobbyPage.on("pageerror", (error) =>
       classicLobbyErrors.push(error.message),
     );
-    await classicLobbyPage.goto(`${origin}/classic`, {
+    await classicLobbyPage.goto(origin, {
       waitUntil: "domcontentloaded",
     });
     await classicLobbyPage.waitForFunction(
@@ -205,6 +216,7 @@ async function run() {
     await classicLobbyPage.close();
 
     const classicPage = await context.newPage();
+    await classicPage.setViewportSize({ width: 1024, height: 800 });
     const classicPageErrors = [];
     const classicReleaseRequests = [];
     let classicTokenRequest;
@@ -252,6 +264,22 @@ async function run() {
     );
     await classicPage.locator("#editor").waitFor();
     await classicPage.locator("#editor-highlight").waitFor();
+    await classicPage.locator("#jim-stage").waitFor();
+    await classicPage.locator("#timer").waitFor();
+    assert.equal(await classicPage.locator("#jim-stage").isVisible(), true);
+    assert.equal(
+      await classicPage
+        .locator("#jim-stage")
+        .evaluate((stage) => stage.classList.contains("compact")),
+      true,
+    );
+    assert.equal(await classicPage.locator("#jim-avatar").isVisible(), true);
+    assert.equal(await classicPage.locator("#captions-bar").isVisible(), true);
+    assert.equal(
+      await classicPage.locator("#jim-stage-timer").isVisible(),
+      true,
+    );
+    assert.equal(await classicPage.locator("#timer").isVisible(), true);
     await classicPage
       .getByRole("button", { name: "Your turn is done" })
       .waitFor();
@@ -293,7 +321,7 @@ async function run() {
     );
     await classicPage.close();
 
-    await page.goto(origin, { waitUntil: "domcontentloaded" });
+    await page.goto(`${origin}/next`, { waitUntil: "domcontentloaded" });
     await page.getByRole("link", { name: "Classic", exact: true }).click();
     await page.waitForURL(/\/classic$/);
     await page.locator("#random-problem").waitFor();
@@ -309,7 +337,7 @@ async function run() {
     await page.locator("#editor").waitFor();
     await page.getByRole("button", { name: "Your turn is done" }).waitFor();
 
-    await page.goto(origin, { waitUntil: "domcontentloaded" });
+    await page.goto(`${origin}/next`, { waitUntil: "domcontentloaded" });
     await page.getByRole("link", { name: /Start interview/ }).click();
     await page.getByRole("heading", { name: "Check your setup" }).waitFor();
     await page.getByRole("button", { name: /Enable devices/ }).click();

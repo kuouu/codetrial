@@ -2,7 +2,12 @@ import json
 import unittest
 from types import SimpleNamespace
 
-from agent import InterviewState, clean_report, handle_packet
+from agent import (
+    InterviewState,
+    clean_report,
+    handle_packet,
+    publish_agent_transcript,
+)
 
 
 class FakeSessionInput:
@@ -41,6 +46,28 @@ class FakeRoomParticipant:
 class FakeRoom:
     def __init__(self):
         self.local_participant = FakeRoomParticipant()
+
+
+class FakeTextStreamWriter:
+    def __init__(self):
+        self.text = ""
+        self.closed = False
+
+    async def write(self, text):
+        self.text += text
+
+    async def aclose(self):
+        self.closed = True
+
+
+class FakeTextParticipant:
+    def __init__(self):
+        self.writer = FakeTextStreamWriter()
+        self.calls = []
+
+    async def stream_text(self, *, topic, attributes):
+        self.calls.append((topic, attributes))
+        return self.writer
 
 
 def control_packet(value):
@@ -103,6 +130,47 @@ class ReportCleaningTests(unittest.TestCase):
 
         self.assertEqual(report["incomplete"], True)
         self.assertEqual(report["codingScore"], 64)
+
+
+class TranscriptPublishingTests(unittest.IsolatedAsyncioTestCase):
+    async def test_publishes_final_assistant_text_for_classic_captions(self):
+        room = SimpleNamespace(local_participant=FakeTextParticipant())
+        item = SimpleNamespace(
+            id="assistant-turn-1",
+            role=SimpleNamespace(value="assistant"),
+            raw_text_content="Let's walk through an example.",
+        )
+
+        published = await publish_agent_transcript(room, item)
+
+        self.assertTrue(published)
+        self.assertEqual(
+            room.local_participant.calls,
+            [
+                (
+                    "lk.transcription",
+                    {
+                        "lk.transcription_final": "true",
+                        "lk.segment_id": "assistant-turn-1",
+                    },
+                )
+            ],
+        )
+        self.assertEqual(room.local_participant.writer.text, item.raw_text_content)
+        self.assertTrue(room.local_participant.writer.closed)
+
+    async def test_does_not_publish_candidate_text_as_interviewer_captions(self):
+        room = SimpleNamespace(local_participant=FakeTextParticipant())
+        item = SimpleNamespace(
+            id="candidate-turn-1",
+            role=SimpleNamespace(value="user"),
+            raw_text_content="I would start with a hash map.",
+        )
+
+        published = await publish_agent_transcript(room, item)
+
+        self.assertFalse(published)
+        self.assertEqual(room.local_participant.calls, [])
 
 
 class TurnControlTests(unittest.IsolatedAsyncioTestCase):

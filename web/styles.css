@@ -1189,19 +1189,26 @@ p {
   white-space: nowrap;
 }
 
-/* Compact: a window or an editor panel too narrow for a floating avatar to
-   decorate rather than cover code. interview.js decides, for both, so this is
-   the one place that says what compact looks like. The AVATAR goes, not the
-   stage: captions are the accessible transcript of what Jim is saying, and
-   hiding the whole stage took them away from exactly the narrow windows most
-   likely to need them. What is left is one floating card in the bottom
-   corner, clear of the toolbar, with the turn line and captions inside it. */
-.jim-stage.compact .jim-avatar,
+/* Compact layouts keep Jim visible as a small portrait, with captions and a
+   timer in the same floating card. */
+.jim-stage.compact .jim-avatar {
+  display: block;
+  width: 6rem;
+  height: 6rem;
+  margin: 0 0 0.375rem auto;
+  border-radius: 50%;
+}
+
 .jim-stage.compact .hide-avatar {
   display: none;
 }
 
+.jim-stage .jim-stage-timer {
+  display: none;
+}
+
 .jim-stage.compact {
+  position: fixed;
   top: auto;
   bottom: 1.5rem;
   width: min(260px, calc(100vw - 3rem));
@@ -1210,6 +1217,15 @@ p {
   border-radius: var(--radius-md);
   background: var(--float-surface);
   box-shadow: var(--shadow-float);
+}
+
+.jim-stage.compact .jim-stage-timer {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.625rem;
+  display: inline-flex;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
 }
 
 .jim-stage.compact .turn-row,

@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
         permanent: false,
       },
       {
+        source: "/interview",
+        destination: "/next/interview",
+        permanent: false,
+      },
+      {
         source: "/legacy/index.html",
         destination: "/classic",
         permanent: false,
@@ -39,6 +44,7 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return {
       beforeFiles: [
+        { source: "/", destination: "/legacy/index.html" },
         { source: "/classic", destination: "/legacy/index.html" },
         {
           source: "/classic/interview",
