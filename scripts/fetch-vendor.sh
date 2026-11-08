@@ -24,9 +24,13 @@ rm -f "$VENDOR/avatar/jim.vrm"
 download()
 {
     if command -v curl > /dev/null 2>&1; then
-        curl -fsSL -o "$2" "$1"
+        # Vendored assets are fetched during cloud builds as well as local
+        # builds. Retry transient mirror errors (for example an upstream 504)
+        # while keeping the checksum below as the source-of-truth integrity
+        # check.
+        curl -fsSL --retry 5 --retry-delay 1 --retry-max-time 60 -o "$2" "$1"
     elif command -v wget > /dev/null 2>&1; then
-        wget -qO "$2" "$1"
+        wget -q --tries=5 --waitretry=1 -O "$2" "$1"
     else
         echo "fetch-vendor: need curl or wget to fetch $1" >&2
         return 1
