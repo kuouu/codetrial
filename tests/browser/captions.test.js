@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { functionBody, read } from "./source.js";
-import { MAX_UNCLEAR_LINES } from "../../web/lib.js";
+import { isAgent, MAX_UNCLEAR_LINES } from "../../web/lib.js";
 
 let captionCopies = 0;
 
@@ -701,8 +701,14 @@ for (const { name, final, broken } of [
   test(name, async (t) => {
     const { captions, nodes } = await setupCaptions(t);
     const updates = [];
+    const agentIdentity = "agent-livekit-test";
+    const state = { agentIdentity };
+    const isCurrentAgentTranscript = loadInterviewFunction(
+      "isCurrentAgentTranscript",
+      { state, isAgent },
+    );
     const consume = loadInterviewFunction("consumeTranscript", {
-      isCurrentAgent: () => true,
+      isCurrentAgentTranscript,
       responseWindowIndex: () => 0,
       updateTranscriptSegment: () => {},
       recordReplay: () => {},
@@ -726,9 +732,24 @@ for (const { name, final, broken } of [
       },
     };
 
-    await consume({ localParticipant: { identity: "candidate" } }, reader, {
-      identity: "jim",
-    });
+    // LiveKit TextStreamHandler passes only { identity } as its sender info.
+    await consume(
+      {
+        localParticipant: { identity: "candidate" },
+        remoteParticipants: new Map([
+          [
+            agentIdentity,
+            {
+              identity: agentIdentity,
+              kind: 4,
+              permissions: { agent: true },
+            },
+          ],
+        ]),
+      },
+      reader,
+      { identity: agentIdentity },
+    );
 
     assert.deepEqual(updates, broken ? [false, false] : [false, false, final]);
     assert.equal(
@@ -740,6 +761,34 @@ for (const { name, final, broken } of [
     assert.equal(nodes.captionsBar.hidden, broken || !final);
   });
 }
+
+test("an interviewer caption sender must resolve to the current room agent", () => {
+  const agentIdentity = "agent-current";
+  const state = { agentIdentity };
+  const isCurrentAgentTranscript = loadInterviewFunction(
+    "isCurrentAgentTranscript",
+    { state, isAgent },
+  );
+  const room = {
+    remoteParticipants: new Map([
+      [
+        agentIdentity,
+        { identity: agentIdentity, kind: 4, permissions: { agent: true } },
+      ],
+      [
+        "candidate-other",
+        { identity: "candidate-other", kind: 0, permissions: { agent: false } },
+      ],
+    ]),
+  };
+
+  assert.equal(isCurrentAgentTranscript(room, { identity: agentIdentity }), true);
+  assert.equal(
+    isCurrentAgentTranscript(room, { identity: "candidate-other" }),
+    false,
+  );
+  assert.equal(isCurrentAgentTranscript(room, { identity: "unknown" }), false);
+});
 
 test("only changed editor text dismisses Jim", async (t) => {
   const { captions, nodes } = await setupCaptions(t);

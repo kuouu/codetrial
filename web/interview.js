@@ -2916,7 +2916,11 @@ async function consumeTranscript(room, reader, participant) {
     participant?.identity === room.localParticipant.identity
       ? "you"
       : "interviewer";
-  if (speaker === "interviewer" && !isCurrentAgent(participant)) return;
+  if (
+    speaker === "interviewer" &&
+    !isCurrentAgentTranscript(room, participant)
+  )
+    return;
   const responseWindow = responseWindowIndex();
   const final = attrs["lk.transcription_final"] === "true";
   let text = "";
@@ -5132,6 +5136,19 @@ function isCurrentAgent(participant) {
   if (!isAgent(participant)) return false;
   if (!state.agentIdentity) state.agentIdentity = participant.identity;
   return participant.identity === state.agentIdentity;
+}
+
+function isCurrentAgentTranscript(room, participantInfo) {
+  const identity = participantInfo?.identity;
+  if (typeof identity !== "string" || !identity) return false;
+
+  // LiveKit TextStreamHandler passes { identity }, not a RemoteParticipant.
+  // Resolve the sender from the room before applying the agent check; the
+  // stream identity for a Python agent is normally `agent-…`.
+  const participant = room.remoteParticipants?.get?.(identity);
+  if (!isAgent(participant)) return false;
+  if (!state.agentIdentity) state.agentIdentity = identity;
+  return identity === state.agentIdentity;
 }
 
 function setAgentStateLabel(label, ready = false) {
