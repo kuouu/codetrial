@@ -64,7 +64,7 @@ export function ProblemBrowser() {
       (whiteboard ? "&mode=whiteboard" : "")
     : "/interview.html";
   const classicUrl = selected
-    ? "/classic?problem=" +
+    ? "/classic/interview?problem=" +
       encodeURIComponent(selected.page) +
       "&duration=" +
       duration +

@@ -6,10 +6,15 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/interview.html",
-        destination: "/interview",
+        destination: "/classic/interview",
         permanent: false,
       },
-      { source: "/legacy/index.html", destination: "/", permanent: false },
+      { source: "/legacy/index.html", destination: "/classic", permanent: false },
+      {
+        source: "/legacy/interview.html",
+        destination: "/classic/interview",
+        permanent: false,
+      },
       { source: "/legacy/observer.html", destination: "/", permanent: false },
       {
         source: "/legacy/peer-interview.html",
@@ -30,7 +35,11 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return {
       beforeFiles: [
-        { source: "/classic", destination: "/legacy/interview.html" },
+        { source: "/classic", destination: "/legacy/index.html" },
+        {
+          source: "/classic/interview",
+          destination: "/legacy/interview.html",
+        },
         { source: "/problems/:path*", destination: "/legacy/problems/:path*" },
         { source: "/judges/:path*", destination: "/legacy/judges/:path*" },
         { source: "/vendor/:path*", destination: "/legacy/vendor/:path*" },

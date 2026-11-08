@@ -144,15 +144,23 @@ async function run() {
     assert.equal(
       oldInterview.status(),
       307,
-      "legacy interview URL redirects to Next.js",
+      "legacy interview URL redirects to the classic interview",
     );
     assert.equal(
       oldInterview.headers().location,
-      "/interview?problem=chargeback-pair-match&duration=45",
+      "/classic/interview?problem=chargeback-pair-match&duration=45",
     );
 
+    const classicHome = await context.request.get(`${origin}/classic`);
+    assert.equal(classicHome.status(), 200, "the classic lobby is served");
+    const classicHomeHtml = await classicHome.text();
+    assert.match(classicHomeHtml, /id="random-problem"/);
+    assert.match(classicHomeHtml, /id="start"/);
+    assert.match(classicHomeHtml, /src="\/legacy\/app\.js"/);
+    assert.match(classicHomeHtml, /href="\/legacy\/styles\.css"/);
+
     const classic = await context.request.get(
-      `${origin}/classic?problem=chargeback-pair-match&duration=45`,
+      `${origin}/classic/interview?problem=chargeback-pair-match&duration=45`,
     );
     assert.equal(classic.status(), 200, "the classic interview page is served");
     const classicHtml = await classic.text();
@@ -161,6 +169,7 @@ async function run() {
     assert.match(classicHtml, /src="\/legacy\/interview\.js"/);
     assert.match(classicHtml, /href="\/legacy\/styles\.css"/);
     for (const asset of [
+      "/legacy/app.js",
       "/legacy/interview.js",
       "/legacy/styles.css",
       "/legacy/vendor/livekit-client.js",
@@ -169,6 +178,31 @@ async function run() {
       const response = await context.request.get(`${origin}${asset}`);
       assert.equal(response.status(), 200, `${asset} loads for the classic UI`);
     }
+
+    const classicLobbyPage = await context.newPage();
+    const classicLobbyErrors = [];
+    classicLobbyPage.on("pageerror", (error) =>
+      classicLobbyErrors.push(error.message),
+    );
+    await classicLobbyPage.goto(`${origin}/classic`, {
+      waitUntil: "domcontentloaded",
+    });
+    await classicLobbyPage.waitForFunction(
+      () => !document.querySelector("#random-problem")?.disabled,
+    );
+    await classicLobbyPage.locator("#random-problem").click();
+    await classicLobbyPage.waitForFunction(
+      () => !document.querySelector("#start")?.disabled,
+    );
+    await classicLobbyPage.locator("#start").click();
+    await classicLobbyPage.waitForURL(/\/classic\/interview\?/);
+    await classicLobbyPage.locator("#editor").waitFor();
+    assert.deepEqual(
+      classicLobbyErrors,
+      [],
+      "the classic lobby navigates to the classic interview without browser errors",
+    );
+    await classicLobbyPage.close();
 
     const classicPage = await context.newPage();
     const classicPageErrors = [];
@@ -213,7 +247,7 @@ async function run() {
       );
     });
     await classicPage.goto(
-      `${origin}/classic?problem=chargeback-pair-match&duration=45`,
+      `${origin}/classic/interview?problem=chargeback-pair-match&duration=45`,
       { waitUntil: "domcontentloaded" },
     );
     await classicPage.locator("#editor").waitFor();

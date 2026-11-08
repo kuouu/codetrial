@@ -29,4 +29,23 @@ await writeFile(
     ),
 );
 
-console.log("Prepared the existing interview client at public/legacy.");
+const legacyHomePath = path.join(destination, "index.html");
+const legacyHome = await readFile(legacyHomePath, "utf8");
+await writeFile(
+  legacyHomePath,
+  legacyHome
+    .replace('href="/styles.css"', 'href="/legacy/styles.css"')
+    .replace('type="module" src="/app.js"', 'type="module" src="/legacy/app.js"'),
+);
+
+const legacyAppPath = path.join(destination, "app.js");
+const legacyApp = await readFile(legacyAppPath, "utf8");
+await writeFile(
+  legacyAppPath,
+  legacyApp.replace(
+    'new URL("/interview", window.location.origin)',
+    'new URL("/classic/interview", window.location.origin)',
+  ),
+);
+
+console.log("Prepared the existing lobby and interview clients at public/legacy.");
