@@ -7,13 +7,14 @@ connects to LiveKit with a short-lived token from the Next.js server.
 
 ## Current scope
 
-- The problem browser and lobby are Next.js pages using Tailwind and shadcn-style
-  primitives.
-- The editor, device preflight, coding and whiteboard workspaces, and report
-  viewer are the existing browser client, served under `/legacy/` as a
-  compatibility layer.
-- Accounts and server-side history are disabled. Practice history stays in the
-  browser.
+- The problem browser, device preflight, coding and whiteboard workspaces,
+  interview controls, and report viewer are Next.js React pages using shadcn/ui
+  primitives and Tailwind.
+- The old browser client remains under `/legacy/` only for problem and judge
+  data, browser test runners, and vendored assets. Legacy HTML entry points
+  redirect to the Next.js pages.
+- Accounts and server-side history are disabled. Sessions use anonymous guest
+  identities and do not require a profile.
 - The Python worker covers the voice interview, editor snapshots, test results,
   and the final report. Several advanced behaviors from the original Rust
   worker (including recording, peer sessions, integrity review, and task mode)
@@ -27,10 +28,10 @@ fetches the repository's checksum-pinned browser assets.
 
 Configure these server-only environment variables:
 
-| Variable | Used by |
-|---|---|
-| `LIVEKIT_URL` | Next.js token API and LiveKit server SDK |
-| `LIVEKIT_API_KEY` | Next.js token API and LiveKit server SDK |
+| Variable             | Used by                                  |
+| -------------------- | ---------------------------------------- |
+| `LIVEKIT_URL`        | Next.js token API and LiveKit server SDK |
+| `LIVEKIT_API_KEY`    | Next.js token API and LiveKit server SDK |
 | `LIVEKIT_API_SECRET` | Next.js token API and LiveKit server SDK |
 
 Keep all three encrypted and server-side. Do not prefix them with `NEXT_PUBLIC_`.
@@ -68,3 +69,12 @@ From the repository root, run `npm ci`, then `npm run dev`. The homepage works
 without credentials; starting an interview requires the three LiveKit
 variables in `.env.local`. The `/api/session` route is an anonymous session
 stub while account functionality is out of scope.
+
+## Next.js browser end-to-end check
+
+After `npm run build`, install Playwright's Chromium once with
+`npx playwright install chromium`, then run `npm run test:e2e`. This launches
+the built Next.js app and checks the legacy interview redirect, microphone and
+camera preflight, LiveKit connection failure fallback, and the in-browser
+JavaScript test runner. It uses fake browser media devices and a simulated
+LiveKit socket failure; it does not consume LiveKit or model-provider quota.

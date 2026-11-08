@@ -41,7 +41,9 @@ export function ProblemBrowser() {
   const visibleProblems = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     return problems
-      .filter((problem) => difficulty === "All" || problem.difficulty === difficulty)
+      .filter(
+        (problem) => difficulty === "All" || problem.difficulty === difficulty,
+      )
       .filter((problem) => {
         if (!normalized) return true;
         return [problem.title, problem.source, problem.page]
@@ -52,9 +54,10 @@ export function ProblemBrowser() {
       .slice(0, 12);
   }, [difficulty, query]);
 
-  const selected = problems.find((problem) => problem.page === selectedPage) ?? problems[0];
+  const selected =
+    problems.find((problem) => problem.page === selectedPage) ?? problems[0];
   const interviewUrl = selected
-    ? "/interview.html?problem=" +
+    ? "/interview?problem=" +
       encodeURIComponent(selected.page) +
       "&duration=" +
       duration +
@@ -69,7 +72,10 @@ export function ProblemBrowser() {
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
               Choose a challenge
             </p>
-            <h2 className="mt-2 text-3xl font-semibold tracking-tight" id="problems">
+            <h2
+              className="mt-2 text-3xl font-semibold tracking-tight"
+              id="problems"
+            >
               Pick your next problem.
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
@@ -77,7 +83,10 @@ export function ProblemBrowser() {
             </p>
           </div>
           <div className="relative w-full sm:max-w-xs">
-            <Search aria-hidden="true" className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Search
+              aria-hidden="true"
+              className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+            />
             <Input
               aria-label="Search problems"
               className="pl-9"
@@ -88,7 +97,10 @@ export function ProblemBrowser() {
           </div>
         </div>
 
-        <div aria-label="Filter by difficulty" className="mt-6 flex flex-wrap gap-2">
+        <div
+          aria-label="Filter by difficulty"
+          className="mt-6 flex flex-wrap gap-2"
+        >
           {difficulties.map((item) => (
             <Button
               aria-pressed={difficulty === item}
@@ -122,9 +134,14 @@ export function ProblemBrowser() {
                       <Badge variant={difficultyVariant(problem.difficulty)}>
                         {problem.difficulty}
                       </Badge>
-                      <ArrowUpRight aria-hidden="true" className="size-4 text-muted-foreground transition group-hover:text-foreground" />
+                      <ArrowUpRight
+                        aria-hidden="true"
+                        className="size-4 text-muted-foreground transition group-hover:text-foreground"
+                      />
                     </div>
-                    <p className="mt-4 font-semibold leading-snug">{problem.title}</p>
+                    <p className="mt-4 font-semibold leading-snug">
+                      {problem.title}
+                    </p>
                     <p className="mt-1 line-clamp-1 text-xs text-muted-foreground">
                       {problem.source}
                     </p>
@@ -136,14 +153,16 @@ export function ProblemBrowser() {
           {visibleProblems.length === 0 && (
             <Card className="sm:col-span-2 xl:col-span-3">
               <CardContent className="p-6 text-sm text-muted-foreground">
-                No problems match that search. Try another title or source problem.
+                No problems match that search. Try another title or source
+                problem.
               </CardContent>
             </Card>
           )}
         </div>
         {problems.length > visibleProblems.length && (
           <p className="mt-4 text-sm text-muted-foreground">
-            Showing {visibleProblems.length} of {problems.length}. Search or filter to narrow the list.
+            Showing {visibleProblems.length} of {problems.length}. Search or
+            filter to narrow the list.
           </p>
         )}
       </div>
@@ -155,11 +174,17 @@ export function ProblemBrowser() {
             <Badge variant="secondary">No account</Badge>
           </div>
           <div className="mt-5 rounded-lg bg-muted p-4">
-            <Badge variant={difficultyVariant(selected?.difficulty ?? "Medium")}>
+            <Badge
+              variant={difficultyVariant(selected?.difficulty ?? "Medium")}
+            >
               {selected?.difficulty ?? "Medium"}
             </Badge>
-            <p className="mt-3 font-semibold">{selected?.title ?? "Choose a problem"}</p>
-            <p className="mt-1 text-sm text-muted-foreground">{selected?.source ?? ""}</p>
+            <p className="mt-3 font-semibold">
+              {selected?.title ?? "Choose a problem"}
+            </p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {selected?.source ?? ""}
+            </p>
           </div>
 
           <div className="mt-5">
@@ -211,7 +236,7 @@ export function ProblemBrowser() {
             </Link>
           </Button>
           <p className="mt-3 text-center text-xs leading-5 text-muted-foreground">
-            Your browser keeps your local practice history on this device.
+            Practice without creating an account.
           </p>
         </CardContent>
       </Card>

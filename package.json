@@ -21,6 +21,7 @@
     "start": "next start",
     "prepare:legacy": "bash scripts/fetch-vendor.sh && node scripts/prepare-legacy.mjs",
     "test": "./scripts/test.sh browser",
+    "test:e2e": "node scripts/next-interview-e2e.mjs",
     "browser-check": "scripts/browser-check.sh"
   },
   "engines": {
@@ -31,6 +32,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "jose": "^6.2.15",
+    "livekit-client": "^2.23.0",
     "livekit-server-sdk": "^2.19.2",
     "lucide-react": "^1.70.0",
     "next": "^16.4.5",

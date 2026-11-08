@@ -59,19 +59,70 @@ function choose<T extends string>(value: unknown, options: readonly T[]): T {
   return options[0];
 }
 
-function jsonError(error: string, status: number) {
-  return Response.json({ error }, { status });
+function jsonError(error: string, status: number, code?: string) {
+  return Response.json({ error, ...(code ? { code } : {}) }, { status });
+}
+
+function safeErrorDetails(error: unknown) {
+  const source = error instanceof Error ? error : null;
+  const cause = source?.cause instanceof Error ? source.cause : null;
+  const status =
+    error &&
+    typeof error === "object" &&
+    "status" in error &&
+    typeof error.status === "number"
+      ? error.status
+      : undefined;
+  const causeCode =
+    cause && "code" in cause && typeof cause.code === "string"
+      ? cause.code
+      : undefined;
+
+  return {
+    name: source?.name ?? "UnknownError",
+    ...(status === undefined ? {} : { status }),
+    ...(cause ? { causeName: cause.name } : {}),
+    ...(causeCode ? { causeCode } : {}),
+  };
+}
+
+function requestOrigin(request: Request) {
+  const url = new URL(request.url);
+  const host =
+    request.headers.get("x-forwarded-host")?.split(",")[0]?.trim() ||
+    request.headers.get("host");
+  const protocol =
+    request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim() ||
+    url.protocol.slice(0, -1);
+  if (!host) return url.origin;
+
+  try {
+    return new URL(`${protocol}://${host}`).origin;
+  } catch {
+    return null;
+  }
 }
 
 export async function POST(request: Request) {
   const origin = request.headers.get("origin");
-  if (origin && origin !== new URL(request.url).origin) {
+  let requestOriginHeader: string | null = null;
+  if (origin) {
+    try {
+      requestOriginHeader = new URL(origin).origin;
+    } catch {
+      return jsonError("Session requests must come from this site.", 403);
+    }
+  }
+  if (requestOriginHeader && requestOriginHeader !== requestOrigin(request)) {
     return jsonError("Session requests must come from this site.", 403);
   }
 
   const address = clientAddress(request);
   if (!rateLimit(address)) {
-    return jsonError("Too many session requests. Wait a minute and try again.", 429);
+    return jsonError(
+      "Too many session requests. Wait a minute and try again.",
+      429,
+    );
   }
 
   const rawBody = await request.text();
@@ -100,7 +151,8 @@ export async function POST(request: Request) {
       ? body.problemId
       : "chargeback-pair-match";
   const durationMin = clampDuration(body.durationMin);
-  const interviewMode = body.interviewMode === "whiteboard" ? "whiteboard" : "coding";
+  const interviewMode =
+    body.interviewMode === "whiteboard" ? "whiteboard" : "coding";
   const interviewLoop =
     body.interviewLoop === "coding_behavioral" ? "coding_behavioral" : "coding";
   const roomName = "codetrial-" + randomUUID().replaceAll("-", "");
@@ -130,22 +182,33 @@ export async function POST(request: Request) {
     ...(body.codeExecution === false ? { codeExecution: false } : {}),
   };
 
-  try {
-    const token = new AccessToken(config.apiKey, config.apiSecret, {
-      identity,
-      name: "Candidate",
-      metadata: JSON.stringify(metadata),
-      ttl: "2h",
-    });
-    token.addGrant({
-      roomJoin: true,
-      room: roomName,
-      canPublish: true,
-      canSubscribe: true,
-      canPublishData: true,
-    });
-    const jwt = await token.toJwt();
+  const token = new AccessToken(config.apiKey, config.apiSecret, {
+    identity,
+    name: "Candidate",
+    metadata: JSON.stringify(metadata),
+    ttl: "2h",
+  });
+  token.addGrant({
+    roomJoin: true,
+    room: roomName,
+    canPublish: true,
+    canSubscribe: true,
+    canPublishData: true,
+  });
 
+  let jwt: string;
+  try {
+    jwt = await token.toJwt();
+  } catch (error) {
+    console.error("codetrial_livekit_token_failed", safeErrorDetails(error));
+    return jsonError(
+      "Could not create an interview connection.",
+      503,
+      "LIVEKIT_TOKEN_FAILED",
+    );
+  }
+
+  try {
     await agentDispatchClient(config).createDispatch(
       roomName,
       INTERVIEW_AGENT_NAME,
@@ -166,10 +229,12 @@ export async function POST(request: Request) {
         },
       },
     );
-  } catch {
+  } catch (error) {
+    console.error("codetrial_livekit_dispatch_failed", safeErrorDetails(error));
     return jsonError(
       "Could not start the interviewer. Please try again in a moment.",
       503,
+      "LIVEKIT_DISPATCH_FAILED",
     );
   }
 }
