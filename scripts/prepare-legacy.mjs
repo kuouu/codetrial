@@ -35,7 +35,10 @@ await writeFile(
   legacyHomePath,
   legacyHome
     .replace('href="/styles.css"', 'href="/legacy/styles.css"')
-    .replace('type="module" src="/app.js"', 'type="module" src="/legacy/app.js"'),
+    .replace(
+      'type="module" src="/app.js"',
+      'type="module" src="/legacy/app.js"',
+    ),
 );
 
 const legacyAppPath = path.join(destination, "app.js");
@@ -48,4 +51,6 @@ await writeFile(
   ),
 );
 
-console.log("Prepared the existing lobby and interview clients at public/legacy.");
+console.log(
+  "Prepared the existing lobby and interview clients at public/legacy.",
+);

@@ -9,7 +9,11 @@ const nextConfig: NextConfig = {
         destination: "/classic/interview",
         permanent: false,
       },
-      { source: "/legacy/index.html", destination: "/classic", permanent: false },
+      {
+        source: "/legacy/index.html",
+        destination: "/classic",
+        permanent: false,
+      },
       {
         source: "/legacy/interview.html",
         destination: "/classic/interview",

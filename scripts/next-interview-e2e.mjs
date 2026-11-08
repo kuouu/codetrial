@@ -294,9 +294,18 @@ async function run() {
     await classicPage.close();
 
     await page.goto(origin, { waitUntil: "domcontentloaded" });
-    await page
-      .getByRole("link", { name: /Try the original interface/ })
-      .click();
+    await page.getByRole("link", { name: "Classic", exact: true }).click();
+    await page.waitForURL(/\/classic$/);
+    await page.locator("#random-problem").waitFor();
+    await page.waitForFunction(
+      () => !document.querySelector("#random-problem")?.disabled,
+    );
+    await page.locator("#random-problem").click();
+    await page.waitForFunction(
+      () => !document.querySelector("#start")?.disabled,
+    );
+    await page.locator("#start").click();
+    await page.waitForURL(/\/classic\/interview\?/);
     await page.locator("#editor").waitFor();
     await page.getByRole("button", { name: "Your turn is done" }).waitFor();
 

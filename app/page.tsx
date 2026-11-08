@@ -54,12 +54,17 @@ export default function HomePage() {
               Problem bank
             </a>
           </nav>
-          <Button asChild size="sm">
-            <a href="#practice">
-              Start practice
-              <ArrowRight aria-hidden="true" className="size-4" />
-            </a>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button asChild size="sm" variant="outline">
+              <a href="/classic">Classic</a>
+            </Button>
+            <Button asChild size="sm">
+              <a href="#practice">
+                Start practice
+                <ArrowRight aria-hidden="true" className="size-4" />
+              </a>
+            </Button>
+          </div>
         </div>
       </header>
 
