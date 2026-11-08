@@ -57,15 +57,33 @@ def bounded_string(value: Any, limit: int) -> str:
     return value[:limit] if isinstance(value, str) else ""
 
 
-def assistant_transcript_text(item: Any) -> str:
+def conversation_role(item: Any) -> str:
     role = getattr(item, "role", "")
     role = getattr(role, "value", role)
-    if str(role).lower() != "assistant":
+    return str(role).lower()
+
+
+def assistant_transcript_text(item: Any) -> str:
+    if conversation_role(item) != "assistant":
         return ""
-    text = getattr(item, "raw_text_content", "")
-    if not isinstance(text, str):
+
+    for field_name in ("text_content", "raw_text_content"):
+        try:
+            text = getattr(item, field_name, None)
+        except Exception:
+            text = None
+        if isinstance(text, str) and text.strip():
+            return bounded_string(text.strip(), MAX_TRANSCRIPT_CHARS)
+
+    content = getattr(item, "content", None)
+    if not isinstance(content, (list, tuple)):
         return ""
-    return bounded_string(text.strip(), MAX_TRANSCRIPT_CHARS)
+    parts = []
+    for part in content:
+        text = part if isinstance(part, str) else getattr(part, "transcript", None)
+        if isinstance(text, str) and text.strip():
+            parts.append(text.strip())
+    return bounded_string("\n".join(parts), MAX_TRANSCRIPT_CHARS)
 
 
 async def publish_agent_transcript(room: rtc.Room, item: Any) -> bool:
@@ -630,6 +648,7 @@ async def entrypoint(ctx: JobContext) -> None:
         api_key=api_key,
         voice=voice,
         temperature=0.35,
+        output_audio_transcription=genai_types.AudioTranscriptionConfig(),
     )
     session = AgentSession(llm=model)
     interviewer = Agent(
@@ -639,12 +658,24 @@ async def entrypoint(ctx: JobContext) -> None:
 
     def on_conversation_item_added(event: Any) -> None:
         item = getattr(event, "item", None)
-        if item is None or not assistant_transcript_text(item):
+        if item is None or conversation_role(item) != "assistant":
             return
+        text = assistant_transcript_text(item)
+        if not text:
+            content = getattr(item, "content", ())
+            LOGGER.warning(
+                "assistant_transcript_unavailable content_types=%s",
+                ",".join(type(part).__name__ for part in content)
+                if isinstance(content, (list, tuple))
+                else type(content).__name__,
+            )
+            return
+        LOGGER.info("assistant_transcript_ready chars=%s", len(text))
 
         async def publish_transcript() -> None:
             try:
                 await publish_agent_transcript(ctx.room, item)
+                LOGGER.info("assistant_transcript_published chars=%s", len(text))
             except Exception as error:
                 LOGGER.warning("transcript_publish_failed error=%s", type(error).__name__)
 

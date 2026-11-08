@@ -4,6 +4,7 @@ from types import SimpleNamespace
 
 from agent import (
     InterviewState,
+    assistant_transcript_text,
     clean_report,
     handle_packet,
     publish_agent_transcript,
@@ -133,6 +134,16 @@ class ReportCleaningTests(unittest.TestCase):
 
 
 class TranscriptPublishingTests(unittest.IsolatedAsyncioTestCase):
+    def test_extracts_text_from_audio_content_transcript(self):
+        item = SimpleNamespace(
+            role="assistant",
+            text_content=None,
+            raw_text_content=None,
+            content=[SimpleNamespace(transcript="Hello from Jim.")],
+        )
+
+        self.assertEqual(assistant_transcript_text(item), "Hello from Jim.")
+
     async def test_publishes_final_assistant_text_for_classic_captions(self):
         room = SimpleNamespace(local_participant=FakeTextParticipant())
         item = SimpleNamespace(
