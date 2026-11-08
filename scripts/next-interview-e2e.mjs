@@ -151,6 +151,121 @@ async function run() {
       "/interview?problem=chargeback-pair-match&duration=45",
     );
 
+    const classic = await context.request.get(
+      `${origin}/classic?problem=chargeback-pair-match&duration=45`,
+    );
+    assert.equal(classic.status(), 200, "the classic interview page is served");
+    const classicHtml = await classic.text();
+    assert.match(classicHtml, /id="yield-turn"/);
+    assert.match(classicHtml, /id="editor"/);
+    assert.match(classicHtml, /src="\/legacy\/interview\.js"/);
+    assert.match(classicHtml, /href="\/legacy\/styles\.css"/);
+    for (const asset of [
+      "/legacy/interview.js",
+      "/legacy/styles.css",
+      "/legacy/vendor/livekit-client.js",
+      "/runtime-config.js",
+    ]) {
+      const response = await context.request.get(`${origin}${asset}`);
+      assert.equal(response.status(), 200, `${asset} loads for the classic UI`);
+    }
+
+    const classicPage = await context.newPage();
+    const classicPageErrors = [];
+    const classicReleaseRequests = [];
+    let classicTokenRequest;
+    classicPage.on("request", (request) => {
+      if (request.url().endsWith("/api/token/release"))
+        classicReleaseRequests.push(request.postData());
+    });
+    classicPage.on("pageerror", (error) =>
+      classicPageErrors.push(error.message),
+    );
+    await classicPage.route("**/api/token", async (route) => {
+      classicTokenRequest = route.request().postDataJSON();
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          serverUrl: "wss://codetrial.invalid",
+          roomName: "codetrial-classic-e2e",
+          token: fakeToken(),
+          guest: true,
+          durationMin: 45,
+        }),
+      });
+    });
+    await classicPage.route("**/api/token/release", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: '{"ok":true}',
+      });
+    });
+    await classicPage.routeWebSocket("wss://codetrial.invalid/**", (socket) => {
+      setTimeout(
+        () =>
+          socket.close({
+            code: 1011,
+            reason: "Simulated LiveKit connection failure",
+          }),
+        800,
+      );
+    });
+    await classicPage.goto(
+      `${origin}/classic?problem=chargeback-pair-match&duration=45`,
+      { waitUntil: "domcontentloaded" },
+    );
+    await classicPage.locator("#editor").waitFor();
+    await classicPage.locator("#editor-highlight").waitFor();
+    await classicPage
+      .getByRole("button", { name: "Your turn is done" })
+      .waitFor();
+    await classicPage.getByRole("button", { name: "Thinking" }).waitFor();
+    await classicPage.waitForFunction(
+      () =>
+        document.querySelector("#problem-title")?.textContent !==
+        "Loading interview...",
+    );
+    await classicPage.locator("#camera-skip").waitFor();
+    await classicPage.locator("#camera-skip").click();
+    await classicPage.locator("#audio-heard").click();
+    await classicPage.waitForFunction(
+      () => !document.querySelector("#audio-check-join").disabled,
+    );
+    const classicTokenResponse = classicPage.waitForResponse(
+      (response) =>
+        response.url().endsWith("/api/token") &&
+        response.request().method() === "POST",
+    );
+    const classicReleaseRequest = classicPage.waitForRequest(
+      (request) => request.url().endsWith("/api/token/release"),
+      { timeout: 15_000 },
+    );
+    await classicPage.locator("#audio-check-join").click();
+    await classicTokenResponse;
+    await classicReleaseRequest;
+    assert.equal(classicTokenRequest?.problemId, "chargeback-pair-match");
+    assert.equal(classicTokenRequest?.durationMin, 45);
+    assert.equal(
+      classicReleaseRequests.length,
+      1,
+      "the failed classic room is released",
+    );
+    assert.deepEqual(
+      classicPageErrors,
+      [],
+      "the classic interview has no uncaught browser errors",
+    );
+    await classicPage.close();
+
+    await page.goto(origin, { waitUntil: "domcontentloaded" });
+    await page
+      .getByRole("link", { name: /Try the original interface/ })
+      .click();
+    await page.locator("#editor").waitFor();
+    await page.getByRole("button", { name: "Your turn is done" }).waitFor();
+
     await page.goto(origin, { waitUntil: "domcontentloaded" });
     await page.getByRole("link", { name: /Start interview/ }).click();
     await page.getByRole("heading", { name: "Check your setup" }).waitFor();
@@ -232,7 +347,7 @@ async function run() {
     await context.close();
 
     console.log(
-      "PASS: legacy redirect, camera/microphone preflight, failed LiveKit fallback, and JavaScript problem tests (5/5).",
+      "PASS: classic UI uses the current token API and restores editor/turn controls; legacy redirect, new UI preflight/fallback, and JavaScript problem tests (5/5).",
     );
   } finally {
     await browser.close();

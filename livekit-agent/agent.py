@@ -43,10 +43,12 @@ class InterviewState:
     test_results: str = ""
     board_bytes: bytes | None = None
     ended: bool = False
+    candidate_thinking: bool = False
     report_delivery_id: str | None = None
     report_acknowledged: asyncio.Event = field(default_factory=asyncio.Event)
     shutdown_requested: asyncio.Event = field(default_factory=asyncio.Event)
     finish_lock: asyncio.Lock = field(default_factory=asyncio.Lock)
+    turn_lock: asyncio.Lock = field(default_factory=asyncio.Lock)
 
 
 def bounded_string(value: Any, limit: int) -> str:
@@ -248,42 +250,62 @@ def clean_report(value: Any) -> dict[str, Any] | None:
     summary = value.get("summary")
     decision = value.get("decision")
     coding_score = value.get("codingScore")
+    incomplete = value.get("incomplete") is True
+    score_is_valid = (
+        isinstance(coding_score, int)
+        and not isinstance(coding_score, bool)
+        and 0 <= coding_score <= 100
+    )
     if not isinstance(summary, str) or not summary.strip():
-        return None
-    if decision not in {"HIRE", "NO_HIRE"}:
-        return None
-    if isinstance(coding_score, bool) or not isinstance(coding_score, int):
-        return None
-    if not 0 <= coding_score <= 100:
-        return None
+        if not incomplete and not score_is_valid:
+            return None
+        summary = (
+            "The report response did not include a summary, so this evaluation is incomplete."
+        )
+        incomplete = True
+    if not score_is_valid:
+        incomplete = True
 
-    def feedback(name: str, minimum: int) -> dict[str, list[str]] | None:
+    def feedback(name: str) -> dict[str, list[str]]:
         section = value.get(name)
         if not isinstance(section, dict):
-            return None
+            return {"strengths": [], "improvements": []}
         result: dict[str, list[str]] = {}
         for key in ("strengths", "improvements"):
             entries = section.get(key)
             if not isinstance(entries, list):
-                return None
-            filtered = [item.strip() for item in entries if isinstance(item, str) and item.strip()]
-            if len(filtered) < minimum:
-                return None
+                entries = []
+            filtered = [
+                item.strip()
+                for item in entries
+                if isinstance(item, str) and item.strip()
+            ]
             result[key] = filtered[:4]
         return result
 
-    coding_feedback = feedback("codingFeedback", 2)
-    communication_feedback = feedback("communicationFeedback", 0)
-    if coding_feedback is None or communication_feedback is None:
-        return None
+    coding_feedback = feedback("codingFeedback")
+    communication_feedback = feedback("communicationFeedback")
 
     communication_score = value.get("communicationScore")
     if communication_score is not None:
         if isinstance(communication_score, bool) or not isinstance(communication_score, int):
-            return None
-        communication_score = max(0, min(100, communication_score))
+            communication_score = None
+            incomplete = True
+        else:
+            communication_score = max(0, min(100, communication_score))
 
-    phases = {"Repeat", "Example", "Algorithm", "Coding", "Test", "Optimizations", "Situation", "Task", "Action", "Result"}
+    phases = {
+        "Repeat",
+        "Example",
+        "Algorithm",
+        "Coding",
+        "Test",
+        "Optimizations",
+        "Situation",
+        "Task",
+        "Action",
+        "Result",
+    }
     plan: list[dict[str, Any]] = []
     source_plan = value.get("improvementPlan", [])
     if isinstance(source_plan, list):
@@ -310,11 +332,9 @@ def clean_report(value: Any) -> dict[str, Any] | None:
                 "selfReview": [part.strip()[:300] for part in self_review if isinstance(part, str) and part.strip()][:4] if isinstance(self_review, list) else [],
             })
 
-    return {
-        "incomplete": False,
-        "codingScore": coding_score,
+    report: dict[str, Any] = {
+        "incomplete": incomplete or not score_is_valid,
         "communicationScore": communication_score,
-        "decision": decision,
         "summary": summary.strip()[:1200],
         "codingFeedback": coding_feedback,
         "communicationFeedback": communication_feedback,
@@ -323,6 +343,11 @@ def clean_report(value: Any) -> dict[str, Any] | None:
         "followUps": [],
         "hintsUsed": 0,
     }
+    if score_is_valid:
+        report["codingScore"] = coding_score
+    if decision in {"HIRE", "NO_HIRE"}:
+        report["decision"] = decision
+    return report
 
 
 async def generate_report(state: InterviewState, session: AgentSession) -> dict[str, Any]:
@@ -346,8 +371,20 @@ async def generate_report(state: InterviewState, session: AgentSession) -> dict[
         parsed = json.loads(response.text or "null")
         report = clean_report(parsed)
         if report is None:
-            LOGGER.warning("report_incomplete reason=invalid_model_response")
+            parsed_is_dict = isinstance(parsed, dict)
+            LOGGER.warning(
+                "report_incomplete reason=invalid_model_response "
+                "summary_present=%s score_present=%s model_marked_incomplete=%s",
+                parsed_is_dict and isinstance(parsed.get("summary"), str),
+                parsed_is_dict and "codingScore" in parsed,
+                parsed_is_dict and parsed.get("incomplete") is True,
+            )
             return fallback_report("the report response did not match the expected format")
+        if report["incomplete"]:
+            LOGGER.warning(
+                "report_incomplete reason=model_marked_incomplete coding_score_present=%s",
+                "codingScore" in report,
+            )
         return report
     except Exception as error:  # noqa: BLE001 - the report must still reach the candidate
         LOGGER.warning("report_incomplete reason=%s", type(error).__name__)
@@ -397,6 +434,91 @@ async def deliver_report(state: InterviewState, session: AgentSession, room: rtc
         state.shutdown_requested.set()
 
 
+async def publish_control(room: rtc.Room, value: dict[str, Any]) -> None:
+    try:
+        await room.local_participant.publish_data(
+            json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode("utf-8"),
+            topic=TOPIC_CONTROL,
+            reliable=True,
+        )
+    except Exception as error:  # noqa: BLE001 - UI acknowledgement is best effort
+        LOGGER.info("control_delivery=failed reason=%s", type(error).__name__)
+
+
+async def handle_thinking(
+    value: dict[str, Any],
+    state: InterviewState,
+    session: AgentSession,
+    room: rtc.Room,
+) -> None:
+    requested = value.get("thinking")
+    if not isinstance(requested, bool) or state.ended:
+        return
+
+    async with state.turn_lock:
+        if requested and not state.candidate_thinking:
+            state.candidate_thinking = True
+            try:
+                await session.interrupt(force=True)
+            except Exception as error:  # noqa: BLE001 - the hold still takes effect
+                LOGGER.info("thinking_interrupt=skipped reason=%s", type(error).__name__)
+            session.input.set_audio_enabled(False)
+        elif not requested and state.candidate_thinking:
+            state.candidate_thinking = False
+            session.input.set_audio_enabled(True)
+        await publish_control(
+            room,
+            {"type": "thinking_state", "thinking": state.candidate_thinking},
+        )
+
+
+async def handle_yield_turn(
+    value: dict[str, Any],
+    state: InterviewState,
+    session: AgentSession,
+    room: rtc.Room,
+) -> None:
+    if state.ended:
+        return
+
+    async with state.turn_lock:
+        was_thinking = state.candidate_thinking
+        if was_thinking:
+            state.candidate_thinking = False
+            session.input.set_audio_enabled(True)
+            await publish_control(room, {"type": "thinking_state", "thinking": False})
+        drawing_note = ""
+        if value.get("surface") == "example":
+            drawing_note = (
+                "The candidate has paused an example drawing and yielded the turn. "
+                "Respond briefly to their spoken explanation, and ask them to describe "
+                "any drawing detail you need clarified."
+            )
+        instructions = (
+            "The candidate explicitly yielded the turn. Respond to the latest answer "
+            "or code context with one concise, relevant interviewer response. If they "
+            "have not spoken since your last prompt, ask a focused next question. Do "
+            "not repeat the full problem or provide a solution."
+        )
+        if state.metadata.get("interviewMode") == "whiteboard":
+            instructions += " This is a whiteboard interview; ask the candidate to describe any drawing detail you cannot see."
+        if was_thinking:
+            instructions += " The candidate was thinking; do not assume they spoke during the hold."
+        if drawing_note:
+            instructions += " " + drawing_note
+        try:
+            await session.commit_user_turn(skip_reply=True)
+        except Exception as error:  # noqa: BLE001 - fall back to the explicit handoff reply
+            LOGGER.info("yield_turn_commit=skipped reason=%s", type(error).__name__)
+        try:
+            await session.generate_reply(
+                instructions=instructions,
+                allow_interruptions=True,
+            )
+        except Exception as error:  # noqa: BLE001 - a missed handoff must not take down the worker
+            LOGGER.warning("yield_turn_reply=failed reason=%s", type(error).__name__)
+
+
 async def handle_packet(packet: rtc.DataPacket, state: InterviewState, session: AgentSession, room: rtc.Room) -> None:
     if not packet_is_candidate(packet, state):
         return
@@ -419,6 +541,10 @@ async def handle_packet(packet: rtc.DataPacket, state: InterviewState, session: 
         message_type = value.get("type")
         if message_type == "report_received" and value.get("deliveryId") == state.report_delivery_id:
             state.report_acknowledged.set()
+        elif message_type == "thinking":
+            await handle_thinking(value, state, session, room)
+        elif message_type == "yield_turn":
+            await handle_yield_turn(value, state, session, room)
         elif message_type == "end_interview":
             final_code = value.get("code")
             if isinstance(final_code, str):

@@ -63,6 +63,13 @@ export function ProblemBrowser() {
       duration +
       (whiteboard ? "&mode=whiteboard" : "")
     : "/interview.html";
+  const classicUrl = selected
+    ? "/classic?problem=" +
+      encodeURIComponent(selected.page) +
+      "&duration=" +
+      duration +
+      (whiteboard ? "&mode=whiteboard" : "")
+    : "/classic";
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_19rem] lg:items-start">
@@ -235,8 +242,15 @@ export function ProblemBrowser() {
               <ArrowUpRight aria-hidden="true" className="size-4" />
             </Link>
           </Button>
+          <Button asChild className="mt-2 w-full" size="sm" variant="outline">
+            <a href={classicUrl}>
+              Try the original interface
+              <ArrowUpRight aria-hidden="true" className="size-4" />
+            </a>
+          </Button>
           <p className="mt-3 text-center text-xs leading-5 text-muted-foreground">
-            Practice without creating an account.
+            Compare the original editor and controls with the same LiveKit
+            backend.
           </p>
         </CardContent>
       </Card>

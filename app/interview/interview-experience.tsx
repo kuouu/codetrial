@@ -222,6 +222,7 @@ export default function InterviewExperience({
   const [reconnecting, setReconnecting] = useState(false);
   const [audioBlocked, setAudioBlocked] = useState(false);
   const [transcript, setTranscript] = useState<TranscriptLine[]>([]);
+  const [candidateThinking, setCandidateThinking] = useState(false);
   const [language, setLanguage] = useState("python");
   const [drafts, setDrafts] = useState<Record<string, string>>({});
   const [testSummary, setTestSummary] = useState<TestSummary | null>(null);
@@ -499,6 +500,29 @@ export default function InterviewExperience({
     return true;
   }, []);
 
+  const yieldTurn = useCallback(async () => {
+    try {
+      await publishData(CONTROL_TOPIC, { type: "yield_turn" });
+    } catch (error) {
+      setConnectionDetail(errorText(error));
+    }
+  }, [publishData]);
+
+  const toggleThinking = useCallback(async () => {
+    const requested = !candidateThinking;
+    setCandidateThinking(requested);
+    try {
+      const sent = await publishData(CONTROL_TOPIC, {
+        type: "thinking",
+        thinking: requested,
+      });
+      if (!sent) setCandidateThinking(false);
+    } catch (error) {
+      setCandidateThinking(!requested);
+      setConnectionDetail(errorText(error));
+    }
+  }, [candidateThinking, publishData]);
+
   const handleReport = useCallback(
     async (bytes: Uint8Array) => {
       let incoming: InterviewReport;
@@ -534,6 +558,7 @@ export default function InterviewExperience({
     setConnectionError("");
     setConnectionDetail("");
     setAgentConnected(false);
+    setCandidateThinking(false);
     endRequestedRef.current = false;
     let currentRoom: Room | null = null;
 
@@ -617,8 +642,24 @@ export default function InterviewExperience({
       currentRoom.on(
         RoomEvent.DataReceived,
         (payload, participant, _kind, topic) => {
-          if (topic === REPORT_TOPIC && isInterviewer(participant))
+          if (!isInterviewer(participant)) return;
+          if (topic === REPORT_TOPIC) {
             void handleReport(payload);
+            return;
+          }
+          if (topic === CONTROL_TOPIC) {
+            try {
+              const message = JSON.parse(new TextDecoder().decode(payload));
+              if (
+                message.type === "thinking_state" &&
+                typeof message.thinking === "boolean"
+              ) {
+                setCandidateThinking(message.thinking);
+              }
+            } catch {
+              // Ignore control packets that are not valid JSON.
+            }
+          }
         },
       );
       currentRoom.registerTextStreamHandler(
@@ -1431,6 +1472,27 @@ export default function InterviewExperience({
               )}
               {phase === "live" && (
                 <Button
+                  disabled={!agentConnected}
+                  onClick={() => void yieldTurn()}
+                  size="sm"
+                  variant="outline"
+                >
+                  <Send aria-hidden="true" className="size-4" /> Done speaking
+                </Button>
+              )}
+              {phase === "live" && (
+                <Button
+                  aria-pressed={candidateThinking}
+                  disabled={!agentConnected}
+                  onClick={() => void toggleThinking()}
+                  size="sm"
+                  variant={candidateThinking ? "default" : "outline"}
+                >
+                  {candidateThinking ? "Continue" : "Thinking"}
+                </Button>
+              )}
+              {phase === "live" && (
+                <Button
                   onClick={() => void toggleMicrophone()}
                   size="sm"
                   variant="outline"
@@ -1731,7 +1793,9 @@ export default function InterviewExperience({
                       <p className="font-semibold">Jim</p>
                       <p className="text-sm text-white/70">
                         {phase === "live" && agentConnected
-                          ? "Listening and ready"
+                          ? candidateThinking
+                            ? "Taking a moment; Jim will wait"
+                            : "Listening and ready"
                           : phaseStatus}
                       </p>
                     </div>
