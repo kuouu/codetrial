@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 
 import {
   DEFAULT_RUNTIME_CONFIG,
+  enableLiveCaptionsForTest,
   launchChromium,
   reaches,
   startStaticServer,
@@ -27,6 +28,7 @@ test("a short interview can scroll to the bottom of Jim's stage", async (t) => {
   });
   try {
     await openInterview(page);
+    await enableLiveCaptionsForTest(page);
     await page.evaluate(() => {
       document.querySelector("#candidate-case").open = false;
     });
@@ -66,6 +68,7 @@ test("Jim's stage follows changing captions", async (t) => {
   });
   try {
     await openInterview(page);
+    await enableLiveCaptionsForTest(page);
     await page.waitForFunction(() => {
       const stage = document.querySelector("#jim-stage");
       const box = stage.getBoundingClientRect();
@@ -107,6 +110,7 @@ test("Jim's compact stage stays inside a narrow viewport", async (t) => {
   });
   try {
     await openInterview(page);
+    await enableLiveCaptionsForTest(page);
     const box = await page.locator("#jim-stage").boundingBox();
     assert.ok(
       box.x >= 0 && box.x + box.width <= 240,
@@ -117,26 +121,20 @@ test("Jim's compact stage stays inside a narrow viewport", async (t) => {
   }
 });
 
-test("widening a short viewport rechecks the stage after the avatar appears", async (t) => {
+test("widening a short viewport restores the regular stage layout", async (t) => {
   if (!browser) return t.skip("Chromium is not installed");
   const page = await browser.newPage({
     viewport: { width: 1190, height: 360 },
   });
   try {
     await openInterview(page);
-    await page.waitForFunction(
-      () =>
-        getComputedStyle(document.querySelector("#jim-avatar")).display ===
-        "none",
+    await page.waitForFunction(() =>
+      document.querySelector("#jim-stage").classList.contains("compact"),
     );
     await page.setViewportSize({ width: 1280, height: 360 });
-    await page.waitForFunction(() => {
-      const stage = document.querySelector("#jim-stage");
-      return (
-        getComputedStyle(document.querySelector("#jim-avatar")).display !==
-          "none" && getComputedStyle(stage).position === "absolute"
-      );
-    });
+    await page.waitForFunction(
+      () => !document.querySelector("#jim-stage").classList.contains("compact"),
+    );
   } finally {
     await page.close();
   }
@@ -149,6 +147,7 @@ test("a shorter caption after page scrolling leaves Jim below the toolbar", asyn
   });
   try {
     await openInterview(page);
+    await enableLiveCaptionsForTest(page);
     await page.evaluate(() => {
       document.querySelector("#captions-text").textContent =
         "A longer interviewer caption. ".repeat(40);
@@ -194,6 +193,7 @@ test("caption changes after panel scrolling keep Jim's top reachable", async (t)
   });
   try {
     await openInterview(page);
+    await enableLiveCaptionsForTest(page);
     // Overflow the panel by more than the toolbar's offset, so scrolling it
     // can take the toolbar out of view.
     await page.evaluate(() => {

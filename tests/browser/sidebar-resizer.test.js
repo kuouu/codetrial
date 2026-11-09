@@ -76,6 +76,10 @@ const layout = (page) =>
       avatarShown:
         getComputedStyle(document.querySelector("#jim-avatar")).display !==
         "none",
+      stageCompact: document
+        .querySelector("#jim-stage")
+        .classList.contains("compact"),
+      avatarWidth: rect("#jim-avatar").width,
       captionsShown:
         getComputedStyle(document.querySelector("#captions-bar")).display !==
         "none",
@@ -362,7 +366,7 @@ test("a single-column page has no divider and ignores the saved width", async (t
   }
 });
 
-test("the avatar leaves an editor the sidebar has made narrow", async (t) => {
+test("the stage becomes compact when the sidebar narrows the editor", async (t) => {
   if (!browser) return t.skip("playwright chromium unavailable");
   const page = await browser.newPage();
   try {
@@ -373,7 +377,7 @@ test("the avatar leaves an editor the sidebar has made narrow", async (t) => {
       await page.evaluate(() => new Promise(requestAnimationFrame));
       return layout(page);
     };
-    assert.equal((await settled()).avatarShown, true, "default width");
+    assert.equal((await settled()).stageCompact, false, "default width");
 
     // 49rem is 784px, and 1232px are shared out, so 448 is the widest
     // sidebar that still leaves the avatar its panel.
@@ -384,16 +388,22 @@ test("the avatar leaves an editor the sidebar has made narrow", async (t) => {
     }
     const beside = await settled();
     assert.equal(beside.sidebar, 440);
-    assert.equal(beside.avatarShown, true, "784px or more of editor");
+    assert.equal(beside.stageCompact, false, "784px or more of editor");
 
     await page.keyboard.press("ArrowRight");
     const narrow = await settled();
     assert.equal(narrow.sidebar, 456);
-    assert.equal(narrow.avatarShown, false, "776px of editor");
-    assert.equal(narrow.captionsShown, true, "the captions stay");
+    assert.equal(narrow.stageCompact, true, "776px of editor");
+    assert.equal(narrow.avatarShown, true, "Jim's compact portrait remains");
+    assert.equal(narrow.avatarWidth, 96, "the portrait shrinks to 6rem");
+    assert.equal(narrow.captionsShown, false, "live captions stay hidden");
 
     await page.keyboard.press("ArrowLeft");
-    assert.equal((await settled()).avatarShown, true, "and it comes back");
+    assert.equal(
+      (await settled()).stageCompact,
+      false,
+      "and it returns to normal",
+    );
   } finally {
     await page.close();
   }

@@ -6,6 +6,7 @@ import assert from "node:assert/strict";
 import {
   closeSetupCheck,
   DEFAULT_RUNTIME_CONFIG,
+  enableLiveCaptionsForTest,
   launchChromium,
   startStaticServer,
 } from "./source.js";
@@ -1139,6 +1140,7 @@ test("Jim captions survive editor navigation and language switches", async (t) =
   try {
     await page.evaluate(() => import("/interview.js"));
     await closeSetupCheck(page);
+    await enableLiveCaptionsForTest(page);
 
     await page.locator("#language-select").selectOption("javascript");
     await editor.fill(code);
@@ -1425,6 +1427,7 @@ test("a new Jim turn follows its reveal wherever the last one was left", async (
   try {
     await page.evaluate(() => import("/interview.js"));
     await closeSetupCheck(page);
+    await enableLiveCaptionsForTest(page);
     // Advancing caption timers must not render minutes of the unrelated 3D
     // avatar on a software GPU. Its rendering is covered by the avatar tests.
     await page.evaluate(() => document.querySelector("#hide-avatar").click());

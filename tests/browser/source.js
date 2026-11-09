@@ -354,6 +354,27 @@ export async function closeSetupCheck(page) {
   );
 }
 
+/// Re-enables the optional live caption overlay for layout regression tests.
+/// The shipped interview turns it off; caption module behavior and sizing can
+/// still be exercised explicitly without changing that production default.
+export async function enableLiveCaptionsForTest(page) {
+  await page.evaluate(async () => {
+    const captions = await import("/captions.js");
+    captions.initCaptions({
+      nodes: {
+        captionsBar: document.querySelector("#captions-bar"),
+        captionsText: document.querySelector("#captions-text"),
+        captionUnclear: document.querySelector("#caption-unclear"),
+        editor: document.querySelector("#editor"),
+        board: document.querySelector("#board-panel"),
+        jimStage: document.querySelector("#jim-stage"),
+      },
+      enabled: true,
+    });
+    captions.showCaptions({ persistent: true });
+  });
+}
+
 /// Stops a page's installed fake clock about where it stands. Playwright pauses
 /// only at a named time, and the clock keeps moving between reading the time
 /// and pausing at it: a loaded machine has spent more than 100ms there, past

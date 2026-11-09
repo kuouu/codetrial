@@ -5,7 +5,10 @@ import { isAgent, MAX_UNCLEAR_LINES } from "../../web/lib.js";
 
 let captionCopies = 0;
 
-async function setupCaptions(t, { scrollable = false, subpixel = 0 } = {}) {
+async function setupCaptions(
+  t,
+  { scrollable = false, subpixel = 0, enabled = true } = {},
+) {
   // Caption state is module-level, so each case imports a fresh copy.
   const captions = await import(
     `../../web/captions.js?copy=${++captionCopies}`
@@ -14,7 +17,7 @@ async function setupCaptions(t, { scrollable = false, subpixel = 0 } = {}) {
   nodes.captionsBar = scrollable
     ? layoutBar(nodes, subpixel)
     : { hidden: true };
-  captions.initCaptions({ nodes });
+  captions.initCaptions({ nodes, enabled });
   t.mock.timers.enable({ apis: ["setTimeout"] });
   return { captions, nodes };
 }
@@ -61,6 +64,82 @@ test("the listening placeholder hides after twelve seconds", async (t) => {
   assert.equal(nodes.captionsBar.hidden, false);
   t.mock.timers.tick(1);
   assert.equal(nodes.captionsBar.hidden, true);
+});
+
+test("live captions can be disabled without showing either speaker", async (t) => {
+  const { captions, nodes } = await setupCaptions(t, { enabled: false });
+
+  captions.updateCaptions(
+    "interviewer",
+    "A repeated interviewer line.",
+    "jim-1",
+  );
+  captions.updateCaptions("you", "My response.", "you-1");
+  captions.showCaptions({ persistent: true });
+
+  assert.equal(nodes.captionsBar.hidden, true);
+  assert.equal(nodes.captionsText.textContent, "");
+  t.mock.timers.tick(30000);
+  assert.equal(nodes.captionsBar.hidden, true);
+  assert.equal(nodes.captionsText.textContent, "");
+});
+
+test("disabled live captions still save interviewer transcript text", async (t) => {
+  const { captions, nodes } = await setupCaptions(t, { enabled: false });
+  const agentIdentity = "agent-livekit-test";
+  const isCurrentAgentTranscript = loadInterviewFunction(
+    "isCurrentAgentTranscript",
+    { state: { agentIdentity }, isAgent },
+  );
+  const segments = [];
+  const replay = [];
+  const consume = loadInterviewFunction("consumeTranscript", {
+    isCurrentAgentTranscript,
+    responseWindowIndex: () => 2,
+    updateTranscriptSegment: (...args) => segments.push(args),
+    recordReplay: (...args) => replay.push(args),
+    updateCaptions: captions.updateCaptions,
+  });
+
+  async function* chunks() {
+    yield "The interviewer response remains in the transcript.";
+  }
+
+  const reader = chunks();
+  reader.info = {
+    attributes: {
+      "lk.segment_id": "jim-disabled-captions",
+      "lk.transcription_final": "true",
+    },
+  };
+  const room = {
+    localParticipant: { identity: "candidate" },
+    remoteParticipants: new Map([
+      [
+        agentIdentity,
+        { identity: agentIdentity, kind: 4, permissions: { agent: true } },
+      ],
+    ]),
+  };
+
+  await consume(room, reader, { identity: agentIdentity });
+
+  assert.equal(
+    segments.at(-1)[2],
+    "The interviewer response remains in the transcript.",
+  );
+  assert.deepEqual(replay, [
+    [
+      "transcript",
+      {
+        speaker: "interviewer",
+        text: "The interviewer response remains in the transcript.",
+        responseWindow: 2,
+      },
+    ],
+  ]);
+  assert.equal(nodes.captionsBar.hidden, true);
+  assert.equal(nodes.captionsText.textContent, "");
 });
 
 test("candidate captions keep their window and renew the idle timeout", async (t) => {

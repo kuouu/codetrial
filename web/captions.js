@@ -8,9 +8,16 @@
 import { captionWindow, MAX_UNCLEAR_LINES } from "./lib.js";
 
 let nodes = null;
+let captionsEnabled = true;
 
 export function initCaptions(deps) {
   ({ nodes } = deps);
+  captionsEnabled = deps.enabled !== false;
+  if (!captionsEnabled) {
+    if (nodes.captionsBar) nodes.captionsBar.hidden = true;
+    if (nodes.captionUnclear) nodes.captionUnclear.hidden = true;
+    return;
+  }
   nodes.captionUnclear?.addEventListener("click", toggleUnclear);
   nodes.captionsBar?.addEventListener?.("scroll", trackCandidateScroll);
 }
@@ -55,7 +62,7 @@ export function updateCaptions(
   id = null,
   { final = false, finalStream = final } = {},
 ) {
-  if (!nodes.captionsText) return;
+  if (!captionsEnabled || !nodes.captionsText) return;
   if (speaker === "interviewer") {
     if (retiredInterviewerIds.has(id)) return;
     if (candidateCaption.id != null) candidateCaption.replaced = true;
@@ -124,6 +131,7 @@ export function updateCaptions(
 }
 
 export function paceInterviewerCaption() {
+  if (!captionsEnabled) return;
   const caption = interviewerCaption;
   const bar = nodes.captionsBar;
   // A scroll the candidate made since the last tick can still be queued, and
@@ -191,6 +199,10 @@ function atCaptionEnd(bar) {
 /// Completed interviewer turns remain available while the candidate thinks.
 /// Other captions expire so an idle subtitle does not cover the editor.
 export function showCaptions({ persistent = false } = {}) {
+  if (!captionsEnabled) {
+    if (nodes.captionsBar) nodes.captionsBar.hidden = true;
+    return;
+  }
   if (!nodes.captionsBar) return;
   nodes.captionsBar.hidden = false;
   clearTimeout(captionIdleTimer);
@@ -207,6 +219,7 @@ export function showCaptions({ persistent = false } = {}) {
 /// Remember a code response until Jim's final text finishes revealing.
 export function dismissCaptions() {
   if (
+    !captionsEnabled ||
     !interviewerCaption.text ||
     retiredInterviewerIds.has(interviewerCaption.id)
   ) {

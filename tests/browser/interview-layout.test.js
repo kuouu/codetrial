@@ -145,6 +145,25 @@ test("the setup check is a modal dialog over an inert workspace", async (t) => {
   }
 });
 
+test("live captions are off by default while the Transcript tab remains available", async (t) => {
+  if (!browser) return t.skip("playwright chromium unavailable");
+  const page = await openInterview(1280, 800);
+  try {
+    await closeSetupCheck(page);
+    assert.equal(
+      await page.locator("#captions-bar").evaluate((bar) => bar.hidden),
+      true,
+    );
+    await page.locator("#transcript-tab").click();
+    assert.equal(
+      await page.locator("#transcript-panel").evaluate((panel) => panel.hidden),
+      false,
+    );
+  } finally {
+    await page.close();
+  }
+});
+
 test("the dock fits in the sidebar with the Meet notes open on a short screen", async (t) => {
   if (!browser) return t.skip("playwright chromium unavailable");
   const page = await openInterview(1280, 720);
@@ -394,10 +413,17 @@ test("a narrow window and a narrow panel both make the stage compact", async (t)
     );
     const card = await page.evaluate(() => ({
       avatar: getComputedStyle(document.querySelector(".jim-avatar")).display,
+      avatarWidth: getComputedStyle(document.querySelector(".jim-avatar"))
+        .width,
       background: getComputedStyle(document.querySelector("#jim-stage"))
         .backgroundColor,
     }));
-    assert.equal(card.avatar, "none", "the avatar goes, the captions stay");
+    assert.equal(card.avatar, "block", "the compact avatar remains visible");
+    assert.equal(
+      card.avatarWidth,
+      "96px",
+      "the avatar becomes a small portrait",
+    );
     assert.notEqual(card.background, "rgba(0, 0, 0, 0)", "as one card");
   } finally {
     await page.close();

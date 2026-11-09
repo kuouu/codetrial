@@ -754,7 +754,9 @@ const audioPlayback = createAudioPlayback({
 // Before `init`, because the queue's first producer is inside it. The bindings
 // are handed over rather than re-derived: one `state` object, one `nodes` map.
 initReplay({ state, nodes, recordingEnabled, consentVersion, replayVersion });
-initCaptions({ nodes });
+// The Transcript tab keeps the full conversation; the live overlay is noisy
+// during a mock interview and can cover a newer speaker with a late copy.
+initCaptions({ nodes, enabled: false });
 initAvatarStage({
   nodes,
   onRetired: (message) => setBanner("avatar", message),
